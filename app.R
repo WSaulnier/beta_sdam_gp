@@ -32,7 +32,7 @@ server <- function(input, output, session) {
     sno <- sno()
     
   
-    if (sno == 'Snow-Dominated') { 
+    if (tolower(sno) == 'snow-dominated') { 
       tagList(
           h5(glue::glue('This site is {sno}')),
           fluidRow(
