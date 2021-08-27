@@ -1,16 +1,61 @@
 source('global.R')
-ui <- basicPage(
-  tabsetPanel(id = "tabs",
-     
-    # Overview -----------------------------------------------------
-    tabPanel(
-      "Overview", 
-      numericInput("lat", label = h3("Latitude"), value = 46.9652),
-      numericInput("lon", label = h3("Longitude"), value = -109.533691),
-      actionButton("snobutton", label="Assess Snow Domination"),
-      uiOutput('paramsui'),
-      actionButton('runmodel', 'Run Model'),
-      textOutput('final_class')
+source('R/sno.R')
+source('R/nosno.R')
+ui <- fluidPage(
+  fluidRow(
+    column(
+      12,
+      headerPanel("This is where we can put the banner image")
+    )
+  ),
+  fluidRow(
+    column(
+      12,
+      tabsetPanel(
+        id = "tabs",
+        tabPanel(
+          "Background",
+          "Lorem ipsum"
+        ),
+        # Overview -----------------------------------------------------
+        tabPanel(
+          "Overview", 
+          br(),
+          fluidRow(column(12, h4("Enter coordinates in decimal degrees"))),
+          fluidRow(
+            column(
+              5, 
+              fluidRow(
+                column(4,numericInput("lat", label = NULL,value = 46.9652)),
+                column(4, h5("Latitude"))
+              ),
+              fluidRow(
+                column(4,numericInput("lon", label = NULL, value = -109.533691)),
+                column(4, h5("Longitude"))
+              )
+            ),
+            column(
+              5, 
+              br(),
+              actionButton("snobutton", label="Assess Snow Domination")
+            ),
+            column(
+              2, 
+              ""
+            )
+          ),
+          fluidRow(
+            column(
+              12,
+              uiOutput('paramsui')
+            )
+          )
+        ),
+        tabPanel(
+          "Generate Report",
+          "Coming Soon"
+        )
+      )
     )
   )
 )
@@ -33,43 +78,44 @@ server <- function(input, output, session) {
     
   
     if (tolower(sno) == 'snow-dominated') { 
-      tagList(
-          h5(glue::glue('This site is {sno}')),
+      # display the snow dominated parameters user interface
+      fluidRow(
+        column(
+          12,
+          fluidRow(
+            column(12, h4(HTML(glue::glue('<p>This site is <strong>{sno}</strong></p><hr>'))))
+          ),
           fluidRow(
             column(
               12, 
-              sliderInput("user_perennial_taxa", "Perennial Taxa", 0, 10, 1),
-              sliderInput("user_alglivedead_cover_score", "Algae Alive dead Cover Score", 0, 10, 1),
-              sliderInput("user_perennial_abundance", "Perennial Abundance", 0, 10, 1),
-              sliderInput("user_BankWidthMean", "Bank Width Mean", 0, 10, 1),
-              sliderInput("user_TotalAbundance", "Total Abundance", 0, 10, 1)
+              h4("Enter indicator metric values")
             )
-          )
+          ),
+          snoparams_ui
         )
+      )
     } else {
-      tagList(
-        h2(glue::glue('This site is {sno}')),
-        fluidRow(
-          column(
-            12, 
-            sliderInput("user_perennial_taxa", "Perennial Taxa", 0, 10, 1),
-            sliderInput("user_alglivedead_cover_score", "Algae Alive dead Cover Score", 0, 10, 1),
-            sliderInput("user_fishabund_score2", "Fish Abundance Score 2", 0, 10, 1),
-            sliderInput("user_mayfly_abundance", "Mayfly Abundance", 0, 50, 1),
-            sliderInput("user_DifferencesInVegetation_score", "Differences in Vegetation Score", 0, 10, 1),
-            sliderInput("user_Sinuosity_score", "Sinuosity Score", 0, 10, 1),
-            sliderInput("user_hydric", "Hydric", 0, 10, 1)
-          )
+      # display the snow dominated parameters user interface
+      fluidRow(
+        column(
+          12,
+          fluidRow(
+            column(12, h4(HTML(glue::glue('<p>This site is <strong>{sno}</strong></p><hr>'))))
+          ),
+          fluidRow(
+            column(
+              12, 
+              h4("Enter indicator metric values")
+            )
+          ),
+          nosnoparams_ui
         )
       )
     }
-    
-         
-      
   })
   
   # classification
-  classif <- eventReactive(input$runmodel, {
+  classify <- eventReactive(input$runmodel, {
     Beta_SDAM_WM(
       user_lat=input$lat, 
       user_lon=input$lon, 
@@ -86,7 +132,7 @@ server <- function(input, output, session) {
     )
   })
   
-  output$final_class <- renderText({classif()})
+  output$final_class <- renderUI({HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
   
   
   

@@ -6,6 +6,11 @@ library(randomForest)
 library(sf)
 library(rgdal)
 library(shiny)
+library(shinycssloaders)
+library(shinycustomloader)
+
+# Need to specify background color for spinner
+options(spinner.color="#0275D8", spinner.color.background="#ffffff", spinner.size=0.5)
 
 #Load final simplified RF models
 load("data/5.0_Model Refinement/SnowDomModel_Simplified.Rdata")
