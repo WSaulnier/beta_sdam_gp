@@ -40,7 +40,7 @@ ui <- fluidPage(
               actionButton("snobutton", label="Assess Snow Dominance")
             ),
             column(
-              2, 
+              2,
               ""
             )
           ),
