@@ -37,7 +37,7 @@ ui <- fluidPage(
             column(
               5, 
               br(),
-              actionButton("snobutton", label="Assess Snow Domination")
+              actionButton("snobutton", label="Assess Snow Dominance")
             ),
             column(
               2, 
