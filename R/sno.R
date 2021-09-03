@@ -57,13 +57,6 @@ snoparams_ui <- fluidRow(
         6,
         h6("Bank width (m)")
       )
-    ),
-    fluidRow(
-      column(
-        12,
-        actionButton('runmodel', 'Run Model')
-      )
     )
-  ),
-  column(5, withLoader(uiOutput('final_class')))
+  )
 )

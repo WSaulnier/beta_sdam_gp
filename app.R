@@ -61,9 +61,6 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  testnumber <- reactive({
-    input$testin + 5 
-  })
   
   sno <- eventReactive(
     input$snobutton, 
@@ -91,7 +88,19 @@ server <- function(input, output, session) {
               h4("Enter indicator metric values")
             )
           ),
-          snoparams_ui
+          snoparams_ui,
+          fluidRow(
+            column(
+              12,
+              actionButton('runmodel', 'Run Model')
+            )
+          ),
+          fluidRow(
+            column(
+              12,
+              shinycustomloader::withLoader(uiOutput('final_class'))
+            )
+          )
         )
       )
     } else {
@@ -108,7 +117,19 @@ server <- function(input, output, session) {
               h4("Enter indicator metric values")
             )
           ),
-          nosnoparams_ui
+          nosnoparams_ui,
+          fluidRow(
+            column(
+              12,
+              actionButton('runmodel', 'Run Model')
+            )
+          ),
+          fluidRow(
+            column(
+              12,
+              shinycustomloader::withLoader(uiOutput('final_class'))
+            )
+          )
         )
       )
     }

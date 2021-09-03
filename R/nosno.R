@@ -57,6 +57,22 @@ nosnoparams_ui <- fluidRow(
       column(
         12,
         radioButtons(
+          "user_DifferencesInVegetation_score", 
+          "Differences in Vegetation",
+          c(
+            "Poor" = 0,
+            "Weak" = 1,
+            "Moderate" = 2,
+            "Strong" = 3
+          ),
+          inline = T
+        )
+      )
+    ),
+    fluidRow(
+      column(
+        12,
+        radioButtons(
           "user_alglivedead_cover_score", 
           "Algae cover",
           c(
@@ -80,12 +96,6 @@ nosnoparams_ui <- fluidRow(
         h6("Bank width (m)")
       )
     ),
-    fluidRow(
-      column(
-        12,
-        actionButton('runmodel', 'Run Model')
-      )
-    )
-  ),
-  column(5, withLoader(uiOutput('final_class')))
+    
+  )
 )
