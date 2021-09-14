@@ -158,8 +158,25 @@ Beta_SDAM_WM<-function(
 snowdom <- function(lat, lon){
   #Calculate GIS metrics
   #Calculate mean snow persistence within 10 km
-  snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2_Match.tif')
+  
   df <- data.frame(lat = lat, lon = lon)
+  # df <- data.frame(lat = 40.8, lon = -124)
+  # df <- data.frame(lat = 0, lon = 0)
+  
+  snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2_Match.tif')
+  wm_strata <- st_read('data/shapefiles/WM_Strata.shp') 
+  
+  ysf<-df %>%
+    st_as_sf(coords=c("lon", "lat"),
+             remove=F,
+             crs=4326) %>%
+    st_transform(crs=st_crs(wm_strata)) %>% 
+    st_join(wm_strata, join = st_within)
+  
+  in_wm <- ifelse(is.na(ysf$Region), F, T)
+  
+  
+  
   xsf<-df %>%
     st_as_sf(coords=c("lon", "lat"),
              remove=F,
@@ -169,7 +186,37 @@ snowdom <- function(lat, lon){
     st_transform(crs=st_crs(snowp_raster))
   #Suppress warnings here
   xsf$MeanSnowPersistence_10=exactextractr::exact_extract(x=snowp_raster, y=xsf, 'mean')
-  xsf$SnowDom_SP10=case_when(xsf$MeanSnowPersistence_10<25~"Not snow influenced",T~"Snow influenced")
-  return(xsf$SnowDom_SP10)
+  xsf$SnowDom_SP10=case_when(
+    is.na(xsf$MeanSnowPersistence_10) ~ "Outside snow raster",
+    xsf$MeanSnowPersistence_10 < 25 ~ "Not snow influenced",
+    T ~ "Snow influenced"
+  )
+  
+  sno_inf <- xsf$SnowDom_SP10
+  
+  if (sno_inf == 'Outside snow raster') {
+    return(
+      list(
+        canrun = F,
+        msg = HTML('<strong>Warning</strong>: Site is outside the project area. Site cannot be assessed')
+      )
+    )
+  }
+  
+  if (in_wm) {
+    return(
+      list(
+        canrun = T,
+        msg = glue::glue(HTML("This site is <strong>{sno_inf}</strong>"))
+      )
+    )
+  } else {
+    return(
+      list(
+        canrun = T,
+        msg = HTML("<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only.")
+      )
+    )
+  }
   
 }

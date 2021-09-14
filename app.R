@@ -52,7 +52,13 @@ ui <- fluidPage(
           fluidRow(
             column(
               12,
-              uiOutput('paramsui')
+              uiOutput('snomsg')
+            )
+          ) ,
+          fluidRow(
+            column(
+              12,
+              uiOutput('params')
             )
           )
         ),
@@ -76,34 +82,28 @@ server <- function(input, output, session) {
   )
   
   # paramsui = params ui, ui that displays more inputs to grab more parameters
-  output$paramsui <- renderUI({
+  output$snomsg <- renderUI({
     sno <- sno()
     
-    if (tolower(sno) == 'snow influenced') {
-      # display the snow dominated parameters user interface
+    if (sno$canrun) {
       fluidRow(
         column(
           12,
           fluidRow(
-            column(12, h4(HTML(glue::glue('<p>This site is <strong>{sno}</strong></p><hr>'))))
+            column(12, h4(HTML(glue::glue('<p>{sno$msg}</p><hr>'))))
           ),
           fluidRow(
             column(
               12, 
-              h4("Enter indicator metric values")
-            )
-          ),
-          snoparams_ui,
-          fluidRow(
-            column(
-              12,
-              actionButton('runmodel', 'Run Model')
-            )
-          ),
-          fluidRow(
-            column(
-              12,
-              shinycustomloader::withLoader(uiOutput('final_class'))
+              radioButtons(
+                "paramchoice", 
+                "Choose model",
+                c(
+                  "Snow Dominated" = 'sno',
+                  "Non Snow Dominated" = 'nosno'
+                ),
+                inline = T
+              )
             )
           )
         )
@@ -113,31 +113,24 @@ server <- function(input, output, session) {
         column(
           12,
           fluidRow(
-            column(12, h4(HTML(glue::glue('<p>This site is <strong>{sno}</strong></p><hr>'))))
-          ),
-          fluidRow(
-            column(
-              12, 
-              h4("Enter indicator metric values")
-            )
-          ),
-          nosnoparams_ui,
-          fluidRow(
-            column(
-              12,
-              actionButton('runmodel', 'Run Model')
-            )
-          ),
-          fluidRow(
-            column(
-              12,
-              shinycustomloader::withLoader(uiOutput('final_class'))
-            )
+            column(12, h4(HTML(glue::glue('<p>{sno$msg}</p><hr>'))))
           )
         )
       )
     }
-    
+  })
+  
+  
+  output$params <- renderUI({
+    if (!is.null(input$paramchoice)) {
+      if (input$paramchoice == 'sno') {
+        return(snoparams_ui)
+      } else {
+        return(nosnoparams_ui)
+      }
+    } else {
+      return('')
+    }
   })
   
   # classification
@@ -159,6 +152,30 @@ server <- function(input, output, session) {
   })
   
   output$final_class <- renderUI({HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
+  
+  
+  # For later: depending on the model they choose, we need to display different input widgets
+  # ,
+  # fluidRow(
+  #   column(
+  #     12, 
+  #     h4("Enter indicator metric values")
+  #   )
+  # ),
+  # snoparams_ui, (OR nosnoparams_ui)
+  # fluidRow(
+  #   column(
+  #     12,
+  #     actionButton('runmodel', 'Run Model')
+  #   )
+  # ),
+  # fluidRow(
+  #   column(
+  #     12,
+  #     shinycustomloader::withLoader(uiOutput('final_class'))
+  #   )
+  # )
+  
   
   
   
