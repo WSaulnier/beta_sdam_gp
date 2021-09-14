@@ -136,6 +136,7 @@ server <- function(input, output, session) {
   # classification
   classify <- eventReactive(input$runmodel, {
     Beta_SDAM_WM(
+      user_model_choice=input$paramchoice,
       user_lat=input$lat, 
       user_lon=input$lon,
       user_TotalAbundance=input$user_TotalAbundance,
@@ -152,34 +153,6 @@ server <- function(input, output, session) {
   })
   
   output$final_class <- renderUI({HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
-  
-  
-  # For later: depending on the model they choose, we need to display different input widgets
-  # ,
-  # fluidRow(
-  #   column(
-  #     12, 
-  #     h4("Enter indicator metric values")
-  #   )
-  # ),
-  # snoparams_ui, (OR nosnoparams_ui)
-  # fluidRow(
-  #   column(
-  #     12,
-  #     actionButton('runmodel', 'Run Model')
-  #   )
-  # ),
-  # fluidRow(
-  #   column(
-  #     12,
-  #     shinycustomloader::withLoader(uiOutput('final_class'))
-  #   )
-  # )
-  
-  
-  
-  
-  
   
 }
 

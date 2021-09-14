@@ -31,6 +31,7 @@ snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2
 
 
 Beta_SDAM_WM<-function(
+      user_model_choice='sno',
       user_lat=0, user_lon=0, user_TotalAbundance=0, user_perennial_abundance=0, user_perennial_taxa=0, user_mayfly_abundance=0, user_fishabund_score2=0,
       user_alglivedead_cover_score=0, user_DifferencesInVegetation_score=0, user_BankWidthMean=0, user_Sinuosity_score=0, user_hydric=0
 ){
@@ -131,7 +132,7 @@ Beta_SDAM_WM<-function(
   
   
   #Apply appropriate random forest model
-  if(xsf$SnowDom_SP10=="Snow-dominated")
+  if(user_model_choice == 'sno')
     ClassProbs = predict(SnowDomModel_Simplified, newdata = xdf, type="prob") %>% as.data.frame()
   else
     ClassProbs = predict(NonSnowDomModel_Simplified, newdata = xdf, type="prob") %>% as.data.frame()
