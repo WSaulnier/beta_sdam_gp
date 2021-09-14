@@ -65,7 +65,7 @@ snoparams_ui <- fluidRow(
       ),
       column(
         6,
-        withLoader(uiOutput('final_class'))
+        shinycustomloader::withLoader(uiOutput('final_class'))
       ),
     )
   )
