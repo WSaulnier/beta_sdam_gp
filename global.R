@@ -169,7 +169,7 @@ snowdom <- function(lat, lon){
     st_transform(crs=st_crs(snowp_raster))
   #Suppress warnings here
   xsf$MeanSnowPersistence_10=exactextractr::exact_extract(x=snowp_raster, y=xsf, 'mean')
-  xsf$SnowDom_SP10=case_when(xsf$MeanSnowPersistence_10<25~"Not snow-dominated",T~"Snow-dominated")
+  xsf$SnowDom_SP10=case_when(xsf$MeanSnowPersistence_10<25~"Not snow influenced",T~"Snow influenced")
   return(xsf$SnowDom_SP10)
   
 }

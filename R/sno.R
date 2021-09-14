@@ -8,7 +8,7 @@ snoparams_ui <- fluidRow(
       ),
       column(
         6,
-        h6("Total Abundance of aquatic macroinvertebrates")
+        h6("Total abundance of aquatic macroinvertebrates")
       )
     ),
     fluidRow(

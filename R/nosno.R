@@ -8,7 +8,7 @@ nosnoparams_ui <- fluidRow(
       ),
       column(
         6,
-        h6("Total Abundance of Mayflies")
+        h6("Total abundance of mayflies")
       )
     ),
     fluidRow(
@@ -28,10 +28,10 @@ nosnoparams_ui <- fluidRow(
           "user_fishabund_score2", 
           "Fish abundance (other than mosquitofish)",
           c(
-            "Poor" = 0,
-            "Weak" = 1,
-            "Moderate" = 2,
-            "Strong" = 3
+            "Poor (0)" = 0,
+            "Weak (1)" = 1,
+            "Moderate (2)" = 2,
+            "Strong (3)" = 3
           ),
           inline = T
         )
@@ -44,10 +44,10 @@ nosnoparams_ui <- fluidRow(
           "user_Sinuosity_score", 
           "Sinuosity",
           c(
-            "Poor" = 0,
-            "Weak" = 1,
-            "Moderate" = 2,
-            "Strong" = 3
+            "Poor (0)" = 0,
+            "Weak (1)" = 1,
+            "Moderate (2)" = 2,
+            "Strong (3)" = 3
           ),
           inline = T
         )
@@ -58,12 +58,12 @@ nosnoparams_ui <- fluidRow(
         12,
         radioButtons(
           "user_DifferencesInVegetation_score", 
-          "Differences in Vegetation",
+          "Differences in vegetation",
           c(
-            "Poor" = 0,
-            "Weak" = 1,
-            "Moderate" = 2,
-            "Strong" = 3
+            "Poor (0)" = 0,
+            "Weak (1)" = 1,
+            "Moderate (2)" = 2,
+            "Strong (3)" = 3
           ),
           inline = T
         )
