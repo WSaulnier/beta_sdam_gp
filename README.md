@@ -1,1 +1,2 @@
-# SDAM_WM_shiny
+# Beta version of the Western Mountain Streamflow Duration Assessment Method
+
