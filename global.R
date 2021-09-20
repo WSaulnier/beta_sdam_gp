@@ -208,7 +208,9 @@ snowdom <- function(lat, lon){
     return(
       list(
         canrun = T,
-        msg = glue::glue(HTML("This site is <strong>{sno_inf}</strong>"))
+        msg = glue::glue(
+          HTML("<h5><p>This site is <strong>{sno_inf}</strong></p><br><p>Snow persistence is {round(xsf$MeanSnowPersistence_10, 1)}</p></h5>")
+        )
       )
     )
   } else {
