@@ -33,7 +33,7 @@ snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2
 Beta_SDAM_WM<-function(
       user_model_choice='sno',
       user_lat=0, user_lon=0, user_TotalAbundance=0, user_perennial_abundance=0, user_perennial_taxa=0, user_mayfly_abundance=0, user_fishabund_score2=0,
-      user_alglivedead_cover_score=0, user_DifferencesInVegetation_score=0, user_BankWidthMean=0, user_Sinuosity_score=0, user_hydric=0
+      user_alglivedead_cover_score=0, user_DifferencesInVegetation_score=0, user_BankWidthMean=0.5 , user_Sinuosity_score=0, user_hydric=0
 ){
   #Add a check to see if site is in WM area. If in PNW area or AW area (or GP, or NESE?), return with URL to appropriate resources.
   #If outside all possible regions, return "Site is outside region where the EPA has developed streamflow duration assessment methods.
@@ -55,7 +55,7 @@ Beta_SDAM_WM<-function(
                   fishabund_score2=ifelse(is.null(user_fishabund_score2), 0,user_fishabund_score2),
                   alglivedead_cover_score=ifelse(is.null(user_alglivedead_cover_score), as.double(0),as.double(user_alglivedead_cover_score)),
                   DifferencesInVegetation_score=ifelse(is.null(user_DifferencesInVegetation_score), 0,user_DifferencesInVegetation_score),
-                  BankWidthMean=ifelse(is.null(user_BankWidthMean), 0,user_BankWidthMean),
+                  BankWidthMean=ifelse(is.null(user_BankWidthMean), 0.5 ,user_BankWidthMean),
                   Sinuosity_score=ifelse(is.null(user_Sinuosity_score), 0,user_Sinuosity_score),
                   SI_Hydric=ifelse(is.null(user_hydric), 0,user_hydric)
   ) 
@@ -102,7 +102,7 @@ Beta_SDAM_WM<-function(
   proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
   ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
   proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  
+
   
   xsf<-df2 %>%
     st_as_sf(coords=c("lon", "lat"),
@@ -195,29 +195,117 @@ snowdom <- function(lat, lon){
   
   sno_inf <- xsf$SnowDom_SP10
   
+  # Get May and October Precipitation
+  prism_set_dl_dir("~/prism")
+  get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
+  get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
+  #Suppress warnings here
+  tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
+  proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
+  proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
+  proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
+  # More stuff for May and Oct precip
+  mydf_prism<-bind_cols(
+    raster::extract(tmax_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(tmax = 1),
+    raster::extract(ppt.m05_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m05 = 1),
+    raster::extract(ppt.m10_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m10 = 1)
+  )
+  
+  
   if (sno_inf == 'Outside snow raster') {
     return(
       list(
         canrun = F,
-        msg = HTML('<strong>Warning</strong>: Site is outside the project area. Site cannot be assessed')
+        msg = HTML('<strong>Warning</strong>: Site is outside the project area. Site cannot be assessed'),
+        mod = character(0)
       )
     )
   }
   
   if (in_wm) {
+    
+    xdf <- xsf %>%
+      bind_cols(mydf_prism) %>%
+      as.data.frame() %>%
+      dplyr::select(-geometry) %>%
+      mutate(
+        TotalAbundance=0,
+        perennial_abundance=0,
+        perennial_taxa=0,
+        mayfly_abundance=0,
+        fishabund_score2=0,
+        alglivedead_cover_score=0,
+        DifferencesInVegetation_score=0,
+        BankWidthMean=0,
+        Sinuosity_score=0,
+        SI_Hydric=0,
+        PerennialTaxa_cat = 0,
+        TotalAbundance_cat = 0,
+        PerennialAbundance_cat = 0,
+        BankWidth_cat = 0,
+        Algae_cat = 0,
+        mayfly_cat= 0,
+        SI_Fish = 0,
+        SI_Algae = 0
+      )
+    
+    if (xsf$MeanSnowPersistence_10 == "Not snow influenced") {
+      ClassProbs = predict(NonSnowDomModel_Simplified, newdata = xdf, type="prob") %>% as.data.frame()
+      modchoice <- 'nosno'
+    }
+    else {
+      ClassProbs = predict(SnowDomModel_Simplified, newdata = xdf, type="prob") %>% as.data.frame()
+      modchoice <- 'sno'
+    }
+    
+    xdf <- bind_cols(xdf, ClassProbs) %>%
+      mutate(ALI = I + P,
+             Class = case_when(P>=.5~"Perennial",
+                               I>=.5~"Intermittent",
+                               E>=0.5~"Ephemeral",
+                               ALI >= 0.5 ~ "At least intermittent",
+                               T~"Need more information"),
+             #Modify classification based on single indicators
+             SingleIndicator = case_when(SI_Hydric>0~1,
+                                         SI_Fish>0~1,
+                                         SI_Algae>0~1,
+                                         T~0),
+             Class_final = case_when(Class %in% c("Ephemeral","Need more information") & SingleIndicator==1~"At least intermittent",
+                                     T~Class))
+    
+    msg <- paste0(
+      "<h5>",
+      "<p>This reach is <strong>{sno_inf}</strong></p><br>",
+      "<p>Snow persistence is {round(xsf$MeanSnowPersistence_10, 1)}</p><br>",
+      "<p>October precipitation (mm): {round(mydf_prism$ppt.m10, 1)}</p><br>",
+      "<p>May precipitation (mm): {round(mydf_prism$ppt.m05, 1)}</p><br>",
+      "<p>Mean annual max temperature (Deg C): {round(mydf_prism$tmax, 1)}</p><br>"
+    )
+    
+    if (xdf$Class_final %in% c('Intermittent','At least intermittent','Perennial')) {
+      msg <- paste0(msg, '<p>Reach is likely at least intermittent based on climatic conditions alone</p>')
+    }
+    
+    msg <- paste0(msg, '</h5>')
+    
     return(
       list(
         canrun = T,
         msg = glue::glue(
-          HTML("<h5><p>This site is <strong>{sno_inf}</strong></p><br><p>Snow persistence is {round(xsf$MeanSnowPersistence_10, 1)}</p></h5>")
-        )
+          HTML(msg)
+        ),
+        mod = modchoice
       )
     )
   } else {
     return(
       list(
         canrun = T,
-        msg = HTML("<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only.")
+        msg = HTML("<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only."),
+        mod = character(0)
       )
     )
   }

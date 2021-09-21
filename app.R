@@ -36,11 +36,11 @@ ui <- fluidPage(
               5, 
               fluidRow(
                 column(4,numericInput("lat", label = NULL,value = 39.9838)),
-                column(4, h5("Latitude"))
+                column(4, h5("Latitude (N)"))
               ),
               fluidRow(
                 column(4,numericInput("lon", label = NULL, value = -123.2881)),
-                column(4, h5("Longitude"))
+                column(4, h5("Longitude (E)"))
               )
             ),
             column(
@@ -94,7 +94,7 @@ server <- function(input, output, session) {
         column(
           12,
           fluidRow(
-            column(12, h4(HTML(glue::glue('<p>{sno$msg}</p><hr>'))))
+            column(12, h4(HTML(glue::glue('<p>{sno$msg}</p>'))))
           ),
           fluidRow(
             column(
@@ -103,9 +103,10 @@ server <- function(input, output, session) {
                 "paramchoice", 
                 "Choose model",
                 c(
-                  "Snow Dominated" = 'sno',
-                  "Non Snow Dominated" = 'nosno'
+                  "Snow Influenced" = 'sno',
+                  "Non Snow Influenced" = 'nosno'
                 ),
+                selected = character(0),
                 inline = T
               )
             )

@@ -45,7 +45,7 @@ bkgrnd <- fluidRow(
             "<p>Geomorphological indicators
             <br>
             <ol>
-              <li>Bank Width</li>
+              <li>Channel width</li>
               <li>Sinuosity</li>
             </ol>
             </p>
