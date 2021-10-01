@@ -68,7 +68,133 @@ ui <- fluidPage(
         ),
         tabPanel(
           "Generate Report",
-          "Coming Soon"
+          
+          #------- General Information
+          h2(HTML(
+            "General Information")
+          ),
+          br(),
+          textInput("projectname", label = "Project Name or Number:" , value = "", width = NULL, placeholder = NULL),
+          br(),
+          textInput("sidecode", label = "Site Code or Identifier:" , value = "", width = NULL, placeholder = NULL),
+          br(),
+          textInput("assessors", label = "Assessor(s):" , value = "", width = NULL, placeholder = NULL),
+          br(),
+          textInput("waterwayname", label = "Waterway Name:" , value = "", width = NULL, placeholder = NULL),
+          br(),
+          textInput("visitdate", label = "Visit Date:" , value = "", width = NULL, placeholder = NULL),
+          br(),
+          radioButtons(inputId = "currentweathercondition",
+                       label = "Current Weather Conditions (check one):",
+                       
+                       choices = c("Storm/Heavy Rain" = 'heavyrain',
+                                   "Steady Rain" = 'steadyrain',
+                                   "Intermitten Rain" = 'intermittenrain',
+                                   "Snowing" = 'snowing',
+                                   "Cloudy" = 'cloudy',
+                                   "Clear/Sunny" = 'clearsunny'
+                                   ),
+                       selected = "heavyrain"),
+          br(),
+          textInput("notes_currentweather", 
+                    label = "Notes on current or recent weather conditions:" , 
+                    value = "", 
+                    width = NULL, 
+                    placeholder = NULL
+          ),
+          br(),
+          radioButtons(inputId = "surrounding_landuse",
+                       label = "Surrounding land-use within 100 m (check one or two):",
+                       choices = c("Urban, industrial, or residential" = 'urban',
+                                   "Agricultural" = 'agricultural',
+                                   "Developed open-space " = 'openspace',
+                                   "Forested" = 'forested',
+                                   "Other Natural" = 'othernatural',
+                                   "Other" = 'other'
+                       ),
+                       selected = "urban"),
+          br(),
+          textInput(inputId = "describe_reach_boundaries", 
+                    label = "Describe reach boundaries:" , 
+                    value = "", 
+                    width = NULL, 
+                    placeholder = NULL
+          ),
+          br(),
+          numericInput(
+            inputId = "assessment_reach_length",
+            label = "Assessment reach length(m):",
+            value = "",
+            min = 0,
+          ),
+          br(),
+          radioButtons(inputId = "difficult_conditions",
+                       label = "Disturbed or difficult conditions (check all that apply):",
+                       choices = c("Recent flood or debris flow" = 'flood',
+                                   "Stream modifications (e.g., channelization)" = 'stream_modifications',
+                                   "Diversions" = 'diversions',
+                                   "Discharges" = 'discharges',
+                                   "Drought" = 'drought',
+                                   "Vegetation removal/limitations" = 'vegetation',
+                                   "Other (explain in notes)" = 'other',
+                                   "None" = 'none'
+                       ),
+                       selected = "flood"),
+          textInput(inputId = "site_difficulties", 
+                    label = "Site disturbances/difficulties::" , 
+                    value = "", 
+                    width = NULL, 
+                    placeholder = NULL
+          ),
+          
+          #------- Observed Hydrology
+          h2(HTML(
+            "Observed Hydrology")
+          ),
+          br(),
+          numericInput(
+            inputId = "pctreach_surface_flow",
+            label = "Percent of reach with surface flows:",
+            value = "",
+            min = 0,
+          ),
+          br(),
+          numericInput(
+            inputId = "pctreach_subsurface_flow",
+            label = "Percent of reach with surface and sub-surface flows:",
+            value = "",
+            min = 0,
+          ),
+          br(),
+          numericInput(
+            inputId = "num_isolated_pools",
+            label = "Number of isolated pools:",
+            value = "",
+            min = 0,
+          ),
+          br(),
+          textInput(inputId = "comments_observed_hydrology", 
+                    label = "Comments on observed hydrology:", 
+                    value = "", 
+                    width = NULL, 
+                    placeholder = NULL
+          ),
+          br(),
+          
+          #------- Site Photos
+          h2(HTML("Site Photos")),
+          br(),
+          
+          
+          
+        
+        
+          
+          
+          
+        
+          
+          
         )
       )
     )
