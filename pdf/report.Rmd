@@ -1,0 +1,635 @@
+---
+title: "Streamflow Duration Assessment Method for the Western Mountain Classification Report"
+subtitle: "Online Report Generating Tool Version 1.0"
+date: "Report generated on: `r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+always_allow_html: yes
+params:
+  a: NA
+  b: NA
+  c: NA
+  d: NA
+  e: NA
+  f: NA
+  g: NA
+  h: NA
+  i: NA
+  j: NA
+  k: NA
+  l: NA
+  m: NA
+  n: NA
+  o: NA
+  p: NA
+  r: NA
+  s: NA
+  t: NA
+  u: NA
+  v: NA
+  w: NA
+  aa: NA
+  ab: NA
+  ac: NA
+  ad: NA
+  ae: NA
+  af: NA
+  ag: NA
+  ah: NA
+  ai: NA
+  aj: NA
+  ak: NA
+  al: NA
+  am: NA
+  an: NA
+  ao: NA
+  ap: NA
+  aq: NA
+  ar: NA
+  as: NA
+  at: NA
+  av: NA
+  ba: NA
+  bb: NA
+  bc: NA
+  bd: NA
+  be: NA
+  bf: NA
+  bg: NA
+  bh: NA
+  bi: NA
+  bl: NA
+  bm: NA
+  bn: NA
+  bo: NA
+  tbl: NA
+  fff: NA
+---
+
+```{r, setup, include=FALSE}
+
+# Removing all code from appearing in the final knit document.
+knitr::opts_chunk$set(echo = FALSE)
+
+# Removing all "#" from appearing in the final knit document.
+knitr::opts_chunk$set(comment = NA)
+
+# Make error messages more descriptive
+options(tinytex.verbose = TRUE)
+
+```
+
+***
+
+## Classification:
+
+```{r}
+
+classification <- case_when(
+    params$tbl == 1 ~ "Ephemeral",
+    params$tbl == 2 ~ "At Least Intermittent",
+    params$tbl == 3 ~ "Need More Information",
+    params$tbl == 4 ~ "At Least Intermittent",
+    params$tbl == 5 ~ "Need More Information",
+    params$tbl == 6 ~ "At Least Intermittent",
+    params$tbl == 7 ~ "Need More Information",
+    params$tbl == 8 ~ "At Least Intermittent",
+    params$tbl == 9 ~ "At Least Intermittent",
+    params$tbl == 10 ~ "Need More Information",
+    params$tbl == 11 ~ "At Least Intermittent",
+    params$tbl == 12 ~ "Need More Information",
+    params$tbl == 13 ~ "At Least Intermittent",
+    params$tbl == 14 ~ "At Least Intermittent",
+    params$tbl == 15 ~ "Need More Information",
+    params$tbl == 16 ~ "At Least Intermittent",
+    params$tbl == 17 ~ "At Least Intermittent",
+    params$tbl == 18 ~ "Intermittent",
+    params$tbl == 19 ~ "At Least Intermittent",
+    params$tbl == 20 ~ "At Least Intermittent",
+    params$tbl == 21 ~ "Intermittent",
+    params$tbl == 22 ~ "At Least Intermittent",
+    params$tbl == 23 ~ "At Least Intermittent",
+    params$tbl == 24 ~ "Intermittent",
+    params$tbl == 25 ~ "Need More Information",
+    params$tbl == 26 ~ "At Least Intermittent",
+    params$tbl == 27 ~ "At Least Intermittent",
+    params$tbl == 28 ~ "At Least Intermittent",
+    params$tbl == 29 ~ "Perennial",
+    params$tbl == 30 ~ "At Least Intermittent",
+    params$tbl == 31 ~ "Perennial")
+
+cat(classification)
+
+```
+
+***
+
+## General Site Information
+
+Site code or identifier:
+```{r}
+cat(params$c)
+```
+
+Project name or number:
+```{r}
+# Adding cat() to all of the outputs to remove the [1] that would otherwise print immediately before them.
+cat(params$a)
+```
+
+Assessor(s):
+```{r}
+cat(params$b)
+```
+
+Waterway name:
+```{r}
+cat(params$d)
+```
+
+```{r, out.width='55%', fig.align='center'}
+
+# Static placeholder map
+
+# a <- 33.741172
+# b <- -118.375619
+# c <- "Altamira Canyon Creek"
+# site_data <- data.frame(c, a, b)
+# names(site_data) <- c("site", "lat", "lon") # rename columns
+# site_sf <- st_as_sf(site_data, # create sf compatible dataframe
+#    coords = c("lon", "lat"), # identify lon & lat
+#    remove = F, # do not remove lat/lon columns
+#    crs = 4326) # use WGS84 projection
+# 
+# mapviewOptions(basemaps = "Esri.WorldImagery") # set output to be ESRI map
+# site_map_test <- mapview::mapView(color = "cyan", site_sf, legend = FALSE) # adds in map
+
+# mapshot(site_map, file = paste0(getwd(), "/map.png"),
+#     remove_controls = c("zoomControl", "homeButton", "layersControl"),
+#     selfcontained = FALSE) # exports map as a .png to temporary working directory
+
+# knitr::include_graphics(here::here("map.png"))
+
+```
+
+```{r, fig.align='center', dpi=250, fig.width=6, fig.height=4}
+
+# Reactive map code that needs to be properly linked to the report:
+
+# site_data_react <- data.frame(params$d, params$g, params$h) # create dataframe
+# names(site_data_react) <- c("site", "lat", "lon") # rename columns
+# site_rct_sf <- st_as_sf(site_data_react, # create sf compatible dataframe
+#     coords = c("lon", "lat"), # identify lon & lat
+#     remove = F, # do not remove lat/lon columns
+#     crs = 4326) # use WGS84 projection
+#  
+# mapviewOptions(basemaps = "Esri.WorldImagery") # set output to be ESRI map
+#  
+# mapView(site_rct_sf, legend = FALSE) # adds in map
+#
+# mapshot(site_map_react, file = paste0(tempdir(), "/site_map_react.png"),
+#          remove_controls = c("zoomControl", "homeButton", "layersControl"),
+#          selfcontained = FALSE) # exports map as a .png to temporary directory
+#
+# knitr::include_graphics(file.path)
+# 
+# Or trying another option below.
+
+# Per https://community.rstudio.com/t/shiny-generating-downloadable-reports-with-plot-of-htmlwidget/22042 :
+
+# mapview::mapshot(x = params$fig_map,
+#   url = "fig_map.html",
+#   file = paste0(tempdir(), "/fig_map.png"),
+#   selfcontained = FALSE)
+# 
+# knitr::include_graphics(paste0(tempdir(), "/fig_map.png"))
+
+# The above code (lines 200-205) works locally but not when deployed.
+
+```
+
+<!-- ```{r, out.width='100%', fig.align='center', fig.cap = "Indicator presence/absence denoted in green based on input to tool."} -->
+<!-- knitr::include_graphics( -->
+<!--   case_when(params$tbl == 1 ~ here::here("01_H0_AI0_EPT0_ALG0_SI0_EPH-1.png"), -->
+<!--     params$tbl == 2 ~ here::here("02_H0_AI0_EPT0_ALG0_SI1_ALI-1.png"), -->
+<!--     params$tbl == 3 ~ here::here("03_H0_AI0_EPT0_ALG1_SI0_NMI-1.png"), -->
+<!--     params$tbl == 4 ~ here::here("04_H0_AI0_EPT0_ALG1_SI1_ALI-1.png"), -->
+<!--     params$tbl == 5 ~ here::here("05_H0_AI1_EPT0_ALG0_SI0_NMI-1.png"), -->
+<!--     params$tbl == 6 ~ here::here("06_H0_AI1_EPT0_ALG0_SI1_ALI-1.png"), -->
+<!--     params$tbl == 7 ~ here::here("07_H0_AI1_EPT0_ALG1_SI0_NMI-1.png"), -->
+<!--     params$tbl == 8 ~ here::here("08_H0_AI1_EPT0_ALG1_SI1_ALI-1.png"), -->
+<!--     params$tbl == 9 ~ here::here("09_H0_AI1_EPT1_ALGX_SIX_ALI-1.png"), -->
+<!--     params$tbl == 10 ~ here::here("10_H0_AI2_EPT0_ALG0_SI0_NMI-1.png"), -->
+<!--     params$tbl == 11 ~ here::here("11_H0_AI2_EPT0_ALG0_SI1_ALI-1.png"), -->
+<!--     params$tbl == 12 ~ here::here("12_H0_AI2_EPT0_ALG1_SI0_NMI-1.png"), -->
+<!--     params$tbl == 13 ~ here::here("13_H0_AI2_EPT0_ALG1_SI1_ALI-1.png"), -->
+<!--     params$tbl == 14 ~ here::here("14_H0_AI2_EPT1_ALGX_SIX_ALI-1.png"), -->
+<!--     params$tbl == 15 ~ here::here("15_H1_AI0_EPT0_ALG0_SI0_NMI-1.png"), -->
+<!--     params$tbl == 16 ~ here::here("16_H1_AI0_EPT0_ALG0_SI1_ALI-1.png"), -->
+<!--     params$tbl == 17 ~ here::here("17_H1_AI0_EPT0_ALG1_SIX_ALI-1.png"), -->
+<!--     params$tbl == 18 ~ here::here("18_H1_AI1_EPT0_ALG0_SIX_INT-1.png"), -->
+<!--     params$tbl == 19 ~ here::here("19_H1_AI1_EPT0_ALG1_SIX_ALI-1.png"), -->
+<!--     params$tbl == 20 ~ here::here("20_H1_AI1_EPT1_ALGX_SIX_ALI-1.png"), -->
+<!--     params$tbl == 21 ~ here::here("21_H1_AI2_EPT0_ALG0_SIX_INT-1.png"), -->
+<!--     params$tbl == 22 ~ here::here("22_H1_AI2_EPT0_ALG1_SIX_ALI-1.png"), -->
+<!--     params$tbl == 23 ~ here::here("23_H1_AI2_EPT1_ALG0_SIX_ALI-1.png"), -->
+<!--     params$tbl == 24 ~ here::here("24_H1_AI2_EPT1_ALG1_SIX_INT-1.png"), -->
+<!--     params$tbl == 25 ~ here::here("25_H2_AI0_EPT0_ALG0_SI0_NMI-1.png"), -->
+<!--     params$tbl == 26 ~ here::here("26_H2_AI0_EPT0_ALG0_SI1_ALI-1.png"), -->
+<!--     params$tbl == 27 ~ here::here("27_H2_AI0_EPT0_ALG1_SIX_ALI-1.png"), -->
+<!--     params$tbl == 28 ~ here::here("28_H2_AI1_EPT0_ALGX_SIX_ALI-1.png"), -->
+<!--     params$tbl == 29 ~ here::here("29_H2_AI1_EPT1_ALGX_SIX_PER-1.png"), -->
+<!--     params$tbl == 30 ~ here::here("30_H2_AI2_EPT0_ALGX_SIX_ALI-1.png"), -->
+<!--     params$tbl == 31 ~ here::here("31_H2_AI2_EPT1_ALGX_SIX_PER-1.png"))) -->
+<!-- ``` -->
+
+Visit date:
+```{r}
+cat(params$e)
+```
+
+Current weather conditions:
+```{r}
+cat(params$bm)
+```
+
+Notes on current or recent weather conditions:
+```{r}
+cat(params$j)
+```
+
+Location:
+```{r}
+cat(paste0(params$g," N, ", params$h, " W"))
+```
+
+<!-- Datum: -->
+<!-- ```{r} -->
+<!-- cat(params$i) -->
+<!-- ``` -->
+
+Surrounding land use within 100 m:
+```{r}
+cat(params$l)
+```
+
+Description of reach boundaries:
+```{r}
+cat(params$f)
+```
+
+Assessment reach length (m):
+```{r}
+cat(params$fff)
+```
+
+Disturbed or difficult conditions:
+```{r}
+cat(params$bn)
+```
+
+Notes on disturbances or difficult site conditions:
+```{r}
+cat(params$k)
+```
+
+##Observed hydrology:
+
+Percent of reach with surface flow:
+```{r}
+cat(params$m)
+```
+
+Percent of reach with surface and sub-surface flows:
+```{r}
+cat(params$n)
+```
+
+Number of isolated pools:
+```{r}
+cat(params$o)
+```
+
+Notes on observed hydrology:
+```{r}
+cat(params$r)
+```
+
+***
+
+## Site Photos
+
+Top of reach looking downstream:
+```{r, out.width='25%', fig.align='center'}
+  if (!identical(params[["v"]], character(0))){ 
+  knitr::include_graphics(params[["v"]])
+  } else{
+    cat("Photo was not submitted")
+  }
+```
+
+Middle of reach looking upstream:
+```{r, out.width='25%', fig.align='center'}
+  if (!identical(params[["u"]], character(0))){ 
+  knitr::include_graphics(params[["u"]])
+  } else{
+    cat("Photo was not submitted")
+  }
+
+```
+
+Middle of reach looking downstream:
+```{r, out.width='25%', fig.align='center'}
+
+  if (!identical(params[["t"]], character(0))){ 
+  knitr::include_graphics(params[["t"]])
+  } else{
+    cat("Photo was not submitted")
+  }
+```
+
+Bottom of reach looking upstream:
+```{r, out.width='25%', fig.align='center'}
+  if (!identical(params[["s"]], character(0))){ 
+  knitr::include_graphics(params[["s"]])
+  } else{
+    cat("Photo was not submitted")
+  }
+```
+
+## Site Sketch
+
+```{r, out.width='25%', fig.align='center'}
+    if (identical(params[["w"]], character(0))){ 
+  knitr::include_graphics(params[["w"]])
+  } else{
+    cat("Photo was not submitted")
+  }
+```
+
+***
+
+## Indicators
+
+Indicators used to classify the assessment reach are indicated with an asterisk.
+# ```{r}
+# cat(params$av)
+# ```
+
+# ```{r, out.width='25%', fig.align='center', fig.cap=params$ab}
+# knitr::include_graphics(params[["aa"]])
+# ```
+
+<!-- ```{r, out.width='25%', fig.align='center', fig.cap=params$ad} -->
+<!-- knitr::include_graphics(params[["ac"]]) -->
+<!-- ``` -->
+
+<!-- ```{r, out.width='25%', fig.align='center', fig.cap=params$af} -->
+<!-- knitr::include_graphics(params[["ae"]]) -->
+<!-- ``` -->
+
+<!-- ```{r, out.width='25%', fig.align='center', fig.cap=params$ah} -->
+<!-- knitr::include_graphics(params[["ag"]]) -->
+<!-- ``` -->
+
+<!-- Notes on hydrophytic vegetation: -->
+<!-- ```{r} -->
+<!-- cat(params$bc) -->
+<!-- ``` -->
+
+***
+
+## Climatic indicators
+
+Snow persistence:
+# ```{r}
+# cat(params$ai)
+# ```
+
+May precipitation (mm):
+# ```{r}
+# cat(params$aj)
+# ```
+
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["al"]]) -->
+<!-- ``` -->
+
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["am"]]) -->
+<!-- ``` -->
+
+October precipitation (mm): 
+# ```{r}
+# cat(params$an)
+# ```
+
+Mean annual maximum temperature (Deg C): 
+# ```{r}
+# cat(params$an)
+# ```
+
+
+***
+## Biological indicators
+## Aquatic Invertebrates
+
+Total abundance of aquatic invertebrates:
+# ```{r}
+# cat(params$ai)
+# ```
+
+Total abundance of mayflies: 
+# ```{r}
+# cat(params$aj)
+# ```
+Total abundance of perennial indicator taxa: 
+
+Total number of perennial indicator families: 
+
+
+Aquatic invertebrate photos and photo descriptions.
+
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["al"]]) -->
+<!-- ``` -->
+
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["am"]]) -->
+<!-- ``` -->
+
+Notes on aquatic invertebrates
+```{r}
+cat(params$an)
+```
+
+***
+
+## Algae Cover
+
+Algal cover on the streambed:
+```{r}
+cat(params$ao)
+```
+
+```{r}
+
+deposit <- case_when(
+    params$ak == TRUE ~ "All observed algae appear to be deposited from an upstream source.")
+
+cat(deposit)
+
+```
+
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["ap"]]) -->
+<!-- ``` -->
+
+Notes on algae cover:
+```{r}
+cat(params$bb)
+```
+
+Algae photos and photo descriptions:
+
+
+
+***
+
+## Fish
+
+Fish abundance:
+
+
+Notes about fish abundance:
+
+```{r}
+cat(params$aq)
+```
+
+# ```{r, out.width='25%', fig.align='center'}
+# knitr::include_graphics(params[["ar"]])
+# ```
+
+<!-- Algae cover: -->
+<!-- ```{r} -->
+<!-- cat(ifelse(params$ak == TRUE, "No, all observed algae appear to be deposited from an upstream source.", params$ao)) -->
+<!-- ``` -->
+
+***
+## Differences in vegetation
+
+Differences in vegetation score:
+
+
+Notes about differences in vegetation:
+
+```{r}
+cat(params$aq)
+```
+
+# ```{r, out.width='25%', fig.align='center'}
+# knitr::include_graphics(params[["ar"]])
+# ```
+
+Photos and descriptions:
+
+***
+
+## Geomorphological indicators
+
+## Channel width
+
+Channel width (m):
+
+## Sinuosity
+
+Sinuosity score:
+
+Notes about sinuosity
+
+Sinuosity photos and descriptions:
+
+```{r}
+cat(params$aq)
+```
+
+# ```{r, out.width='25%', fig.align='center'}
+# knitr::include_graphics(params[["ar"]])
+# ```
+
+
+***
+
+
+
+
+
+
+
+
+## Differences in vegetation
+
+Differences in vegetation score:
+
+
+Notes about differences in vegetation:
+
+```{r}
+cat(params$aq)
+```
+
+# ```{r, out.width='25%', fig.align='center'}
+# knitr::include_graphics(params[["ar"]])
+# ```
+
+Photos and descriptions:
+
+***
+
+
+
+
+
+
+## Differences in vegetation
+
+Differences in vegetation score:
+
+
+Notes about differences in vegetation:
+
+```{r}
+cat(params$aq)
+```
+
+# ```{r, out.width='25%', fig.align='center'}
+# knitr::include_graphics(params[["ar"]])
+# ```
+
+Photos and descriptions:
+
+***
+
+
+
+
+## Supplemental Information
+
+Additional notes about the assessment:
+
+```{r}
+cat(params$bg)
+```
+
+Supplemental information photos and descriptions
+
+# ```{r, out.width='25%', fig.align='center', fig.cap = params$be}
+# knitr::include_graphics(params[["ba"]])
+# ```
+
+# ```{r, out.width='25%', fig.align='center', fig.cap = params$bi}
+# knitr::include_graphics(params[["bh"]])
+# ```
+
+
+***
