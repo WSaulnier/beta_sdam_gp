@@ -333,7 +333,7 @@ ui <- fluidPage(
             width = NULL
           ),
           textInput(
-            inputId = "algnotes", 
+            inputId = "notes_algaecover", 
             label = "Notes about algae cover:", 
             value = "", 
             width = NULL, 
@@ -388,7 +388,7 @@ ui <- fluidPage(
             value = "",
           ),
           checkboxInput(
-            "fish_abundance", 
+            "fish_abundance_checkbox", 
             "Check if all fish observed are mosquitofish", 
             value = FALSE, 
             width = NULL
@@ -618,14 +618,25 @@ server <- function(input, output, session) {
   sno <- eventReactive(
     input$snobutton, 
     {
-      select
       snowdom(input$lat, input$lon)
+    
     }
   )
   
   # paramsui = params ui, ui that displays more inputs to grab more parameters
   output$snomsg <- renderUI({
     sno <- sno()
+    all_msg <- qdapRegex::ex_between(sno$msg, "<p>", "</p>")[[1]]
+    print("all_msg")
+    print(all_msg)
+    session$userData$snow_or_no <- qdapRegex::ex_between(all_msg[1], "<strong>", "</strong>")[[1]]
+    session$userData$snow_persistence <- all_msg[2]
+    session$userData$oct_precip <-  all_msg[3]
+    session$userData$may_precip <-  all_msg[4]
+    session$userData$mean_temp <-  all_msg[5]
+    
+    
+
     
     if (sno$canrun) {
       fluidRow(
@@ -694,8 +705,21 @@ server <- function(input, output, session) {
       user_hydric=input$user_hydric
     )
   })
-  
-  output$final_class <- renderUI({HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
+
+  output$final_class <- renderUI({
+    
+    #Storing variables in session to use in the report
+    session$userData$class <- classify() %>% as.character()
+    session$userData$classmsg <- glue::glue(
+      "The {case_when(
+        input$paramchoice == 'sno' ~ 'snow influenced', 
+        input$paramchoice == 'nosno' ~ 'non-snow influenced'
+      )} model was applied to {session$userData$snow_or_no} site."
+    )
+    session$userData$modelused <- input$paramchoice
+    
+    
+    HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
   
   #------------ Report Tab
   
@@ -704,7 +728,6 @@ server <- function(input, output, session) {
   # Site photos
   fig1 <- reactive({gsub("\\\\", "/", input$blu$datapath)})
   fig2 <- reactive({gsub("\\\\", "/", input$mld$datapath)})
-  print("fig2")
   fig3 <- reactive({gsub("\\\\", "/", input$mlu$datapath)})
   fig4 <- reactive({gsub("\\\\", "/", input$tld$datapath)})
   fig5 <- reactive({gsub("\\\\", "/", input$sketch$datapath)})
@@ -732,15 +755,15 @@ server <- function(input, output, session) {
   # Sinuosity photos
   fig18 <- reactive({gsub("\\\\", "/", input$sinu1$datapath)})
   fig19 <- reactive({gsub("\\\\", "/", input$sinu2$datapath)})
-  fig19 <- reactive({gsub("\\\\", "/", input$sinu3$datapath)})
+  fig20 <- reactive({gsub("\\\\", "/", input$sinu3$datapath)})
   
   # Supplemental Info photos
-  fig20 <- reactive({gsub("\\\\", "/", input$add1$datapath)})
-  fig21 <- reactive({gsub("\\\\", "/", input$add2$datapath)})
-  fig22 <- reactive({gsub("\\\\", "/", input$add3$datapath)})
+  fig21 <- reactive({gsub("\\\\", "/", input$add1$datapath)})
+  fig22 <- reactive({gsub("\\\\", "/", input$add2$datapath)})
+  fig23 <- reactive({gsub("\\\\", "/", input$add3$datapath)})
   
   
-  
+  # Populate the some of the widgets in the Report tab from the EnterData tab
   observeEvent(input$runmodel, {
     print("input$user_TotalAbundance")
     print(input$user_TotalAbundance)
@@ -789,18 +812,31 @@ server <- function(input, output, session) {
     
   })
   output$report <- downloadHandler(
+    
     filename = "Western_Mountain_report.pdf",
     content = function(file) {
       # Copy the report file to a temporary directory before processing it, in
       # case we don't have write permissions to the current working dir (which
       # can happen when deployed).
+      # print(input[["final_class"]])
+      # 
+      # 
+      # 
+      showModal(modalDialog("Please wait while the report is being generated.....", footer=NULL))
       tempReport <- file.path("pdf/report.Rmd")
       file.copy("report.Rmd", tempReport, overwrite = TRUE)
-      print("input$radio_situation")
-      print(input$radio_situation)
+      print("session$userData$class")
+      print(session$userData$class)
+      print("session$userData$snow_or_no")
+      print(ifelse(is.null(session$userData$snow_or_no),"Data was not entered",session$userData$snow_or_no)
+      )
       
       # Set up parameters to pass to Rmd document
       params <- list(
+        # -------------------Classification
+        class_wm = session$userData$class,
+        class_wm_msg = session$userData$classmsg,
+
         # -------------------General Site Information
         a = input$project,
         b = input$assessor,
@@ -816,15 +852,10 @@ server <- function(input, output, session) {
         j = input$weather,
         g = as.numeric(input$lat),
         h = as.numeric(input$lon),
-        l = case_when(input$check_use == 0 ~ "Urban/industrial/residential",
-                      input$check_use == 1 ~ "Agricultural",
-                      input$check_use == 2 ~ "Developed open-space",
-                      input$check_use == 3 ~ "Forested",
-                      input$check_use == 4 ~ "Other natural",
-                      input$check_use == 5 ~ "Other"),
+        l = paste(as.character(input$check_use),collapse = ","),
         f = input$boundary,
         fff = input$actreach,
-        bn = input$radio_situation,
+        bn = paste(as.character(input$radio_situation),collapse = ","),
         k = input$situation,
         
         # ------------------- Site Photos
@@ -834,13 +865,117 @@ server <- function(input, output, session) {
         s = fig1(),
         
         # ------------------- Observed Hydrology
-        i = input$datum,
         m = input$surfflow,
         n = input$subflow,
         o = input$pool,
-        p = input$channel,
         r = input$notes_observed_hydrology,
-        # # w = fig5(),
+        # i = input$datum,
+        # p = input$channel,
+        
+        # ------------------- Site Sketch
+        w = fig5(),
+        
+        # ------------------- Climatic indicators
+        snow_or_no = ifelse(
+          is.null(session$userData$snow_or_no),
+          "Data was not entered",
+          session$userData$snow_or_no
+        ),
+        snow_persistence = ifelse(
+          is.null(session$userData$snow_persistence),
+          "Data was not entered",
+          session$userData$snow_persistence
+        ),
+        oct_precip = ifelse(
+          is.null(session$userData$oct_precip),
+          "Data was not entered",
+          session$userData$oct_precip
+        ),
+        may_precip = ifelse(
+          is.null(session$userData$may_precip),
+          "Data was not entered",
+          session$userData$may_precip
+        ),
+        mean_temp = ifelse(
+          is.null(session$userData$mean_temp),
+          "Data was not entered",
+          session$userData$mean_temp
+        ),
+        modelused = ifelse(
+          is.null(session$userData$modelused),
+          "Data was not entered",
+          session$userData$modelused
+        ),
+
+        
+        # ------------------- Biological indicators
+        # ------------------- Aquatic Invertebrates
+        aqua_inv = input$aqua_inv,
+        may_flies = input$may_flies,
+        indicator_taxa = input$indicator_taxa,
+        indicator_families = input$indicator_families,
+        f6 = fig6(),
+        f6_cap = input$inv1_cap,
+        f7 = fig7(),
+        f7_cap = input$inv2_cap,
+        f8 = fig8(),
+        f8_cap = input$inv3_cap,
+        notes_aquainv = input$notes_aquainv,
+        
+        # ------------------- Aquatic Cover
+        algae_streambed = input$algae_streambed,
+        ak = input$algae_checkbox,
+        notes_algaecover = input$notes_algaecover,
+        f9 = fig9(),
+        f9_cap = input$alg1_cap,
+        f10 = fig10(),
+        f10_cap = input$alg2_cap,
+        f11 = fig11(),
+        f11_cap = input$alg3_cap,
+        
+        # ------------------- Fish Abundance
+        fish_abundance = input$fish_abundance,
+        fish_abundance_checkbox = input$fish_abundance_checkbox,
+        notes_fish_abundance = input$notes_fish_abundance,
+        f12 = fig12(),
+        f12_cap = input$fish1_cap,
+        f13 = fig13(),
+        f13_cap = input$fish2_cap,
+        f14 = fig14(),
+        f14_cap = input$fish3_cap,
+        
+        
+        # ------------------- Differences in vegetation
+        vegetation_score = input$vegetation_score,
+        notes_differences_vegetation = input$notes_differences_vegetation,
+        f15 = fig15(),
+        f15_cap = input$veg1,
+        f16 = fig16(),
+        f16_cap = input$veg2,
+        f17 = fig17(),
+        f17_cap = input$veg3,
+        
+        # ------------------- Channel Width
+        # ------------------- Sinuosity
+        sinuosity = input$sinuosity,
+        notes_sinuosity = input$notes_sinuosity,
+        f18 = fig18(),
+        f18_cap = input$sinu1_cap,
+        f19 = fig19(),
+        f19_cap = input$sinu2_cap,
+        f20 = fig20(),
+        f20_cap = input$sinu3_cap,
+        
+        # ------------------- Supplemental Information
+        notes_supplemental_information = input$notes_supplemental_information,
+        f21 = fig21(),
+        f21_cap = input$add1_cap,
+        f22 = fig22(),
+        f22_cap = input$add2_cap,
+        f23 = fig23(),
+        f23_cap = input$add3_cap
+        
+        
         # # aa = fig6(),
         # ab = input$hyd1_cap,
         # #ac = fig7(),
@@ -853,7 +988,6 @@ server <- function(input, output, session) {
         #                input$radio_bmi == 0.5 ~ "1 to 19",
         #                input$radio_bmi == 1 ~ "20+"),
         # aj = ifelse(input$radio_ept == 0, "No", "Yes"),
-        ak = input$algae_checkbox,
         # al = fig10(),
         # am = fig11(),
         # an = input$invnotes,
@@ -871,12 +1005,12 @@ server <- function(input, output, session) {
         #                input$radio_hydro == 0.5 ~ "1 - 2 species",
         #                input$radio_hydro == 1 ~ "3+ species"),
         # ba = fig14(),
-        bb = input$algnotes,
-        bc = input$hydnotes,
-        bd = input$fishnotes,
-        be = input$add_cap,
-        # bf = input$other_ind,
-        bg = input$add_notes
+        # bb = input$algnotes,
+        # bc = input$hydnotes,
+        # bd = input$fishnotes,
+        # be = input$add_cap,
+        # # bf = input$other_ind,
+        # bg = input$add_notes
         # bh = fig15(),
         # bi = input$add_cap2,
         # bo = input$hydro_comments,
@@ -894,6 +1028,7 @@ server <- function(input, output, session) {
         params = params,
         envir = new.env(parent = globalenv())
       )
+      removeModal()
     }
   )
   
