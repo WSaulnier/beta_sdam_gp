@@ -165,7 +165,7 @@ snowdom <- function(lat, lon){
   # df <- data.frame(lat = 0, lon = 0)
   
   snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2_Match.tif')
-  wm_strata <- st_read('data/shapefiles/WM_Strata.shp') 
+  wm_strata <- st_read('data/shapefiles/WM_Strata.shp')
   
   ysf<-df %>%
     st_as_sf(coords=c("lon", "lat"),
