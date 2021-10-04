@@ -1,0 +1,804 @@
+---
+title: "Beta Streamflow Duration Assessment for the Western Mountains"
+subtitle: "SDAM Version 1.0"
+revision: "SDAM revision date: October 6, 2021" 
+date: "Report generated on: `r format(Sys.time(), '%B %d, %Y')`"
+output: pdf_document
+always_allow_html: yes
+params:
+  a: NA
+  b: NA
+  c: NA
+  d: NA
+  e: NA
+  f: NA
+  g: NA
+  h: NA
+  i: NA
+  j: NA
+  k: NA
+  l: NA
+  m: NA
+  n: NA
+  o: NA
+  p: NA
+  r: NA
+  s: NA
+  t: NA
+  u: NA
+  v: NA
+  w: NA
+  aa: NA
+  ab: NA
+  ac: NA
+  ad: NA
+  ae: NA
+  af: NA
+  ag: NA
+  ah: NA
+  ai: NA
+  aj: NA
+  ak: NA
+  al: NA
+  am: NA
+  an: NA
+  ao: NA
+  ap: NA
+  aq: NA
+  ar: NA
+  as: NA
+  at: NA
+  av: NA
+  ba: NA
+  bb: NA
+  bc: NA
+  bd: NA
+  be: NA
+  bf: NA
+  bg: NA
+  bh: NA
+  bi: NA
+  bl: NA
+  bm: NA
+  bn: NA
+  bo: NA
+  tbl: NA
+  fff: NA
+  aqua_inv: NA
+  may_flies: NA 
+  indicator_taxa: NA 
+  indicator_families: NA 
+  f6: NA 
+  f6_cap: NA 
+  f7: NA 
+  f7_cap: NA
+  f8: NA 
+  f8_cap: NA 
+  notes_aquainv: NA 
+  algae_streambed: NA 
+  notes_algaecover: NA 
+  f9: NA 
+  f9_cap: NA 
+  f10: NA 
+  f10_cap: NA 
+  f11: NA 
+  f11_cap: NA
+  fish_abundance: NA 
+  fish_abundance_checkbox: NA 
+  notes_fish_abundance: NA 
+  f12: NA 
+  f12_cap: NA
+  f13: NA 
+  f13_cap: NA 
+  f14: NA 
+  f14_cap: NA 
+  vegetation_score: NA 
+  notes_differences_vegetation: NA 
+  f15: NA 
+  f15_cap: NA 
+  f16: NA 
+  f16_cap: NA 
+  f17: NA
+  f17_cap: NA
+  sinuosity: NA 
+  notes_sinuosity: NA 
+  f18: NA 
+  f18_cap: NA 
+  f19: NA 
+  f19_cap: NA 
+  f20: NA 
+  f20_cap: NA 
+  notes_supplemental_information: NA 
+  f21: NA 
+  f21_cap: NA 
+  f22: NA 
+  f22_cap: NA 
+  f23: NA 
+  f23_cap: NA 
+  snow_or_no: NA 
+  snow_persistence: NA 
+  oct_precip: NA 
+  may_precip: NA
+  mean_temp: NA 
+  modelused: NA
+  class_wm: NA
+  class_wm_msg: NA
+  
+  
+---
+
+```{r, setup, include=FALSE}
+library(knitr)
+# Removing all code from appearing in the final knit document.
+knitr::opts_chunk$set(echo = FALSE)
+
+# Removing all "#" from appearing in the final knit document.
+knitr::opts_chunk$set(comment = NA)
+
+# Make error messages more descriptive
+options(tinytex.verbose = TRUE)
+
+opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
+
+***
+
+## Classification:
+
+```{r}
+cat(params$class_wm)
+cat(paste0(glue::glue("Note: {params$class_wm_msg}")))
+```
+
+***
+
+## General Site Information
+
+Project name or number:
+```{r}
+# Adding cat() to all of the outputs to remove the [1] that would otherwise print immediately before them.
+cat(params$a)
+```
+
+Site code or identifier:
+```{r}
+cat(params$c)
+```
+
+Assessor(s):
+```{r}
+cat(params$b)
+```
+
+Waterway name:
+```{r}
+cat(params$d)
+```
+
+Visit date:
+```{r}
+cat(params$e)
+```
+
+Current weather conditions:
+```{r}
+cat(params$bm)
+```
+
+Notes on current or recent weather conditions:
+```{r}
+cat(params$j)
+```
+
+Location:
+```{r}
+cat(paste0(params$g," N, ", params$h, " W"))
+```
+
+Surrounding land use within 100 m:
+```{r}
+cat(params$l)
+```
+
+Description of reach boundaries:
+```{r}
+cat(params$f)
+```
+
+Assessment reach length (m):
+```{r}
+cat(params$fff)
+```
+
+Disturbed or difficult conditions:
+```{r, tidy=TRUE, tidy.opts=list(width.cutoff=60)}
+cat(params$bn)
+```
+
+Notes on disturbances or difficult site conditions:
+```{r}
+cat(params$k)
+```
+
+## Observed hydrology:
+
+Percent of reach with surface flow:
+```{r}
+cat(params$m)
+```
+
+Percent of reach with surface and sub-surface flows:
+```{r}
+cat(params$n)
+```
+
+Number of isolated pools:
+```{r}
+cat(params$o)
+```
+
+Notes on observed hydrology:
+```{r}
+cat(params$r)
+```
+
+***
+
+## Site Photos
+
+Top of reach looking downstream:
+```{r, out.width='25%', fig.align='center'}
+if (!identical(params[["v"]], character(0))){ 
+  knitr::include_graphics(params[["v"]])
+} else {
+    cat("Photo was not submitted")
+  }
+```
+
+Middle of reach looking upstream:
+```{r, out.width='25%', fig.align='center'}
+if (!identical(params[["u"]], character(0))){ 
+  knitr::include_graphics(params[["u"]])
+} else {
+    cat("Photo was not submitted")
+  }
+
+```
+
+Middle of reach looking downstream:
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["t"]], character(0))){ 
+  knitr::include_graphics(params[["t"]])
+} else {
+    cat("Photo was not submitted")
+  }
+```
+
+Bottom of reach looking upstream:
+```{r, out.width='25%', fig.align='center'}
+if (!identical(params[["s"]], character(0))){ 
+  knitr::include_graphics(params[["s"]])
+} else {
+    cat("Photo was not submitted")
+  }
+```
+
+## Site Sketch
+
+```{r, out.width='25%', fig.align='center'}
+if (!identical(params[["w"]], character(0))){ 
+  knitr::include_graphics(params[["w"]])
+} else {
+    cat("Photo was not submitted")
+  }
+```
+
+***
+
+## Indicators
+
+Indicators used to classify the assessment reach are indicated with an asterisk.
+
+## Climatic indicators
+
+Snow persistence:
+```{r}
+cat(params$snow_persistence)
+cat(paste0("The site is ",params$snow_or_no))
+```
+
+May precipitation (mm):
+```{r}
+
+if (params$modelused == 'nosno') {
+  cat(params$may_precip)
+} else {
+  cat("Not Applicable")
+}
+```
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["al"]]) -->
+<!-- ``` -->
+
+<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- knitr::include_graphics(params[["am"]]) -->
+<!-- ``` -->
+
+October precipitation (mm): 
+```{r}
+if (params$modelused == 'sno') {
+  cat(params$oct_precip)
+} else {
+  cat("Not Applicable")
+}
+```
+
+Mean annual maximum temperature (Deg C): 
+```{r}
+if (params$modelused == 'nosno') {
+  cat(params$mean_temp)
+} else {
+  cat("Not Applicable")
+}
+```
+
+***
+## Biological indicators
+## Aquatic Invertebrates
+
+Total abundance of aquatic invertebrates:
+
+```{r}
+if (params$modelused == 'sno') {
+  cat(params$aqua_inv)
+} else {
+  cat("Not Applicable")
+}
+```
+
+Total abundance of mayflies:
+
+```{r}
+if (params$modelused == 'nosno') {
+  cat(params$may_flies)
+} else {
+  cat("Not Applicable")
+}
+```
+
+Total abundance of perennial indicator taxa: 
+```{r}
+if (params$modelused == 'sno') {
+  cat(params$indicator_taxa)
+} else {
+  cat("Not Applicable")
+}
+```
+
+Total number of perennial indicator families: 
+
+```{r}
+
+  cat(params$indicator_families)
+
+```
+
+Aquatic invertebrate photos and photo descriptions.
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f6"]], character(0))){ 
+  knitr::include_graphics(params[["f6"]])
+} else {
+    cat("Photo #1 was not submitted")
+  }
+  
+```
+
+```{r}
+if (!identical(params[["f6"]], character(0))){ 
+  cat(paste0("Description: ",params$f6_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f7"]], character(0))){ 
+  cat(paste0("Description: ", params$f7_cap))
+} else {
+    cat("Photo #2 was not submitted")
+  }
+  
+```
+
+```{r}
+if (!identical(params[["f7"]], character(0))){ 
+  cat(paste0("Description: ",params$f7_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f8"]], character(0))){ 
+  knitr::include_graphics(params[["f8"]])
+} else {
+    cat("Photo #3 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f8"]], character(0))){ 
+  cat(paste0("Description: ",params$f8_cap))
+}
+```
+
+
+Notes on aquatic invertebrates
+
+```{r}
+cat(params$notes_aquainv)
+```
+
+***
+
+## Algae Cover
+
+Algal cover on the stream-bed:
+
+```{r}
+cat(params$ao)
+```
+
+```{r}
+
+deposit <- case_when(
+    params$ak == TRUE ~ "All observed algae appear to be deposited from an upstream source.")
+
+cat(deposit)
+
+```
+
+Notes on algae cover:
+
+```{r}
+cat(params$notes_algaecover)
+```
+
+Algae photos and photo descriptions:
+
+```{r, out.width='25%', fig.align='center'}
+  
+if (!identical(params[["f9"]], character(0))){ 
+  knitr::include_graphics(params[["f9"]])
+} else {
+    cat("Photo #1 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f9"]], character(0))){ 
+  cat(paste0("Description: ",params$f9_cap))
+}
+```
+
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f10"]], character(0))){ 
+  knitr::include_graphics(params[["f10"]])
+} else {
+    cat("Photo #2 was not submitted")
+  }
+```
+
+```{r}
+if (!identical(params[["f10"]], character(0))){ 
+  cat(paste0("Description: ",params$f10_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f11"]], character(0))){ 
+  knitr::include_graphics(params[["f11"]])
+
+} else {
+    cat("Photo #3 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f11"]], character(0))){ 
+  cat(paste0("Description: ",params$f11_cap))
+}
+```
+
+***
+
+## Fish
+
+Fish abundance:
+
+
+```{r}
+if (params$fish_abundance_checkbox){
+  cat("All fish observed were mosquitofish.")
+}
+cat(params$aq)
+```
+
+
+Notes about fish abundance:
+
+```{r}
+cat(params$aq)
+```
+
+Fish photos and descriptions: 
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f12"]], character(0))){ 
+  knitr::include_graphics(params[["f12"]])
+} else {
+    cat("Photo #1 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f12"]], character(0))){ 
+  cat(paste0("Description: ",params$f12_cap))
+}
+```
+
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f13"]], character(0))){ 
+  knitr::include_graphics(params[["f13"]])
+} else {
+    cat("Photo #2 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f13"]], character(0))){ 
+  cat(paste0("Description: ",params$f13_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f14"]], character(0))){ 
+  knitr::include_graphics(params[["f14"]])
+} else {
+    cat("Photo #3 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f14"]], character(0))){ 
+  cat(paste0("Description: ",params$f14_cap))
+}
+```
+
+***
+## Differences in vegetation
+
+Differences in vegetation score:
+
+```{r}
+if (params$modelused == 'nosno'){
+  cat(params$vegetation_score)
+} else {
+  cat("Not Applicable")
+  }
+
+```
+
+Notes about differences in vegetation:
+
+```{r}
+cat(params$notes_differences_vegetation)
+```
+
+
+Differences in vegetation photos and descriptions:
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f15"]], character(0))){ 
+  knitr::include_graphics(params[["f15"]])
+} else {
+    cat("Photo #1 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f15"]], character(0))){ 
+  cat(paste0("Description: ",params$f15_cap))
+}
+```
+
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f16"]], character(0))){ 
+  knitr::include_graphics(params[["f16"]])
+} else {
+    cat("Photo #2 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f16"]], character(0))){ 
+  cat(paste0("Description: ",params$f16_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f17"]], character(0))){ 
+  knitr::include_graphics(params[["f17"]])
+} else {
+    cat("Photo #3 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f17"]], character(0))){ 
+  cat(paste0("Description: ",params$f17_cap))
+}
+```
+
+
+***
+
+## Geomorphological indicators
+
+## Channel width
+
+Channel width (m):
+```{r}
+cat(params$sinuosity)
+```
+
+## Sinuosity
+
+Sinuosity score:
+
+```{r}
+if (params$modelused == 'nosno'){
+  cat(params$sinuosity)
+} else{
+  cat("Not Applicable")
+}
+```
+
+Notes about sinuosity
+
+```{r}
+cat(params$notes_sinuosity)
+```
+
+Sinuosity photos and descriptions:
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f18"]], character(0))){ 
+    knitr::include_graphics(params[["f18"]])
+} else {
+    cat("Photo #1 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f18"]], character(0))){ 
+  cat(paste0("Description: ",params$f18_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f19"]], character(0))){ 
+    knitr::include_graphics(params[["f19"]])
+} else {
+    cat("Photo #2 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f19"]], character(0))){ 
+  cat(paste0("Description: ",params$f19_cap))
+}
+```
+
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f20"]], character(0))){ 
+    knitr::include_graphics(params[["f20"]])
+} else {
+    cat("Photo #3 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f20"]], character(0))){ 
+  cat(paste0("Description: ",params$f20_cap))
+}
+```
+
+***
+
+## Supplemental Information
+
+Additional notes about the assessment:
+```{r}
+cat(params$notes_supplemental_information)
+```
+
+Supplemental information photos and descriptions
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f21"]], character(0))){ 
+    knitr::include_graphics(params[["f21"]])
+} else {
+    cat("Photo #1 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f21"]], character(0))){ 
+  cat(paste0("Description: ",params$f21_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f22"]], character(0))){ 
+    knitr::include_graphics(params[["f22"]])
+} else {
+    cat("Photo #2 was not submitted")
+  }
+```
+
+```{r}
+if (!identical(params[["f22"]], character(0))){ 
+  cat(paste0("Description: ",params$f22_cap))
+}
+```
+
+```{r, out.width='25%', fig.align='center'}
+
+if (!identical(params[["f23"]], character(0))){ 
+    knitr::include_graphics(params[["f23"]])
+} else {
+    cat("Photo #3 was not submitted")
+  }
+
+```
+
+```{r}
+if (!identical(params[["f23"]], character(0))){ 
+  cat(paste0("Description: ",params$f23_cap))
+}
+```
+
+
+
+**End of Report**
