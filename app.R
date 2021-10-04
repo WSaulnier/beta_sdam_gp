@@ -173,7 +173,7 @@ ui <- fluidPage(
               "Other (explain in notes)" = 'other',
               "None" = 'none'
             ),
-            selected = 'flood'
+            selected = NULL
           ),
           textInput(
             inputId = "situation", 
@@ -813,8 +813,9 @@ server <- function(input, output, session) {
   })
   output$report <- downloadHandler(
     
-    filename = "Western_Mountain_report.pdf",
+    filename = glue::glue("Western Mountain Report ({format(Sys.time(), '%B %d, %Y')}).pdf"),
     content = function(file) {
+      tryCatch({
       # Copy the report file to a temporary directory before processing it, in
       # case we don't have write permissions to the current working dir (which
       # can happen when deployed).
@@ -823,13 +824,10 @@ server <- function(input, output, session) {
       # 
       # 
       showModal(modalDialog("Please wait while the report is being generated.....", footer=NULL))
-      tempReport <- file.path("pdf/report.Rmd")
+      tempReport <- file.path("markdown/report.Rmd")
       file.copy("report.Rmd", tempReport, overwrite = TRUE)
-      print("session$userData$class")
-      print(session$userData$class)
-      print("session$userData$snow_or_no")
-      print(ifelse(is.null(session$userData$snow_or_no),"Data was not entered",session$userData$snow_or_no)
-      )
+      print("fig6")
+      print(fig6())
       
       # Set up parameters to pass to Rmd document
       params <- list(
@@ -843,19 +841,44 @@ server <- function(input, output, session) {
         c = input$code,
         d = input$waterway,
         e = input$date,
-        bm = case_when(input$radio_weather == 0~"Storm/heavy rain",
-                       input$radio_weather == 1~"Steady rain",
-                       input$radio_weather == 2~"Intermittent rain",
-                       input$radio_weather == 3~"Snowing",
-                       input$radio_weather == 4~"Cloudy",
-                       input$radio_weather == 5~"Clear/Sunny"),
+        bm = case_when(input$radio_weather == 0 ~ "Storm/heavy rain",
+                       input$radio_weather == 1 ~ "Steady rain",
+                       input$radio_weather == 2 ~ "Intermittent rain",
+                       input$radio_weather == 3 ~ "Snowing",
+                       input$radio_weather == 4 ~ "Cloudy",
+                       input$radio_weather == 5 ~ "Clear/Sunny"),
         j = input$weather,
         g = as.numeric(input$lat),
         h = as.numeric(input$lon),
-        l = paste(as.character(input$check_use),collapse = ","),
+        l = plyr::mapvalues(
+          input$check_use, 
+          from = c(
+            "urban","agricultural", "openspace",
+            "forested","othernatural","other"), 
+          to = c(
+            "Urban, industrial, or residential", "Agricultural","Developed open-space",
+            "Forested","Other Natural","Other")
+        ) %>% as.character() %>% paste0(collapse = ", "),
         f = input$boundary,
         fff = input$actreach,
-        bn = paste(as.character(input$radio_situation),collapse = ","),
+        # bn = paste(as.character(input$radio_situation),collapse = ","),
+        # 
+        bn = plyr::mapvalues(
+          input$radio_situation, 
+          from = c(
+            "flood","stream_modifications", "diversions",
+            "discharges","drought","vegetation",
+            "other","none"), 
+          to = c(
+            "Recent flood or debris flow","Stream modifications (e.g., channelization)","Diversions",
+            "Discharges","Drought","Vegetation removal/limitations",
+            "Other (explain in notes)","None")
+        ) %>% as.character() %>% paste0(collapse = ", "),
+        
+        
+        
+        
+        
         k = input$situation,
         
         # ------------------- Site Photos
@@ -1029,6 +1052,18 @@ server <- function(input, output, session) {
         envir = new.env(parent = globalenv())
       )
       removeModal()
+      },
+      warning = function(cond){
+        showModal(
+          modalDialog(
+            "There was an error while generating the report. 
+            Please contact Robert Butler (robertb@sccwrp.org) or Duy Nguyen (duyn@sccwrp.org) for more details.", 
+            footer = modalButton("Ok")
+          )
+        )
+        return(NULL)
+      }
+      )
     }
   )
   
