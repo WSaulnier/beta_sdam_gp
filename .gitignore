@@ -39,6 +39,7 @@ vignettes/*.pdf
 .Renviron
 
 # custom
+data/prism
 testing/
 ignore/
 .DS_Store

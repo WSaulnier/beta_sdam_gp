@@ -95,12 +95,17 @@ Beta_SDAM_WM<-function(
   prism_set_dl_dir("data/prism")
   #get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
   #get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
+  
+  
   #Suppress warnings here
-  tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
+  #tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
+  tmax_RS <- readRDS("data/prism_var/tmax_RS.rds")
   proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
+  #ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
+  ppt.m05_RS<-readRDS("data/prism_var/ppt.m05_RS.rds")
   proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
+  #ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
+  ppt.m10_RS<-readRDS("data/prism_var/ppt.m10_RS.rds")
   proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 
   
@@ -200,12 +205,23 @@ snowdom <- function(lat, lon){
   #get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
   #get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
   #Suppress warnings here
-  tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
+  # tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
+  # proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  # ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
+  # proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  # ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
+  # proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
+  tmax_RS <- readRDS("data/prism_var/tmax_RS.rds")
   proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
+  #ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
+  ppt.m05_RS<-readRDS("data/prism_var/ppt.m05_RS.rds")
   proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
+  #ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
+  ppt.m10_RS<-readRDS("data/prism_var/ppt.m10_RS.rds")
   proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
+  
   
   # More stuff for May and Oct precip
   mydf_prism<-bind_cols(
