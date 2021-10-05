@@ -92,9 +92,9 @@ Beta_SDAM_WM<-function(
 
   
   #Calculate May and October precipitation
-  prism_set_dl_dir("~/prism")
-  get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
-  get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
+  prism_set_dl_dir("data/prism")
+  #get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
+  #get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
   #Suppress warnings here
   tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
   proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
