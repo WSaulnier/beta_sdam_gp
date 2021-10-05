@@ -448,7 +448,7 @@ cat(params$notes_aquainv)
 Algal cover on the stream-bed:
 
 ```{r}
-cat(params$ao)
+cat(params$algae_streambed)
 ```
 
 ```{r}
@@ -523,19 +523,22 @@ if (!identical(params[["f11"]], character(0))){
 
 Fish abundance:
 
+```{r}
+cat(params$fish_abundance)
+```
+
 
 ```{r}
 if (params$fish_abundance_checkbox){
   cat("All fish observed were mosquitofish.")
 }
-cat(params$aq)
 ```
 
 
 Notes about fish abundance:
 
 ```{r}
-cat(params$aq)
+cat(params$notes_fish_abundance)
 ```
 
 Fish photos and descriptions: 
