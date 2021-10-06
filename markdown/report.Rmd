@@ -345,6 +345,7 @@ if (params$modelused == 'nosno') {
 
 ***
 ## Biological indicators
+
 ## Aquatic Invertebrates
 
 Total abundance of aquatic invertebrates:

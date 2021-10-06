@@ -250,6 +250,8 @@ ui <- fluidPage(
           
           #------- Indicators
           h1(HTML("Indicators")),
+          helpText("Indicators required for classification are filled in from entries in the previous form. 
+                   Other indicators measured during the assessment may be added here."),
           h2(HTML("Aquatic Invertebrates")),
           br(),
           numericInput(
@@ -286,7 +288,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "inv1_cap", 
-            label = "Figure 1 Caption:", 
+            label = "Invertebrate Photo #1 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -299,7 +301,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "inv2_cap", 
-            label = "Figure 2 Caption:", 
+            label = "Invertebrate Photo #2 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -312,7 +314,7 @@ ui <- fluidPage(
           
           textInput(
             inputId = "inv3_cap", 
-            label = "Figure 3 Caption:", 
+            label = "Invertebrate Photo #3:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -422,7 +424,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "fish1_cap", 
-            label = "Figure 1 Caption:", 
+            label = "Fish Photo #1 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -434,7 +436,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "fish2_cap", 
-            label = "Figure 2 Caption:", 
+            label = "Fish Photo #2 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -447,7 +449,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "fish3_cap", 
-            label = "Figure 3 Caption:", 
+            label = "Fish Photo #3 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -484,7 +486,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "veg1_cap", 
-            label = "Figure 1 Caption:", 
+            label = "Vegetation Photo #1 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -497,7 +499,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "veg2_cap", 
-            label = "Figure 2 Caption:", 
+            label = "Vegetation Photo #2 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -510,7 +512,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "veg3_cap", 
-            label = "Figure 3 Caption:", 
+            label = "Vegetation Photo #3 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -529,7 +531,7 @@ ui <- fluidPage(
               "Moderate (2)" = 'moderate',
               "Strong (3)" = 'strong'
             ),
-            selected = NULL,
+            selected = "strong",
             inline = T
           ),
           textInput(
@@ -546,7 +548,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "sinu1", 
-            label = "Figure 1 Caption:", 
+            label = "Sinuosity Photo #1 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -559,7 +561,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "sinu2", 
-            label = "Figure 2 Caption:", 
+            label = "Sinuosity Photo #2 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -573,7 +575,7 @@ ui <- fluidPage(
           
           textInput(
             inputId = "sinu3", 
-            label = "Figure 3 Caption:", 
+            label = "Sinuosity Photo #3 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -601,7 +603,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "add1_cap", 
-            label = "Figure 1 Caption:", 
+            label = "Additional Photo #1 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -613,7 +615,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "add2_cap", 
-            label = "Figure 2 Caption:", 
+            label = "Additional Photo #2 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -628,7 +630,7 @@ ui <- fluidPage(
           
           textInput(
             inputId = "add3_cap", 
-            label = "Figure 3 Caption:", 
+            label = "Additional Photo #3 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -750,6 +752,12 @@ server <- function(input, output, session) {
     session$userData$modelused <- input$paramchoice
     session$userData$bankwidth <- input$user_BankWidthMean
     
+    session$userData$user_fishabund_score2 <- input$user_fishabund_score2
+    session$userData$user_Sinuosity_score <- input$user_Sinuosity_score
+    session$userData$user_DifferencesInVegetation_score <- input$user_DifferencesInVegetation_score
+    session$userData$user_alglivedead_cover_score <- input$user_alglivedead_cover_score
+    
+    
     HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
   
   #------------ Report Tab
@@ -838,8 +846,63 @@ server <- function(input, output, session) {
       value = input$user_Sinuosity_score
     )
     
+    # Update the radio buttons for Indicators
+    print("RadioButtons")
+    print(input$user_alglivedead_cover_score)
+    print(input$user_fishabund_score2)
+    print(input$user_DifferencesInVegetation_score)
+    print(input$user_Sinuosity_score)
+    print("----")
     
+    updateRadioButtons(
+      session,
+      "algae_streambed",
+      selected = case_when(
+        input$user_alglivedead_cover_score == "0" ~ "none",
+        input$user_alglivedead_cover_score == "1" ~ "lessthan2",
+        input$user_alglivedead_cover_score == "5" ~ "2to10",
+        input$user_alglivedead_cover_score == "35" ~ "10to40",
+        input$user_alglivedead_cover_score == "50" ~ "morethan40",
+        
+      )
+    )
     
+    updateRadioButtons(
+      session,
+      "fish_abundance",
+      selected = case_when(
+        input$user_fishabund_score2 == "0" ~ "poor",
+        input$user_fishabund_score2 == "1" ~ "weak",
+        input$user_fishabund_score2 == "2" ~ "moderate",
+        input$user_fishabund_score2 == "3" ~ "strong",
+        
+      )
+    )
+    
+    updateRadioButtons(
+      session,
+      "vegetation_score",
+      selected = case_when(
+        input$user_DifferencesInVegetation_score == "0" ~ "poor",
+        input$user_DifferencesInVegetation_score == "1" ~ "weak",
+        input$user_DifferencesInVegetation_score == "2" ~ "moderate",
+        input$user_DifferencesInVegetation_score == "3" ~ "strong",
+        
+      )
+    )
+    
+    updateRadioButtons(
+      session,
+      "sinuosity",
+      selected = case_when(
+        input$user_Sinuosity_score == "0" ~ "poor",
+        input$user_Sinuosity_score == "1" ~ "weak",
+        input$user_Sinuosity_score == "2" ~ "moderate",
+        input$user_Sinuosity_score == "3" ~ "strong",
+        
+      )
+    )
+
     
   })
   output$report <- downloadHandler(
