@@ -225,11 +225,6 @@ snowdom <- function(lat, lon){
   # ppt.m10_RS<-readRDS("data/prism_var/ppt.m10_RS.rds")
   # proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
   
-  print("Debugging")
-  print(tmax_RS)
-  print(xsf)
-  print(raster::extract(tmax_RS, xsf, fun=mean, na.rm=T, sp=F))
-  
   
   # More stuff for May and Oct precip
   mydf_prism<-bind_cols(
@@ -237,7 +232,6 @@ snowdom <- function(lat, lon){
     raster::extract(ppt.m05_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m05 = 1),
     raster::extract(ppt.m10_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m10 = 1)
   )
-  saveRDS(mydf_prism,'data/prism_var/mydf_prism.rds')
   
   if (sno_inf == 'Outside snow raster') {
     return(
