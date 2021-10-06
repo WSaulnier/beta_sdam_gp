@@ -105,6 +105,12 @@ nosnoparams_ui <- fluidRow(
         6,
         shinycustomloader::withLoader(uiOutput('final_class'))
       )
+    ),
+    fluidRow(
+      column(
+        12,
+        br()
+      )
     )
     
   )
