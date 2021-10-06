@@ -446,7 +446,7 @@ cat(params$notes_aquainv)
 
 ## Algae Cover
 
-Algal cover on the stream-bed:
+Algae cover on the stream-bed:
 
 ```{r}
 cat(params$algae_streambed)

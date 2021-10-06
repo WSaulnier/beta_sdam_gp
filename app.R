@@ -314,7 +314,7 @@ ui <- fluidPage(
           
           textInput(
             inputId = "inv3_cap", 
-            label = "Invertebrate Photo #3:", 
+            label = "Invertebrate Photo #3 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -356,7 +356,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "alg1_cap", 
-            label = "Figure 1 Caption:", 
+            label = "Algae Photo #1 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -369,7 +369,7 @@ ui <- fluidPage(
           ),
           textInput(
             inputId = "alg2_cap", 
-            label = "Figure 2 Caption:", 
+            label = "Algae Photo #2 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -382,7 +382,7 @@ ui <- fluidPage(
           
           textInput(
             inputId = "alg3_cap", 
-            label = "Figure 3 Caption:", 
+            label = "Algae Photo #3 Caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
