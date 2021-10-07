@@ -283,12 +283,12 @@ ui <- fluidPage(
           ),
           fileInput(
             "inv1", 
-            HTML("Invertebrate Photo #1<br />Upload photo file here."), 
+            HTML("Invertebrate Photo #1<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "inv1_cap", 
-            label = "Invertebrate Photo #1 Caption:", 
+            label = "Invertebrate Photo #1 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -296,25 +296,25 @@ ui <- fluidPage(
           
           fileInput(
             "inv2", 
-            HTML("Invertebrate Photo #2<br />Upload photo file here."), 
+            HTML("Invertebrate Photo #2<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "inv2_cap", 
-            label = "Invertebrate Photo #2 Caption:", 
+            label = "Invertebrate Photo #2 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
           ),
           fileInput(
             "inv3", 
-            HTML("Invertebrate Photo #3<br />Upload photo file here."), 
+            HTML("Invertebrate Photo #3<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           
           textInput(
             inputId = "inv3_cap", 
-            label = "Invertebrate Photo #3 Caption:", 
+            label = "Invertebrate Photo #3 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -351,12 +351,12 @@ ui <- fluidPage(
           ),
           fileInput(
             "alg1", 
-            HTML("Algae Photo #1<br />Upload photo file here."), 
+            HTML("Algae Photo #1<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "alg1_cap", 
-            label = "Algae Photo #1 Caption:", 
+            label = "Algae Photo #1 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -364,25 +364,25 @@ ui <- fluidPage(
           
           fileInput(
             "alg2", 
-            HTML("Algae Photo #2<br />Upload photo file here."), 
+            HTML("Algae Photo #2<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "alg2_cap", 
-            label = "Algae Photo #2 Caption:", 
+            label = "Algae Photo #2 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
           ),
           fileInput(
             "alg3", 
-            HTML("Algae Photo #3<br />Upload photo file here."), 
+            HTML("Algae Photo #3<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           
           textInput(
             inputId = "alg3_cap", 
-            label = "Algae Photo #3 Caption:", 
+            label = "Algae Photo #3 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -419,24 +419,24 @@ ui <- fluidPage(
           ),
           fileInput(
             "fish1", 
-            HTML("Fish Photo #1<br />Upload photo file here."), 
+            HTML("Fish Photo #1<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "fish1_cap", 
-            label = "Fish Photo #1 Caption:", 
+            label = "Fish Photo #1 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
           ),
           fileInput(
             "fish2", 
-            HTML("Fish Photo #2<br />Upload photo file here."), 
+            HTML("Fish Photo #2<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "fish2_cap", 
-            label = "Fish Photo #2 Caption:", 
+            label = "Fish Photo #2 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -444,12 +444,12 @@ ui <- fluidPage(
           
           fileInput(
             "fish3", 
-            HTML("Fish Photo #3<br />Upload photo file here."), 
+            HTML("Fish Photo #3<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "fish3_cap", 
-            label = "Fish Photo #3 Caption:", 
+            label = "Fish Photo #3 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -481,12 +481,12 @@ ui <- fluidPage(
           ),
           fileInput(
             "veg1", 
-            HTML("Vegetation Photo #1<br />Upload photo file here."), 
+            HTML("Vegetation Photo #1<br/> Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "veg1_cap", 
-            label = "Vegetation Photo #1 Caption:", 
+            label = "Vegetation Photo #1 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -494,12 +494,12 @@ ui <- fluidPage(
           
           fileInput(
             "veg2", 
-            HTML("Vegetation Photo #2<br />Upload photo file here."), 
+            HTML("Vegetation Photo #2<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "veg2_cap", 
-            label = "Vegetation Photo #2 Caption:", 
+            label = "Vegetation Photo #2 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -507,12 +507,12 @@ ui <- fluidPage(
           
           fileInput(
             "veg3", 
-            HTML("Vegetation Photo #3<br />Upload photo file here."), 
+            HTML("Vegetation Photo #3<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "veg3_cap", 
-            label = "Vegetation Photo #3 Caption:", 
+            label = "Vegetation Photo #3 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -543,12 +543,12 @@ ui <- fluidPage(
           ),
           fileInput(
             "sinu1", 
-            HTML("Sinuosity Photo #1<br />Upload photo file here."), 
+            HTML("Sinuosity Photo #1<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "sinu1", 
-            label = "Sinuosity Photo #1 Caption:", 
+            label = "Sinuosity Photo #1 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -556,12 +556,12 @@ ui <- fluidPage(
           
           fileInput(
             "sinu2", 
-            HTML("Sinuosity Photo #2<br />Upload photo file here."), 
+            HTML("Sinuosity Photo #2<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "sinu2", 
-            label = "Sinuosity Photo #2 Caption:", 
+            label = "Sinuosity Photo #2 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -569,13 +569,13 @@ ui <- fluidPage(
           
           fileInput(
             "sinu3", 
-            HTML("Sinuosity Photo #3<br />Upload photo file here."), 
+            HTML("Sinuosity Photo #3<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           
           textInput(
             inputId = "sinu3", 
-            label = "Sinuosity Photo #3 Caption:", 
+            label = "Sinuosity Photo #3 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -598,24 +598,24 @@ ui <- fluidPage(
           ),
           fileInput(
             "add1", 
-            HTML("Additional Photo #1<br />Upload photo file here."), 
+            HTML("Additional Photo #1<br/> <span style='font-weight:normal'> Upload photo file here: </span>"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "add1_cap", 
-            label = "Additional Photo #1 Caption:", 
+            label = HTML("<span style='font-weight:normal'> Additional Photo #1 caption: </span>"), 
             value = "", 
             width = NULL, 
             placeholder = NULL
           ),
           fileInput(
             "add2", 
-            HTML("Additional Photo #2<br />Upload photo file here."), 
+            HTML("Additional Photo #2<br/> Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
             inputId = "add2_cap", 
-            label = "Additional Photo #2 Caption:", 
+            label = "Additional Photo #2 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
@@ -624,13 +624,13 @@ ui <- fluidPage(
           
           fileInput(
             "add3", 
-            HTML("Additional Photo #3<br />Upload photo file here."), 
+            HTML("Additional Photo #3<br />Upload photo file here:"), 
             accept = c('image/png', 'image/jpeg')
           ),
           
           textInput(
             inputId = "add3_cap", 
-            label = "Additional Photo #3 Caption:", 
+            label = "Additional Photo #3 caption:", 
             value = "", 
             width = NULL, 
             placeholder = NULL
