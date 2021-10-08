@@ -547,7 +547,7 @@ ui <- fluidPage(
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
-            inputId = "sinu1", 
+            inputId = "sinu1_cap", 
             label = HTML("<span style='font-weight:normal'>Sinuosity Photo #1 caption: </span>"), 
             value = "", 
             width = NULL, 
@@ -560,7 +560,7 @@ ui <- fluidPage(
             accept = c('image/png', 'image/jpeg')
           ),
           textInput(
-            inputId = "sinu2", 
+            inputId = "sinu2_cap", 
             label = HTML("<span style='font-weight:normal'>Sinuosity Photo #2 caption: </span>"), 
             value = "", 
             width = NULL, 
@@ -574,7 +574,7 @@ ui <- fluidPage(
           ),
           
           textInput(
-            inputId = "sinu3", 
+            inputId = "sinu3_cap", 
             label = HTML("<span style='font-weight:normal'>Sinuosity Photo #3 caption:</span>"), 
             value = "", 
             width = NULL, 
