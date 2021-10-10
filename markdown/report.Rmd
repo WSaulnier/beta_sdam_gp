@@ -247,7 +247,7 @@ cat(params$r)
 ## Site Photos
 
 Top of reach looking downstream:
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["v"]], character(0))){ 
   knitr::include_graphics(params[["v"]])
 } else {
@@ -256,7 +256,7 @@ if (!identical(params[["v"]], character(0))){
 ```
 
 Middle of reach looking upstream:
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["u"]], character(0))){ 
   knitr::include_graphics(params[["u"]])
 } else {
@@ -266,7 +266,7 @@ if (!identical(params[["u"]], character(0))){
 ```
 
 Middle of reach looking downstream:
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["t"]], character(0))){ 
   knitr::include_graphics(params[["t"]])
@@ -276,7 +276,7 @@ if (!identical(params[["t"]], character(0))){
 ```
 
 Bottom of reach looking upstream:
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["s"]], character(0))){ 
   knitr::include_graphics(params[["s"]])
 } else {
@@ -286,7 +286,7 @@ if (!identical(params[["s"]], character(0))){
 
 ## Site Sketch
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["w"]], character(0))){ 
   knitr::include_graphics(params[["w"]])
 } else {
@@ -302,44 +302,44 @@ Indicators used to classify the assessment reach are indicated with an asterisk.
 
 ## Climatic indicators
 
-Snow persistence:
+<!-- Snow persistence: -->
 ```{r}
 cat(params$snow_persistence)
 cat(paste0("The site is ",params$snow_or_no))
 ```
 
-May precipitation (mm):
+<!-- May precipitation (mm): -->
 ```{r}
 
 if (params$modelused == 'nosno') {
   cat(params$may_precip)
 } else {
-  cat("Not Applicable")
+  cat("May precipitation is not applicable")
 }
 ```
-<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- ```{r, out.width='50%', fig.align='center'} -->
 <!-- knitr::include_graphics(params[["al"]]) -->
 <!-- ``` -->
 
-<!-- ```{r, out.width='25%', fig.align='center'} -->
+<!-- ```{r, out.width='50%', fig.align='center'} -->
 <!-- knitr::include_graphics(params[["am"]]) -->
 <!-- ``` -->
 
-October precipitation (mm): 
+<!-- October precipitation (mm):  -->
 ```{r}
 if (params$modelused == 'sno') {
   cat(params$oct_precip)
 } else {
-  cat("Not Applicable")
+  cat("October precipitation is not applicable")
 }
 ```
 
-Mean annual maximum temperature (Deg C): 
+<!-- Mean annual maximum temperature (Deg C):  -->
 ```{r}
 if (params$modelused == 'nosno') {
   cat(params$mean_temp)
 } else {
-  cat("Not Applicable")
+  cat("Mean annual maximum temperature not applicable")
 }
 ```
 
@@ -387,7 +387,7 @@ Total number of perennial indicator families:
 
 Aquatic invertebrate photos and photo descriptions.
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f6"]], character(0))){ 
   knitr::include_graphics(params[["f6"]])
@@ -397,13 +397,16 @@ if (!identical(params[["f6"]], character(0))){
   
 ```
 
+
 ```{r}
+
 if (!identical(params[["f6"]], character(0))){ 
-  cat(paste0("Description: ",params$f6_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f6_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f7"]], character(0))){ 
   knitr::include_graphics(params[["f7"]])
@@ -415,11 +418,11 @@ if (!identical(params[["f7"]], character(0))){
 
 ```{r}
 if (!identical(params[["f7"]], character(0))){ 
-  cat(paste0("Description: ",params$f7_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f7_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f8"]], character(0))){ 
   knitr::include_graphics(params[["f8"]])
@@ -431,7 +434,7 @@ if (!identical(params[["f8"]], character(0))){
 
 ```{r}
 if (!identical(params[["f8"]], character(0))){ 
-  cat(paste0("Description: ",params$f8_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f8_cap, perl = TRUE)))
 }
 ```
 
@@ -469,7 +472,7 @@ cat(params$notes_algaecover)
 
 Algae photos and photo descriptions:
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
   
 if (!identical(params[["f9"]], character(0))){ 
   knitr::include_graphics(params[["f9"]])
@@ -481,12 +484,12 @@ if (!identical(params[["f9"]], character(0))){
 
 ```{r}
 if (!identical(params[["f9"]], character(0))){ 
-  cat(paste0("Description: ",params$f9_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f9_cap, perl = TRUE)))
 }
 ```
 
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f10"]], character(0))){ 
   knitr::include_graphics(params[["f10"]])
@@ -497,11 +500,11 @@ if (!identical(params[["f10"]], character(0))){
 
 ```{r}
 if (!identical(params[["f10"]], character(0))){ 
-  cat(paste0("Description: ",params$f10_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f10_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f11"]], character(0))){ 
   knitr::include_graphics(params[["f11"]])
@@ -514,7 +517,7 @@ if (!identical(params[["f11"]], character(0))){
 
 ```{r}
 if (!identical(params[["f11"]], character(0))){ 
-  cat(paste0("Description: ",params$f11_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f11_cap, perl = TRUE)))
 }
 ```
 
@@ -544,7 +547,7 @@ cat(params$notes_fish_abundance)
 
 Fish photos and descriptions: 
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f12"]], character(0))){ 
   knitr::include_graphics(params[["f12"]])
@@ -556,12 +559,12 @@ if (!identical(params[["f12"]], character(0))){
 
 ```{r}
 if (!identical(params[["f12"]], character(0))){ 
-  cat(paste0("Description: ",params$f12_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f12_cap, perl = TRUE)))
 }
 ```
 
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f13"]], character(0))){ 
   knitr::include_graphics(params[["f13"]])
@@ -573,11 +576,11 @@ if (!identical(params[["f13"]], character(0))){
 
 ```{r}
 if (!identical(params[["f13"]], character(0))){ 
-  cat(paste0("Description: ",params$f13_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f13_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f14"]], character(0))){ 
   knitr::include_graphics(params[["f14"]])
@@ -589,7 +592,7 @@ if (!identical(params[["f14"]], character(0))){
 
 ```{r}
 if (!identical(params[["f14"]], character(0))){ 
-  cat(paste0("Description: ",params$f14_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f14_cap, perl = TRUE)))
 }
 ```
 
@@ -616,7 +619,7 @@ cat(params$notes_differences_vegetation)
 
 Differences in vegetation photos and descriptions:
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f15"]], character(0))){ 
   knitr::include_graphics(params[["f15"]])
@@ -628,12 +631,12 @@ if (!identical(params[["f15"]], character(0))){
 
 ```{r}
 if (!identical(params[["f15"]], character(0))){ 
-  cat(paste0("Description: ",params$f15_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f15_cap, perl = TRUE)))
 }
 ```
 
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f16"]], character(0))){ 
   knitr::include_graphics(params[["f16"]])
@@ -645,11 +648,11 @@ if (!identical(params[["f16"]], character(0))){
 
 ```{r}
 if (!identical(params[["f16"]], character(0))){ 
-  cat(paste0("Description: ",params$f16_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f16_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f17"]], character(0))){ 
   knitr::include_graphics(params[["f17"]])
@@ -661,7 +664,7 @@ if (!identical(params[["f17"]], character(0))){
 
 ```{r}
 if (!identical(params[["f17"]], character(0))){ 
-  cat(paste0("Description: ",params$f17_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f17_cap, perl = TRUE)))
 }
 ```
 
@@ -696,7 +699,7 @@ cat(params$notes_sinuosity)
 
 Sinuosity photos and descriptions:
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f18"]], character(0))){ 
     knitr::include_graphics(params[["f18"]])
@@ -708,11 +711,11 @@ if (!identical(params[["f18"]], character(0))){
 
 ```{r}
 if (!identical(params[["f18"]], character(0))){ 
-  cat(paste0("Description: ",params$f18_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f18_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f19"]], character(0))){ 
     knitr::include_graphics(params[["f19"]])
@@ -724,12 +727,12 @@ if (!identical(params[["f19"]], character(0))){
 
 ```{r}
 if (!identical(params[["f19"]], character(0))){ 
-  cat(paste0("Description: ",params$f19_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f19_cap, perl = TRUE)))
 }
 ```
 
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f20"]], character(0))){ 
     knitr::include_graphics(params[["f20"]])
@@ -741,7 +744,7 @@ if (!identical(params[["f20"]], character(0))){
 
 ```{r}
 if (!identical(params[["f20"]], character(0))){ 
-  cat(paste0("Description: ",params$f20_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f20_cap, perl = TRUE)))
 }
 ```
 
@@ -755,7 +758,7 @@ cat(params$notes_supplemental_information)
 ```
 
 Supplemental information photos and descriptions
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f21"]], character(0))){ 
     knitr::include_graphics(params[["f21"]])
@@ -767,11 +770,11 @@ if (!identical(params[["f21"]], character(0))){
 
 ```{r}
 if (!identical(params[["f21"]], character(0))){ 
-  cat(paste0("Description: ",params$f21_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f21_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f22"]], character(0))){ 
     knitr::include_graphics(params[["f22"]])
@@ -782,11 +785,11 @@ if (!identical(params[["f22"]], character(0))){
 
 ```{r}
 if (!identical(params[["f22"]], character(0))){ 
-  cat(paste0("Description: ",params$f22_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f22_cap, perl = TRUE)))
 }
 ```
 
-```{r, out.width='25%', fig.align='center'}
+```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f23"]], character(0))){ 
     knitr::include_graphics(params[["f23"]])
@@ -798,7 +801,7 @@ if (!identical(params[["f23"]], character(0))){
 
 ```{r}
 if (!identical(params[["f23"]], character(0))){ 
-  cat(paste0("Description: ",params$f23_cap))
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f23_cap, perl = TRUE)))
 }
 ```
 

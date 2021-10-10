@@ -8,6 +8,7 @@ library(rgdal)
 library(shiny)
 library(shinycssloaders)
 library(shinycustomloader)
+library(formatR)
 
 # Need to specify background color for spinner
 options(spinner.color="#0275D8", spinner.color.background="#ffffff", spinner.size=0.5)
