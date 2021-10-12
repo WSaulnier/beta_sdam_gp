@@ -311,10 +311,10 @@ cat(paste0("The site is ",params$snow_or_no))
 <!-- May precipitation (mm): -->
 ```{r}
 
-if (params$modelused == 'nosno') {
+if (!is.null(params$modelused) ) {
   cat(params$may_precip)
 } else {
-  cat("May precipitation is not applicable")
+  cat("Data was not provided")
 }
 ```
 <!-- ```{r, out.width='50%', fig.align='center'} -->
@@ -327,19 +327,19 @@ if (params$modelused == 'nosno') {
 
 <!-- October precipitation (mm):  -->
 ```{r}
-if (params$modelused == 'sno') {
+if (!is.null(params$oct_precip)) {
   cat(params$oct_precip)
 } else {
-  cat("October precipitation is not applicable")
+  cat("Data was not provided")
 }
 ```
 
 <!-- Mean annual maximum temperature (Deg C):  -->
 ```{r}
-if (params$modelused == 'nosno') {
+if (!is.null(params$mean_temp)) {
   cat(params$mean_temp)
 } else {
-  cat("Mean annual maximum temperature not applicable")
+  cat("Data was not provided")
 }
 ```
 
@@ -351,29 +351,29 @@ if (params$modelused == 'nosno') {
 Total abundance of aquatic invertebrates:
 
 ```{r}
-if (params$modelused == 'sno') {
+if (!is.null(params$aqua_inv)) {
   cat(params$aqua_inv)
 } else {
-  cat("Not Applicable")
+  cat("Data was not provided")
 }
 ```
 
 Total abundance of mayflies:
 
 ```{r}
-if (params$modelused == 'nosno') {
+if (!is.null(params$may_flies)) {
   cat(params$may_flies)
 } else {
-  cat("Not Applicable")
+  cat("Data was not provided")
 }
 ```
 
 Total abundance of perennial indicator taxa: 
 ```{r}
-if (params$modelused == 'sno') {
+if (!is.null(params$indicator_taxa)) {
   cat(params$indicator_taxa)
 } else {
-  cat("Not Applicable")
+  cat("Data was not provided")
 }
 ```
 
@@ -602,10 +602,10 @@ if (!identical(params[["f14"]], character(0))){
 Differences in vegetation score:
 
 ```{r}
-if (params$modelused == 'nosno'){
+if (!is.null(params$vegetation_score)){
   cat(params$vegetation_score)
 } else {
-  cat("Not Applicable")
+  cat("Data was not provided")
   }
 
 ```
@@ -684,10 +684,11 @@ cat(params$bankwidth)
 Sinuosity score:
 
 ```{r}
-if (params$modelused == 'nosno'){
+if (!is.null(params$vegetation_score)
+     ){
   cat(params$sinuosity)
 } else{
-  cat("Not Applicable")
+  cat("Data was not provided")
 }
 ```
 
