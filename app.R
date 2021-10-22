@@ -69,576 +69,580 @@ ui <- fluidPage(
               12,
               uiOutput('params')
             )
-          )
+          ),
+          conditionalPanel(
+            'input.runmodel == 1',
+            #------- General Information
+            h1(HTML(
+              "General Site Information")
+            ),
+            br(),
+            textInput(
+              "project", 
+              label = "Project Name or Number:" , 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            textInput(
+              "code", 
+              label = "Site Code or Identifier:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            textInput(
+              "assessor", 
+              label = "Assessor(s):", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            textInput(
+              "waterway", 
+              label = "Waterway Name:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            textInput(
+              "date", 
+              label = "Visit Date:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            radioButtons(
+              inputId = "radio_weather",
+              label = "Current Weather Conditions (check one):",
+              choices = c(
+                "Storm/Heavy Rain" = 'heavyrain',
+                "Steady Rain" = 'steadyrain',
+                "Intermitten Rain" = 'intermittenrain',
+                "Snowing" = 'snowing',
+                "Cloudy" = 'cloudy',
+                "Clear/Sunny" = 'clearsunny'
+              ),
+              selected = NULL
+            ),
+            textInput(
+              "weather", 
+              label = "Notes on current or recent weather conditions:" , 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            checkboxGroupInput(
+              inputId = "check_use",
+              label = "Surrounding land-use within 100 m (check one or two):",
+              choices = c(
+                "Urban, industrial, or residential" = 'urban',
+                "Agricultural" = 'agricultural',
+                "Developed open-space " = 'openspace',
+                "Forested" = 'forested',
+                "Other Natural" = 'othernatural',
+                "Other" = 'other'
+              ),
+              selected = NULL
+            ),
+            textInput(
+              inputId = "boundary", 
+              label = "Describe reach boundaries:" , 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            numericInput(
+              inputId = "actreach",
+              label = "Assessment reach length (m):",
+              value = "",
+              min = 0,
+            ),
+            checkboxGroupInput(
+              inputId = "radio_situation",
+              label = "Disturbed or difficult conditions (check all that apply):",
+              choices = c(
+                "Recent flood or debris flow" = 'flood',
+                "Stream modifications (e.g., channelization)" = 'stream_modifications',
+                "Diversions" = 'diversions',
+                "Discharges" = 'discharges',
+                "Drought" = 'drought',
+                "Vegetation removal/limitations" = 'vegetation',
+                "Other (explain in notes)" = 'other',
+                "None" = 'none'
+              ),
+              selected = NULL
+            ),
+            textInput(
+              inputId = "situation", 
+              label = "Site disturbances/difficulties::" , 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            #------- Observed Hydrology
+            h1(HTML(
+              "Observed Hydrology")
+            ),
+            br(),
+            numericInput(
+              inputId = "surfflow",
+              label = "Percent of reach with surface flows:",
+              value = "",
+              min = 0,
+            ),
+            numericInput(
+              inputId = "subflow",
+              label = "Percent of reach with surface and sub-surface flows:",
+              value = "",
+              min = 0,
+            ),
+            numericInput(
+              inputId = "pool",
+              label = "Number of isolated pools:",
+              value = "",
+              min = 0,
+            ),
+            textInput(
+              inputId = "notes_observed_hydrology", 
+              label = "Comments on observed hydrology:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            #------- Site Photos
+            h1(HTML("Site Photos")),
+            br(),
+            fileInput(
+              "tld", 
+              "Top of reach looking downstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "mlu", 
+              "Middle of reach looking upstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "mld", 
+              "Middle of reach looking downstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "blu", 
+              "Bottom of reach looking upstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "sketch", 
+              "Site Sketch:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            
+            #------- Indicators
+            h1(HTML("Indicators")),
+            helpText("Indicators required for classification are filled in from entries in the previous form. 
+                   Other indicators measured during the assessment may be added here."),
+            h2(HTML("Aquatic Invertebrates")),
+            br(),
+            numericInput(
+              inputId = "aqua_inv",
+              label = "Total abundance of aquatic invertebrates : ",
+              value = ""
+            ),
+            numericInput(
+              inputId = "may_flies",
+              label = "Total abundance of mayflies: ",
+              value = ""
+            ),
+            numericInput(
+              inputId = "indicator_taxa",
+              label = "Total abundance of perennial indicator taxa:",
+              value = ""
+            ),
+            numericInput(
+              inputId = "indicator_families",
+              label = "Total number of perennial indicator families:",
+              value = ""
+            ),
+            textInput(
+              inputId = "notes", 
+              label = "Notes about aquatic invertebrates:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "inv1", 
+              HTML("Invertebrate Photo #1<br /> <span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "inv1_cap", 
+              label = HTML("<span style='font-weight:normal'> Invertebrate Photo #1 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "inv2", 
+              HTML("Invertebrate Photo #2<br /> <span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "inv2_cap", 
+              label = HTML("<span style='font-weight:normal'>Invertebrate Photo #2 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "inv3", 
+              HTML("Invertebrate Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            textInput(
+              inputId = "inv3_cap", 
+              label = HTML("<span style='font-weight:normal'>Invertebrate Photo #3 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            br(),
+            #------- Algae Cover
+            h2(HTML("Algae Cover")),
+            br(),
+            radioButtons(
+              inputId = "algae_streambed",
+              label = "Algae cover on the streambed:",
+              choices = c(
+                "None Detected" = 'none',
+                "< 2%" = 'lessthan2',
+                "2% to 10%" = '2to10',
+                "10% to 40%" = '10to40',
+                "40% and above" = 'morethan40'
+              ),
+              selected = NULL,
+              inline = T
+            ),
+            checkboxInput(
+              "algae_checkbox", 
+              "Check if all observed algae appear to be deposited from an upstream source", 
+              value = FALSE, 
+              width = NULL
+            ),
+            textInput(
+              inputId = "notes_algaecover", 
+              label = "Notes about algae cover:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "alg1", 
+              HTML("Algae Photo #1<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "alg1_cap", 
+              label = HTML("<span style='font-weight:normal'>Algae Photo #1 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "alg2", 
+              HTML("Algae Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "alg2_cap", 
+              label = HTML("<span style='font-weight:normal'>Algae Photo #2 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "alg3", 
+              HTML("Algae Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            textInput(
+              inputId = "alg3_cap", 
+              label = HTML("<span style='font-weight:normal'>Algae Photo #3 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            br(),
+            
+            #------- Fish Abundance
+            h1(HTML("Fish abundance")),
+            br(),
+            radioButtons(
+              inputId = "fish_abundance",
+              label = "Fish abundance (other than mosquitofish):",
+              choices = c(
+                "Poor (0)" = 'poor',
+                "Weak (1)" = 'weak',
+                "Moderate (2)" = 'moderate',
+                "Strong (3)" = 'strong'
+              ),
+              selected = NULL,
+              inline = T
+            ),
+            checkboxInput(
+              "fish_abundance_checkbox", 
+              "Check if all fish observed are mosquitofish", 
+              value = FALSE, 
+              width = NULL
+            ),
+            textInput(
+              inputId = "notes_fish_abundance", 
+              label = "Notes about fish abundance:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "fish1", 
+              HTML("Fish Photo #1<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "fish1_cap", 
+              label = HTML("<span style='font-weight:normal'>Fish Photo #1 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "fish2", 
+              HTML("Fish Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "fish2_cap", 
+              label = HTML("<span style='font-weight:normal'>Fish Photo #2 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "fish3", 
+              HTML("Fish Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "fish3_cap", 
+              label = HTML("<span style='font-weight:normal'>Fish Photo #3 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            br(),
+            
+            #------- Differences in vegetation
+            h1(HTML("Differences in vegetation")),
+            br(),
+            radioButtons(
+              inputId = "vegetation_score",
+              label = "Differences in vegetation score:",
+              choices = c(
+                "Poor (0)" = 'poor',
+                "Weak (1)" = 'weak',
+                "Moderate (2)" = 'moderate',
+                "Strong (3)" = 'strong'
+              ),
+              selected = NULL,
+              inline = T
+            ),
+            textInput(
+              inputId = "notes_differences_vegetation", 
+              label = "Notes about differences in vegetation:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "veg1", 
+              HTML("Vegetation Photo #1<br/><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "veg1_cap", 
+              label = HTML("<span style='font-weight:normal'>Vegetation Photo #1 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "veg2", 
+              HTML("Vegetation Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "veg2_cap", 
+              label = HTML("<span style='font-weight:normal'>Vegetation Photo #2 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "veg3", 
+              HTML("Vegetation Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "veg3_cap", 
+              label = HTML("<span style='font-weight:normal'>Vegetation Photo #3 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            br(),
+            
+            #------- Sinuosity
+            h1(HTML("Sinuosity")),
+            br(),
+            radioButtons(
+              inputId = "sinuosity",
+              label = "Sinuosity score:",
+              choices = c(
+                "Poor (0)" = 'poor',
+                "Weak (1)" = 'weak',
+                "Moderate (2)" = 'moderate',
+                "Strong (3)" = 'strong'
+              ),
+              selected = "strong",
+              inline = T
+            ),
+            textInput(
+              inputId = "notes_sinuosity", 
+              label = "Notes about sinuosity:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "sinu1", 
+              HTML("Sinuosity Photo #1<br /> <span style='font-weight:normal'>Upload photo file here: </span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "sinu1_cap", 
+              label = HTML("<span style='font-weight:normal'>Sinuosity Photo #1 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "sinu2", 
+              HTML("Sinuosity Photo #2<br /> <span style='font-weight:normal'> Upload photo file here: </span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "sinu2_cap", 
+              label = HTML("<span style='font-weight:normal'>Sinuosity Photo #2 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            fileInput(
+              "sinu3", 
+              HTML("Sinuosity Photo #3<br /> <span style='font-weight:normal'>Upload photo file here:</span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            textInput(
+              inputId = "sinu3_cap", 
+              label = HTML("<span style='font-weight:normal'>Sinuosity Photo #3 caption:</span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            br(),
+            
+            #------- Supplemental Information
+            h1(HTML("Supplemental Information")),
+            br(),
+            HTML(
+              "If observed, note the presence of the aquatic life stages of amphibians, 
+             snakes, or turtles; iron-oxidizing bacteria and fungi; etc."
+            ),
+            textInput(
+              inputId = "notes_supplemental_information", 
+              label = "Additional notes about the assessment:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "add1", 
+              HTML("Additional Photo #1<br/> <span style='font-weight:normal'>Upload photo file here: </span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "add1_cap", 
+              label = HTML("<span style='font-weight:normal'>Additional Photo #1 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            fileInput(
+              "add2", 
+              HTML("Additional Photo #2<br/> <span style='font-weight:normal'>Upload photo file here: </span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            textInput(
+              inputId = "add2_cap", 
+              label = HTML("<span style='font-weight:normal'>Additional Photo #2 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            
+            
+            fileInput(
+              "add3", 
+              HTML("Additional Photo #3<br /> <span style='font-weight:normal'>Upload photo file here: </span>"), 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            textInput(
+              inputId = "add3_cap", 
+              label = HTML("<span style='font-weight:normal'>Additional Photo #3 caption: </span>"), 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
+            downloadButton("report", "Generate report"),
+            br(),
+            br(),
+            br()
+          )  
+          
         ),
         tabPanel(
-          "Generate Report",
-          
-          #------- General Information
-          h1(HTML(
-            "General Site Information")
-          ),
-          br(),
-          textInput(
-            "project", 
-            label = "Project Name or Number:" , 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          textInput(
-            "code", 
-            label = "Site Code or Identifier:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          textInput(
-            "assessor", 
-            label = "Assessor(s):", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          textInput(
-            "waterway", 
-            label = "Waterway Name:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          textInput(
-            "date", 
-            label = "Visit Date:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          radioButtons(
-            inputId = "radio_weather",
-            label = "Current Weather Conditions (check one):",
-            choices = c(
-              "Storm/Heavy Rain" = 'heavyrain',
-              "Steady Rain" = 'steadyrain',
-              "Intermitten Rain" = 'intermittenrain',
-              "Snowing" = 'snowing',
-              "Cloudy" = 'cloudy',
-              "Clear/Sunny" = 'clearsunny'
-             ),
-             selected = NULL
-          ),
-          textInput(
-            "weather", 
-            label = "Notes on current or recent weather conditions:" , 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          checkboxGroupInput(
-            inputId = "check_use",
-            label = "Surrounding land-use within 100 m (check one or two):",
-            choices = c(
-              "Urban, industrial, or residential" = 'urban',
-              "Agricultural" = 'agricultural',
-              "Developed open-space " = 'openspace',
-              "Forested" = 'forested',
-              "Other Natural" = 'othernatural',
-              "Other" = 'other'
-            ),
-            selected = NULL
-          ),
-          textInput(
-            inputId = "boundary", 
-            label = "Describe reach boundaries:" , 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          numericInput(
-            inputId = "actreach",
-            label = "Assessment reach length (m):",
-            value = "",
-            min = 0,
-          ),
-          checkboxGroupInput(
-            inputId = "radio_situation",
-            label = "Disturbed or difficult conditions (check all that apply):",
-            choices = c(
-              "Recent flood or debris flow" = 'flood',
-              "Stream modifications (e.g., channelization)" = 'stream_modifications',
-              "Diversions" = 'diversions',
-              "Discharges" = 'discharges',
-              "Drought" = 'drought',
-              "Vegetation removal/limitations" = 'vegetation',
-              "Other (explain in notes)" = 'other',
-              "None" = 'none'
-            ),
-            selected = NULL
-          ),
-          textInput(
-            inputId = "situation", 
-            label = "Site disturbances/difficulties::" , 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          #------- Observed Hydrology
-          h1(HTML(
-            "Observed Hydrology")
-          ),
-          br(),
-          numericInput(
-            inputId = "surfflow",
-            label = "Percent of reach with surface flows:",
-            value = "",
-            min = 0,
-          ),
-          numericInput(
-            inputId = "subflow",
-            label = "Percent of reach with surface and sub-surface flows:",
-            value = "",
-            min = 0,
-          ),
-          numericInput(
-            inputId = "pool",
-            label = "Number of isolated pools:",
-            value = "",
-            min = 0,
-          ),
-          textInput(
-            inputId = "notes_observed_hydrology", 
-            label = "Comments on observed hydrology:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          #------- Site Photos
-          h1(HTML("Site Photos")),
-          br(),
-          fileInput(
-            "tld", 
-            "Top of reach looking downstream:", 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          fileInput(
-            "mlu", 
-            "Middle of reach looking upstream:", 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          fileInput(
-            "mld", 
-            "Middle of reach looking downstream:", 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          fileInput(
-            "blu", 
-            "Bottom of reach looking upstream:", 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          fileInput(
-            "sketch", 
-            "Site Sketch:", 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          
-          #------- Indicators
-          h1(HTML("Indicators")),
-          helpText("Indicators required for classification are filled in from entries in the previous form. 
-                   Other indicators measured during the assessment may be added here."),
-          h2(HTML("Aquatic Invertebrates")),
-          br(),
-          numericInput(
-            inputId = "aqua_inv",
-            label = "Total abundance of aquatic invertebrates : ",
-            value = ""
-          ),
-          numericInput(
-            inputId = "may_flies",
-            label = "Total abundance of mayflies: ",
-            value = ""
-          ),
-          numericInput(
-            inputId = "indicator_taxa",
-            label = "Total abundance of perennial indicator taxa:",
-            value = ""
-          ),
-          numericInput(
-            inputId = "indicator_families",
-            label = "Total number of perennial indicator families:",
-            value = ""
-          ),
-          textInput(
-            inputId = "notes", 
-            label = "Notes about aquatic invertebrates:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "inv1", 
-            HTML("Invertebrate Photo #1<br /> <span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "inv1_cap", 
-            label = HTML("<span style='font-weight:normal'> Invertebrate Photo #1 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "inv2", 
-            HTML("Invertebrate Photo #2<br /> <span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "inv2_cap", 
-            label = HTML("<span style='font-weight:normal'>Invertebrate Photo #2 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "inv3", 
-            HTML("Invertebrate Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          textInput(
-            inputId = "inv3_cap", 
-            label = HTML("<span style='font-weight:normal'>Invertebrate Photo #3 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          br(),
-          #------- Algae Cover
-          h2(HTML("Algae Cover")),
-          br(),
-          radioButtons(
-            inputId = "algae_streambed",
-            label = "Algae cover on the streambed:",
-            choices = c(
-              "None Detected" = 'none',
-              "< 2%" = 'lessthan2',
-              "2% to 10%" = '2to10',
-              "10% to 40%" = '10to40',
-              "40% and above" = 'morethan40'
-            ),
-            selected = NULL,
-            inline = T
-          ),
-          checkboxInput(
-            "algae_checkbox", 
-            "Check if all observed algae appear to be deposited from an upstream source", 
-            value = FALSE, 
-            width = NULL
-          ),
-          textInput(
-            inputId = "notes_algaecover", 
-            label = "Notes about algae cover:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "alg1", 
-            HTML("Algae Photo #1<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "alg1_cap", 
-            label = HTML("<span style='font-weight:normal'>Algae Photo #1 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "alg2", 
-            HTML("Algae Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "alg2_cap", 
-            label = HTML("<span style='font-weight:normal'>Algae Photo #2 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "alg3", 
-            HTML("Algae Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          textInput(
-            inputId = "alg3_cap", 
-            label = HTML("<span style='font-weight:normal'>Algae Photo #3 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          br(),
-          
-          #------- Fish Abundance
-          h1(HTML("Fish abundance")),
-          br(),
-          radioButtons(
-            inputId = "fish_abundance",
-            label = "Fish abundance (other than mosquitofish):",
-            choices = c(
-              "Poor (0)" = 'poor',
-              "Weak (1)" = 'weak',
-              "Moderate (2)" = 'moderate',
-              "Strong (3)" = 'strong'
-            ),
-            selected = NULL,
-            inline = T
-          ),
-          checkboxInput(
-            "fish_abundance_checkbox", 
-            "Check if all fish observed are mosquitofish", 
-            value = FALSE, 
-            width = NULL
-          ),
-          textInput(
-            inputId = "notes_fish_abundance", 
-            label = "Notes about fish abundance:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "fish1", 
-            HTML("Fish Photo #1<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "fish1_cap", 
-            label = HTML("<span style='font-weight:normal'>Fish Photo #1 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "fish2", 
-            HTML("Fish Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "fish2_cap", 
-            label = HTML("<span style='font-weight:normal'>Fish Photo #2 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "fish3", 
-            HTML("Fish Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "fish3_cap", 
-            label = HTML("<span style='font-weight:normal'>Fish Photo #3 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          br(),
-          
-          #------- Differences in vegetation
-          h1(HTML("Differences in vegetation")),
-          br(),
-          radioButtons(
-            inputId = "vegetation_score",
-            label = "Differences in vegetation score:",
-            choices = c(
-              "Poor (0)" = 'poor',
-              "Weak (1)" = 'weak',
-              "Moderate (2)" = 'moderate',
-              "Strong (3)" = 'strong'
-            ),
-            selected = NULL,
-            inline = T
-          ),
-          textInput(
-            inputId = "notes_differences_vegetation", 
-            label = "Notes about differences in vegetation:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "veg1", 
-            HTML("Vegetation Photo #1<br/><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "veg1_cap", 
-            label = HTML("<span style='font-weight:normal'>Vegetation Photo #1 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "veg2", 
-            HTML("Vegetation Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "veg2_cap", 
-            label = HTML("<span style='font-weight:normal'>Vegetation Photo #2 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "veg3", 
-            HTML("Vegetation Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "veg3_cap", 
-            label = HTML("<span style='font-weight:normal'>Vegetation Photo #3 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          br(),
-          
-          #------- Sinuosity
-          h1(HTML("Sinuosity")),
-          br(),
-          radioButtons(
-            inputId = "sinuosity",
-            label = "Sinuosity score:",
-            choices = c(
-              "Poor (0)" = 'poor',
-              "Weak (1)" = 'weak',
-              "Moderate (2)" = 'moderate',
-              "Strong (3)" = 'strong'
-            ),
-            selected = "strong",
-            inline = T
-          ),
-          textInput(
-            inputId = "notes_sinuosity", 
-            label = "Notes about sinuosity:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "sinu1", 
-            HTML("Sinuosity Photo #1<br /> <span style='font-weight:normal'>Upload photo file here: </span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "sinu1_cap", 
-            label = HTML("<span style='font-weight:normal'>Sinuosity Photo #1 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "sinu2", 
-            HTML("Sinuosity Photo #2<br /> <span style='font-weight:normal'> Upload photo file here: </span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "sinu2_cap", 
-            label = HTML("<span style='font-weight:normal'>Sinuosity Photo #2 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          fileInput(
-            "sinu3", 
-            HTML("Sinuosity Photo #3<br /> <span style='font-weight:normal'>Upload photo file here:</span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          textInput(
-            inputId = "sinu3_cap", 
-            label = HTML("<span style='font-weight:normal'>Sinuosity Photo #3 caption:</span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          br(),
-          
-          #------- Supplemental Information
-          h1(HTML("Supplemental Information")),
-          br(),
-          HTML(
-            "If observed, note the presence of the aquatic life stages of amphibians, 
-             snakes, or turtles; iron-oxidizing bacteria and fungi; etc."
-          ),
-          textInput(
-            inputId = "notes_supplemental_information", 
-            label = "Additional notes about the assessment:", 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "add1", 
-            HTML("Additional Photo #1<br/> <span style='font-weight:normal'>Upload photo file here: </span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "add1_cap", 
-            label = HTML("<span style='font-weight:normal'>Additional Photo #1 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          fileInput(
-            "add2", 
-            HTML("Additional Photo #2<br/> <span style='font-weight:normal'>Upload photo file here: </span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          textInput(
-            inputId = "add2_cap", 
-            label = HTML("<span style='font-weight:normal'>Additional Photo #2 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          
-          
-          fileInput(
-            "add3", 
-            HTML("Additional Photo #3<br /> <span style='font-weight:normal'>Upload photo file here: </span>"), 
-            accept = c('image/png', 'image/jpeg')
-          ),
-          
-          textInput(
-            inputId = "add3_cap", 
-            label = HTML("<span style='font-weight:normal'>Additional Photo #3 caption: </span>"), 
-            value = "", 
-            width = NULL, 
-            placeholder = NULL
-          ),
-          downloadButton("report", "Generate report"),
-          br(),
-          br(),
-          br()
+          "Additional Resources",
+          addinfo
         )
       )
     )
