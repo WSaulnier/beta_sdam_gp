@@ -53,8 +53,11 @@ snoparams_ui <- fluidRow(
           HTML("<b><i>Fish abundance (other than mosquitofish)</b></i>"),
           c(
             "Poor (0)" = 0,
+            "Poor (0.5)" = 0.5,
             "Weak (1)" = 1,
+            "Weak (1.5)" = 1.5,
             "Moderate (2)" = 2,
+            "Moderate (2.5)" = 2.5,
             "Strong (3)" = 3
           ),
           inline = T
@@ -86,8 +89,11 @@ snoparams_ui <- fluidRow(
           HTML("<b><i>Differences in vegetation</i></b>"),
           c(
             "Poor (0)" = 0,
+            "Poor (0.5)" = 0.5,
             "Weak (1)" = 1,
+            "Weak (1.5)" = 1.5,
             "Moderate (2)" = 2,
+            "Moderate (2.5)" = 2.5,
             "Strong (3)" = 3
           ),
           inline = T
@@ -99,7 +105,9 @@ snoparams_ui <- fluidRow(
     fluidRow(
       column(
         6,
-        numericInput("user_BankWidthMean", label = HTML("<b><i>Bank width (m)</i></b>"), value = 0, min = 0, step = 1)
+        numericInput("user_BankWidthMean", 
+                     label = HTML("<b><i>Bank width (m.m)</i></b>"), 
+                     value = "")
       ),
     ),
     fluidRow(
@@ -110,8 +118,11 @@ snoparams_ui <- fluidRow(
           HTML("<b><i>Sinuosity</i></b>"),
           c(
             "Poor (0)" = 0,
+            "Poor (0.5)" = 0.5,
             "Weak (1)" = 1,
+            "Weak (1.5)" = 1.5,
             "Moderate (2)" = 2,
+            "Moderate (2.5)" = 2.5,
             "Strong (3)" = 3
           ),
           inline = T

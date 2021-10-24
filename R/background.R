@@ -74,7 +74,12 @@ bkgrnd <- fluidRow(
           refer to the <a href=\"https://www.epa.gov/streamflow-duration-assessment\">EPA website</a>."
         )
       ),
-      tags$p("For additional support with this website, please contact Dr. Raphael Mazor (raphaelm@sccwrp.org) at the Southern California Coastal Water Research Project.")
+      tags$p("For additional support with this website, please contact Dr. Raphael Mazor (raphaelm@sccwrp.org) at the Southern California Coastal Water Research Project."),
+      tags$p("No information entered on this site is stored or retained by EPA or its contractors.")
+      
+      
+      
+      
       
     )
   )
