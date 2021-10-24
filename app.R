@@ -1,6 +1,7 @@
 source('global.R')
 source('R/sno.R')
 source('R/nosno.R')
+source('R/additionalinfo.R')
 ### Maybe needed?
 # install.packages('rmarkdown')
 # install.packages('tinytex')
