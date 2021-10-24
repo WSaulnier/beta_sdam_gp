@@ -36,7 +36,9 @@ ui <- fluidPage(
         tabPanel(
           "Enter Data", 
           br(),
-          fluidRow(column(12, h4("Enter coordinates in decimal degrees"))),
+          fluidRow(column(12, h4("Step 1: Enter coordinates"), 
+          div('Enter coordinates in decimal degrees to assess snow influence and calculate geospatial indicator metrics.'))),
+          
           fluidRow(
             column(
               5, 
@@ -65,6 +67,7 @@ ui <- fluidPage(
               uiOutput('snomsg')
             )
           ) ,
+    
           fluidRow(
             column(
               12,
@@ -74,8 +77,12 @@ ui <- fluidPage(
           conditionalPanel(
             'input.runmodel == 1',
             #------- General Information
-            h1(HTML(
-              "General Site Information")
+            h4(HTML(
+              "Step 4: Enter additional information (optional)")
+            ),
+            h5('Enter information about the assessment'),
+            h4(HTML(
+              "<b>General Site Information</b>")
             ),
             br(),
             textInput(
@@ -182,37 +189,6 @@ ui <- fluidPage(
               placeholder = NULL
             ),
             
-            #------- Observed Hydrology
-            h1(HTML(
-              "Observed Hydrology")
-            ),
-            br(),
-            numericInput(
-              inputId = "surfflow",
-              label = "Percent of reach with surface flows:",
-              value = "",
-              min = 0,
-            ),
-            numericInput(
-              inputId = "subflow",
-              label = "Percent of reach with surface and sub-surface flows:",
-              value = "",
-              min = 0,
-            ),
-            numericInput(
-              inputId = "pool",
-              label = "Number of isolated pools:",
-              value = "",
-              min = 0,
-            ),
-            textInput(
-              inputId = "notes_observed_hydrology", 
-              label = "Comments on observed hydrology:", 
-              value = "", 
-              width = NULL, 
-              placeholder = NULL
-            ),
-            
             #------- Site Photos
             h1(HTML("Site Photos")),
             br(),
@@ -246,10 +222,40 @@ ui <- fluidPage(
               accept = c('image/png', 'image/jpeg')
             ),
             
+            #------- Observed Hydrology
+            h1(HTML(
+              "Observed Hydrology")
+            ),
+            br(),
+            numericInput(
+              inputId = "surfflow",
+              label = "Percent of reach with surface flows:",
+              value = "",
+              min = 0,
+            ),
+            numericInput(
+              inputId = "subflow",
+              label = "Percent of reach with surface and sub-surface flows:",
+              value = "",
+              min = 0,
+            ),
+            numericInput(
+              inputId = "pool",
+              label = "Number of isolated pools:",
+              value = "",
+              min = 0,
+            ),
+            textInput(
+              inputId = "notes_observed_hydrology", 
+              label = "Comments on observed hydrology:", 
+              value = "", 
+              width = NULL, 
+              placeholder = NULL
+            ),
             
             #------- Indicators
-            h1(HTML("Indicators")),
-            helpText("Indicators required for classification are filled in from entries in the previous form. 
+            h1(HTML("Enter non-required indicators and supplemental information")),
+            helpText("Indicators required for classification are filled in from entries above. 
                    Other indicators measured during the assessment may be added here."),
             h2(HTML("Aquatic Invertebrates")),
             br(),
@@ -685,10 +691,10 @@ server <- function(input, output, session) {
           ),
           fluidRow(
             column(
-              12, 
+              12,
               radioButtons(
                 "paramchoice", 
-                "Choose model",
+                h4(HTML("Step 2: Select Model")),
                 c(
                   "Snow Influenced" = 'sno',
                   "Non Snow Influenced" = 'nosno'

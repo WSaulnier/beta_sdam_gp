@@ -1,6 +1,20 @@
 snoparams_ui <- fluidRow(
   column(
     7,
+    h4(HTML("Step 3: Enter required indicator data")),
+    div("Enter the data that you have collected for all indicators"),
+    h5(HTML("<b>Biological indicators</b>")),
+    div(HTML("<b><i>Aquatic invertebrate indicators</i></b>")),
+    fluidRow(
+      column(
+        6,
+        numericInput("user_mayfly_abundance", label = NULL, value = 0, min = 0, step = 1)
+      ),
+      column(
+        6,
+        h6("Total abundance of mayflies")
+      )
+    ),
     fluidRow(
       column(
         6,
@@ -35,8 +49,24 @@ snoparams_ui <- fluidRow(
       column(
         12,
         radioButtons(
+          "user_fishabund_score2", 
+          HTML("<b><i>Fish abundance (other than mosquitofish)</b></i>"),
+          c(
+            "Poor (0)" = 0,
+            "Weak (1)" = 1,
+            "Moderate (2)" = 2,
+            "Strong (3)" = 3
+          ),
+          inline = T
+        )
+      )
+    ),
+    fluidRow(
+      column(
+        12,
+        radioButtons(
           "user_alglivedead_cover_score", 
-          "Algae cover",
+          HTML("<b><i>Algae cover</i></b>"),
           c(
             "None Detected" = 0,
             "<2%" = 1,
@@ -50,12 +80,42 @@ snoparams_ui <- fluidRow(
     ),
     fluidRow(
       column(
-        6,
-        numericInput("user_BankWidthMean", label = NULL, value = 0, min = 0, step = 1)
-      ),
+        12,
+        radioButtons(
+          "user_DifferencesInVegetation_score", 
+          HTML("<b><i>Differences in vegetation</i></b>"),
+          c(
+            "Poor (0)" = 0,
+            "Weak (1)" = 1,
+            "Moderate (2)" = 2,
+            "Strong (3)" = 3
+          ),
+          inline = T
+        )
+      )
+    ),
+    
+    h5(HTML("<b>Geomorphological indicators</b>")),
+    fluidRow(
       column(
         6,
-        h6("Bank width (m)")
+        numericInput("user_BankWidthMean", label = HTML("<b><i>Bank width (m)</i></b>"), value = 0, min = 0, step = 1)
+      ),
+    ),
+    fluidRow(
+      column(
+        12,
+        radioButtons(
+          "user_Sinuosity_score", 
+          HTML("<b><i>Sinuosity</i></b>"),
+          c(
+            "Poor (0)" = 0,
+            "Weak (1)" = 1,
+            "Moderate (2)" = 2,
+            "Strong (3)" = 3
+          ),
+          inline = T
+        )
       )
     ),
     fluidRow(
