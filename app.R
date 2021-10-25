@@ -80,7 +80,7 @@ ui <- fluidPage(
             h4(HTML(
               "Step 4: Enter additional information (optional)")
             ),
-            h5('Enter information about the assessment'),
+            h5('Enter information about the assessment. Indicators required for classification are filled in from entries above'),
             h4(HTML(
               "<b>General Site Information</b>")
             ),
@@ -402,8 +402,11 @@ ui <- fluidPage(
               label = "Fish abundance (other than mosquitofish):",
               choices = c(
                 "Poor (0)" = 'poor',
+                "Poor (0.5)" = 'poor2',
                 "Weak (1)" = 'weak',
+                "Weak (1.5)" = 'weak2',
                 "Moderate (2)" = 'moderate',
+                "Moderate (2.5)" = 'moderate2',
                 "Strong (3)" = 'strong'
               ),
               selected = NULL,
@@ -470,8 +473,11 @@ ui <- fluidPage(
               label = "Differences in vegetation score:",
               choices = c(
                 "Poor (0)" = 'poor',
+                "Poor (0.5)" = 'poor2',
                 "Weak (1)" = 'weak',
+                "Weak (1.5)" = 'weak2',
                 "Moderate (2)" = 'moderate',
+                "Moderate (2.5)" = 'moderate2',
                 "Strong (3)" = 'strong'
               ),
               selected = NULL,
@@ -532,8 +538,11 @@ ui <- fluidPage(
               label = "Sinuosity score:",
               choices = c(
                 "Poor (0)" = 'poor',
+                "Poor (0.5)" = 'poor2',
                 "Weak (1)" = 'weak',
+                "Weak (1.5)" = 'weak2',
                 "Moderate (2)" = 'moderate',
+                "Moderate (2.5)" = 'moderate2',
                 "Strong (3)" = 'strong'
               ),
               selected = "strong",
@@ -883,8 +892,11 @@ server <- function(input, output, session) {
       "fish_abundance",
       selected = case_when(
         input$user_fishabund_score2 == "0" ~ "poor",
+        input$user_fishabund_score2 == "0.5" ~ "poor2",
         input$user_fishabund_score2 == "1" ~ "weak",
+        input$user_fishabund_score2 == "1.5" ~ "weak2",
         input$user_fishabund_score2 == "2" ~ "moderate",
+        input$user_fishabund_score2 == "2.5" ~ "moderate2",
         input$user_fishabund_score2 == "3" ~ "strong",
         
       )
@@ -895,8 +907,11 @@ server <- function(input, output, session) {
       "vegetation_score",
       selected = case_when(
         input$user_DifferencesInVegetation_score == "0" ~ "poor",
+        input$user_DifferencesInVegetation_score == "0.5" ~ "poor2",
         input$user_DifferencesInVegetation_score == "1" ~ "weak",
+        input$user_DifferencesInVegetation_score == "1.5" ~ "weak2",
         input$user_DifferencesInVegetation_score == "2" ~ "moderate",
+        input$user_DifferencesInVegetation_score == "2.5" ~ "moderate2",
         input$user_DifferencesInVegetation_score == "3" ~ "strong",
         
       )
@@ -907,8 +922,11 @@ server <- function(input, output, session) {
       "sinuosity",
       selected = case_when(
         input$user_Sinuosity_score == "0" ~ "poor",
+        input$user_Sinuosity_score == "0.5" ~ "poor2",
         input$user_Sinuosity_score == "1" ~ "weak",
+        input$user_Sinuosity_score == "1.5" ~ "weak2",
         input$user_Sinuosity_score == "2" ~ "moderate",
+        input$user_Sinuosity_score == "2.5" ~ "moderate2",
         input$user_Sinuosity_score == "3" ~ "strong",
         
       )
@@ -1070,8 +1088,11 @@ server <- function(input, output, session) {
         
         # ------------------- Fish Abundance
         fish_abundance = case_when(input$fish_abundance == 'poor' ~ 0,
+                                   input$fish_abundance == 'poor2' ~ 0.5,
                                    input$fish_abundance == 'weak' ~ 1,
+                                   input$fish_abundance == 'weak2' ~ 1.5,
                                    input$fish_abundance == 'moderate' ~ 2,
+                                   input$fish_abundance == 'moderate2' ~ 2.5,
                                    input$fish_abundance == 'strong' ~ 3
         ),
         fish_abundance_checkbox = input$fish_abundance_checkbox,
@@ -1086,8 +1107,11 @@ server <- function(input, output, session) {
         
         # ------------------- Differences in vegetation
         vegetation_score = case_when(input$vegetation_score == 'poor' ~ 0,
+                                     input$vegetation_score == 'poor2' ~ 0.5,
                                      input$vegetation_score == 'weak' ~ 1,
+                                     input$vegetation_score == 'weak2' ~ 1.5,
                                      input$vegetation_score == 'moderate' ~ 2,
+                                     input$vegetation_score == 'moderate2' ~ 2.5,
                                      input$vegetation_score == 'strong' ~ 3
         ),
         notes_differences_vegetation = input$notes_differences_vegetation,
@@ -1104,8 +1128,11 @@ server <- function(input, output, session) {
         
         # ------------------- Sinuosity
         sinuosity = case_when(input$sinuosity == 'poor' ~ 0,
+                              input$sinuosity == 'poor2' ~ 0.5,
                               input$sinuosity == 'weak' ~ 1,
+                              input$sinuosity == 'weak2' ~ 1.5,
                               input$sinuosity == 'moderate' ~ 2,
+                              input$sinuosity == 'moderate2' ~ 2.5,
                               input$sinuosity == 'strong' ~ 3
         ),
         notes_sinuosity = input$notes_sinuosity,
