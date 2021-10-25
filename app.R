@@ -206,7 +206,7 @@ ui <- fluidPage(
             ),
             
             #------- Site Photos
-            h1(HTML("Site Photos")),
+            h4(HTML("<b>Site Photos</b>")),
             br(),
             fileInput(
               "tld", 
@@ -239,8 +239,8 @@ ui <- fluidPage(
             ),
             
             #------- Observed Hydrology
-            h1(HTML(
-              "Observed Hydrology")
+            h4(HTML(
+              "<b>Observed Hydrology</b>")
             ),
             br(),
             numericInput(
@@ -270,7 +270,7 @@ ui <- fluidPage(
             ),
             
             #------- Indicators
-            h1(HTML("Enter non-required indicators and supplemental information")),
+            h4(HTML("<b>Enter non-required indicators and supplemental information</b>")),
             helpText("Indicators required for classification are filled in from entries above. 
                    Other indicators measured during the assessment may be added here."),
             h2(HTML("Aquatic Invertebrates")),
@@ -411,7 +411,7 @@ ui <- fluidPage(
             br(),
             
             #------- Fish Abundance
-            h1(HTML("Fish abundance")),
+            h4(HTML("<b>Fish abundance</b>")),
             br(),
             radioButtons(
               inputId = "fish_abundance",
@@ -482,7 +482,7 @@ ui <- fluidPage(
             br(),
             
             #------- Differences in vegetation
-            h1(HTML("Differences in vegetation")),
+            h4(HTML("<b>Differences in vegetation</b>")),
             br(),
             radioButtons(
               inputId = "vegetation_score",
@@ -547,7 +547,7 @@ ui <- fluidPage(
             br(),
             
             #------- Sinuosity
-            h1(HTML("Sinuosity")),
+            h4(HTML("<b>Sinuosity</b>")),
             br(),
             radioButtons(
               inputId = "sinuosity",
@@ -613,7 +613,7 @@ ui <- fluidPage(
             br(),
             
             #------- Supplemental Information
-            h1(HTML("Supplemental Information")),
+            h4(HTML("<b>Supplemental Information</b>")),
             br(),
             HTML(
               "If observed, note the presence of the aquatic life stages of amphibians, 

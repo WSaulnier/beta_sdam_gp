@@ -1,6 +1,7 @@
 addinfo <- fluidRow(
   column(10,
          tagList(
+           br(),
            tags$p(HTML("For additional information, please refer to the user manual developed 
                        for the Beta Streamflow Duration Assessment Method for the Western Mountains. 
                        Information about this method can be found on the 
@@ -14,8 +15,8 @@ addinfo <- fluidRow(
            
            tags$p(HTML("The user manual, training material, and other resources may be accessed from the 
                        <a href =\"https://betasdamwm-sccwrp.hub.arcgis.com/\">
-                       SDAM WM Training Website
-                       </a>.")),
+                       SDAM WM Training Website.
+                       </a>")),
            
            tags$p("Identification of aquatic invertebrates:"),
            tags$ul(
