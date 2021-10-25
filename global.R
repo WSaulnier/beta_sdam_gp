@@ -299,8 +299,8 @@ snowdom <- function(lat, lon){
       "<h5>",
       "<p>This reach is <strong>{sno_inf}</strong></p><br>",
       "<p>Snow persistence is {round(xsf$MeanSnowPersistence_10, 1)}</p><br>",
-      "<p>October precipitation (mm): {round(mydf_prism$ppt.m10, 1)}</p><br>",
       "<p>May precipitation (mm): {round(mydf_prism$ppt.m05, 1)}</p><br>",
+      "<p>October precipitation (mm): {round(mydf_prism$ppt.m10, 1)}</p><br>",
       "<p>Mean annual max temperature (Deg C): {round(mydf_prism$tmax, 1)}</p><br>"
     )
     

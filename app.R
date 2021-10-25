@@ -8,6 +8,22 @@ source('R/additionalinfo.R')
 # tinytex::install_tinytex()  # install TinyTeX
 ###
 ui <- fluidPage(
+  tags$head(
+    # Note the wrapping of the string in HTML()
+    tags$style(HTML("
+        input[type=number] {
+              -moz-appearance:textfield;
+        }
+        input[type=number]::{
+              -moz-appearance:textfield;
+        }
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+        }
+    "))
+  ),
   titlePanel(
     div(
       class="jumbotron",
