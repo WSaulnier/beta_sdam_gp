@@ -52,18 +52,31 @@ snoparams_ui <- fluidRow(
           "user_fishabund_score2", 
           HTML("<b><i>Fish abundance (other than mosquitofish)</b></i>"),
           c(
-            "Poor (0)" = 0,
-            "Poor (0.5)" = 0.5,
-            "Weak (1)" = 1,
-            "Weak (1.5)" = 1.5,
-            "Moderate (2)" = 2,
-            "Moderate (2.5)" = 2.5,
-            "Strong (3)" = 3
+            "0 (Poor)" = 0,
+            "0.5" = 0.5,
+            "1 (Weak)" = 1,
+            "1.5" = 1.5,
+            "2 (Moderate)" = 2,
+            "2.5" = 2.5,
+            "3 (Strong)" = 3
           ),
           inline = T
         )
       )
     ),
+    
+    fluidRow(
+      column(
+        12,
+        checkboxInput(
+          "fish_abundance_checkbox", 
+          "Check if all fish observed are mosquitofish", 
+          value = FALSE, 
+          width = NULL
+        )
+      )
+    ),
+    
     fluidRow(
       column(
         12,
@@ -81,6 +94,19 @@ snoparams_ui <- fluidRow(
         )
       )
     ),
+    
+    fluidRow(
+      column(
+        12,
+        checkboxInput(
+          "algae_checkbox", 
+          "Check if all observed algae appear to be deposited from an upstream source", 
+          value = FALSE, 
+          width = NULL
+        )
+      )
+    ),
+    
     fluidRow(
       column(
         12,
@@ -88,19 +114,20 @@ snoparams_ui <- fluidRow(
           "user_DifferencesInVegetation_score", 
           HTML("<b><i>Differences in vegetation</i></b>"),
           c(
-            "Poor (0)" = 0,
-            "Poor (0.5)" = 0.5,
-            "Weak (1)" = 1,
-            "Weak (1.5)" = 1.5,
-            "Moderate (2)" = 2,
-            "Moderate (2.5)" = 2.5,
-            "Strong (3)" = 3
+            "0 (Poor)" = 0,
+            "0.5" = 0.5,
+            "1 (Weak)" = 1,
+            "1.5" = 1.5,
+            "2 (Moderate)" = 2,
+            "2.5" = 2.5,
+            "3 (Strong)" = 3
           ),
           inline = T
         )
       )
     ),
     
+
     h5(HTML("<b>Geomorphological indicators</b>")),
     fluidRow(
       column(
@@ -117,13 +144,13 @@ snoparams_ui <- fluidRow(
           "user_Sinuosity_score", 
           HTML("<b><i>Sinuosity</i></b>"),
           c(
-            "Poor (0)" = 0,
-            "Poor (0.5)" = 0.5,
-            "Weak (1)" = 1,
-            "Weak (1.5)" = 1.5,
-            "Moderate (2)" = 2,
-            "Moderate (2.5)" = 2.5,
-            "Strong (3)" = 3
+            "0 (Poor)" = 0,
+            "0.5" = 0.5,
+            "1 (Weak)" = 1,
+            "1.5" = 1.5,
+            "2 (Moderate)" = 2,
+            "2.5" = 2.5,
+            "3 (Strong)" = 3
           ),
           inline = T
         )

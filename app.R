@@ -92,15 +92,16 @@ ui <- fluidPage(
           ),
           conditionalPanel(
             'input.runmodel == 1',
+            
             #------- General Information
             h4(HTML(
               "Step 4: Enter additional information (optional)")
             ),
             h5('Enter information about the assessment. Indicators required for classification are filled in from entries above'),
+            br(),
             h4(HTML(
               "<b>General Site Information</b>")
             ),
-            br(),
             textInput(
               "project", 
               label = "Project Name or Number:" , 
@@ -207,7 +208,6 @@ ui <- fluidPage(
             
             #------- Site Photos
             h4(HTML("<b>Site Photos</b>")),
-            br(),
             fileInput(
               "tld", 
               "Top of reach looking downstream:", 
@@ -242,7 +242,6 @@ ui <- fluidPage(
             h4(HTML(
               "<b>Observed Hydrology</b>")
             ),
-            br(),
             numericInput(
               inputId = "surfflow",
               label = "Percent of reach with surface flows:",
@@ -268,33 +267,32 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            
+            br(),
             #------- Indicators
             h4(HTML("<b>Enter non-required indicators and supplemental information</b>")),
             helpText("Indicators required for classification are filled in from entries above. 
                    Other indicators measured during the assessment may be added here."),
-            h2(HTML("Aquatic Invertebrates")),
-            br(),
-            numericInput(
-              inputId = "aqua_inv",
-              label = "Total abundance of aquatic invertebrates : ",
-              value = ""
-            ),
-            numericInput(
-              inputId = "may_flies",
-              label = "Total abundance of mayflies: ",
-              value = ""
-            ),
-            numericInput(
-              inputId = "indicator_taxa",
-              label = "Total abundance of perennial indicator taxa:",
-              value = ""
-            ),
-            numericInput(
-              inputId = "indicator_families",
-              label = "Total number of perennial indicator families:",
-              value = ""
-            ),
+            h4(HTML("<b>Aquatic Invertebrates</b>")),
+            # numericInput(
+            #   inputId = "aqua_inv",
+            #   label = "Total abundance of aquatic invertebrates : ",
+            #   value = ""
+            # ),
+            # numericInput(
+            #   inputId = "may_flies",
+            #   label = "Total abundance of mayflies: ",
+            #   value = ""
+            # ),
+            # numericInput(
+            #   inputId = "indicator_taxa",
+            #   label = "Total abundance of perennial indicator taxa:",
+            #   value = ""
+            # ),
+            # numericInput(
+            #   inputId = "indicator_families",
+            #   label = "Total number of perennial indicator families:",
+            #   value = ""
+            # ),
             textInput(
               inputId = "notes", 
               label = "Notes about aquatic invertebrates:", 
@@ -340,29 +338,21 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            br(),
             #------- Algae Cover
-            h2(HTML("Algae Cover")),
-            br(),
-            radioButtons(
-              inputId = "algae_streambed",
-              label = "Algae cover on the streambed:",
-              choices = c(
-                "None Detected" = 'none',
-                "< 2%" = 'lessthan2',
-                "2% to 10%" = '2to10',
-                "10% to 40%" = '10to40',
-                "40% and above" = 'morethan40'
-              ),
-              selected = NULL,
-              inline = T
-            ),
-            checkboxInput(
-              "algae_checkbox", 
-              "Check if all observed algae appear to be deposited from an upstream source", 
-              value = FALSE, 
-              width = NULL
-            ),
+            h4(HTML("<b>Algae Cover</b>")),
+            # radioButtons(
+            #   inputId = "algae_streambed",
+            #   label = "Algae cover on the streambed:",
+            #   choices = c(
+            #     "None Detected" = 'none',
+            #     "< 2%" = 'lessthan2',
+            #     "2% to 10%" = '2to10',
+            #     "10% to 40%" = '10to40',
+            #     "40% and above" = 'morethan40'
+            #   ),
+            #   selected = NULL,
+            #   inline = T
+            # ),
             textInput(
               inputId = "notes_algaecover", 
               label = "Notes about algae cover:", 
@@ -408,32 +398,25 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            br(),
-            
             #------- Fish Abundance
-            h4(HTML("<b>Fish abundance</b>")),
-            br(),
-            radioButtons(
-              inputId = "fish_abundance",
-              label = "Fish abundance (other than mosquitofish):",
-              choices = c(
-                "Poor (0)" = 'poor',
-                "Poor (0.5)" = 'poor2',
-                "Weak (1)" = 'weak',
-                "Weak (1.5)" = 'weak2',
-                "Moderate (2)" = 'moderate',
-                "Moderate (2.5)" = 'moderate2',
-                "Strong (3)" = 'strong'
-              ),
-              selected = NULL,
-              inline = T
-            ),
-            checkboxInput(
-              "fish_abundance_checkbox", 
-              "Check if all fish observed are mosquitofish", 
-              value = FALSE, 
-              width = NULL
-            ),
+            h4(HTML("<b>Fish Abundance</b>")),
+            # br(),
+            # radioButtons(
+            #   inputId = "fish_abundance",
+            #   label = HTML("<b><i>Fish abundance (other than mosquitofish)</b></i>"),
+            #   choices = c(
+            #     "0 (Poor)" = 'poor',
+            #     "0.5" = 'poor2',
+            #     "1 (Weak)" = 'weak',
+            #     "1.5" = 'weak2',
+            #     "2 (Moderate)" = 'moderate',
+            #     "2.5" = 'moderate2',
+            #     "3 (Strong)" = 'strong'
+            #   ),
+            #   selected = NULL,
+            #   inline = T
+            # ),
+
             textInput(
               inputId = "notes_fish_abundance", 
               label = "Notes about fish abundance:", 
@@ -478,27 +461,23 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            
-            br(),
-            
             #------- Differences in vegetation
             h4(HTML("<b>Differences in vegetation</b>")),
-            br(),
-            radioButtons(
-              inputId = "vegetation_score",
-              label = "Differences in vegetation score:",
-              choices = c(
-                "Poor (0)" = 'poor',
-                "Poor (0.5)" = 'poor2',
-                "Weak (1)" = 'weak',
-                "Weak (1.5)" = 'weak2',
-                "Moderate (2)" = 'moderate',
-                "Moderate (2.5)" = 'moderate2',
-                "Strong (3)" = 'strong'
-              ),
-              selected = NULL,
-              inline = T
-            ),
+            # radioButtons(
+            #   inputId = "vegetation_score",
+            #   label = "Differences in vegetation score:",
+            #   choices = c(
+            #     "0 (Poor)" = 'poor',
+            #     "0.5" = 'poor2',
+            #     "1 (Weak)" = 'weak',
+            #     "1.5" = 'weak2',
+            #     "2 (Moderate)" = 'moderate',
+            #     "2.5" = 'moderate2',
+            #     "3 (Strong)" = 'strong'
+            #   ),
+            #   selected = NULL,
+            #   inline = T
+            # ),
             textInput(
               inputId = "notes_differences_vegetation", 
               label = "Notes about differences in vegetation:", 
@@ -544,26 +523,24 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            br(),
             
             #------- Sinuosity
             h4(HTML("<b>Sinuosity</b>")),
-            br(),
-            radioButtons(
-              inputId = "sinuosity",
-              label = "Sinuosity score:",
-              choices = c(
-                "Poor (0)" = 'poor',
-                "Poor (0.5)" = 'poor2',
-                "Weak (1)" = 'weak',
-                "Weak (1.5)" = 'weak2',
-                "Moderate (2)" = 'moderate',
-                "Moderate (2.5)" = 'moderate2',
-                "Strong (3)" = 'strong'
-              ),
-              selected = "strong",
-              inline = T
-            ),
+            # radioButtons(
+            #   inputId = "sinuosity",
+            #   label = "Sinuosity score:",
+            #   choices = c(
+            #     "0 (Poor)" = 'poor',
+            #     "0.5" = 'poor2',
+            #     "1 (Weak)" = 'weak',
+            #     "1.5" = 'weak2',
+            #     "2 (Moderate)" = 'moderate',
+            #     "2.5" = 'moderate2',
+            #     "3 (Strong)" = 'strong'
+            #   ),
+            #   selected = "strong",
+            #   inline = T
+            # ),
             textInput(
               inputId = "notes_sinuosity", 
               label = "Notes about sinuosity:", 
@@ -610,11 +587,9 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            br(),
             
             #------- Supplemental Information
             h4(HTML("<b>Supplemental Information</b>")),
-            br(),
             HTML(
               "If observed, note the presence of the aquatic life stages of amphibians, 
              snakes, or turtles; iron-oxidizing bacteria and fungi; etc."
@@ -890,63 +865,63 @@ server <- function(input, output, session) {
     print(input$user_Sinuosity_score)
     print("----")
     
-    updateRadioButtons(
-      session,
-      "algae_streambed",
-      selected = case_when(
-        input$user_alglivedead_cover_score == "0" ~ "none",
-        input$user_alglivedead_cover_score == "1" ~ "lessthan2",
-        input$user_alglivedead_cover_score == "5" ~ "2to10",
-        input$user_alglivedead_cover_score == "35" ~ "10to40",
-        input$user_alglivedead_cover_score == "50" ~ "morethan40",
-        
-      )
-    )
-    
-    updateRadioButtons(
-      session,
-      "fish_abundance",
-      selected = case_when(
-        input$user_fishabund_score2 == "0" ~ "poor",
-        input$user_fishabund_score2 == "0.5" ~ "poor2",
-        input$user_fishabund_score2 == "1" ~ "weak",
-        input$user_fishabund_score2 == "1.5" ~ "weak2",
-        input$user_fishabund_score2 == "2" ~ "moderate",
-        input$user_fishabund_score2 == "2.5" ~ "moderate2",
-        input$user_fishabund_score2 == "3" ~ "strong",
-        
-      )
-    )
-    
-    updateRadioButtons(
-      session,
-      "vegetation_score",
-      selected = case_when(
-        input$user_DifferencesInVegetation_score == "0" ~ "poor",
-        input$user_DifferencesInVegetation_score == "0.5" ~ "poor2",
-        input$user_DifferencesInVegetation_score == "1" ~ "weak",
-        input$user_DifferencesInVegetation_score == "1.5" ~ "weak2",
-        input$user_DifferencesInVegetation_score == "2" ~ "moderate",
-        input$user_DifferencesInVegetation_score == "2.5" ~ "moderate2",
-        input$user_DifferencesInVegetation_score == "3" ~ "strong",
-        
-      )
-    )
-    
-    updateRadioButtons(
-      session,
-      "sinuosity",
-      selected = case_when(
-        input$user_Sinuosity_score == "0" ~ "poor",
-        input$user_Sinuosity_score == "0.5" ~ "poor2",
-        input$user_Sinuosity_score == "1" ~ "weak",
-        input$user_Sinuosity_score == "1.5" ~ "weak2",
-        input$user_Sinuosity_score == "2" ~ "moderate",
-        input$user_Sinuosity_score == "2.5" ~ "moderate2",
-        input$user_Sinuosity_score == "3" ~ "strong",
-        
-      )
-    )
+    # updateRadioButtons(
+    #   session,
+    #   "algae_streambed",
+    #   selected = case_when(
+    #     input$user_alglivedead_cover_score == "0" ~ "none",
+    #     input$user_alglivedead_cover_score == "1" ~ "lessthan2",
+    #     input$user_alglivedead_cover_score == "5" ~ "2to10",
+    #     input$user_alglivedead_cover_score == "35" ~ "10to40",
+    #     input$user_alglivedead_cover_score == "50" ~ "morethan40",
+    #     
+    #   )
+    # )
+    # 
+    # updateRadioButtons(
+    #   session,
+    #   "fish_abundance",
+    #   selected = case_when(
+    #     input$user_fishabund_score2 == "0" ~ "poor",
+    #     input$user_fishabund_score2 == "0.5" ~ "poor2",
+    #     input$user_fishabund_score2 == "1" ~ "weak",
+    #     input$user_fishabund_score2 == "1.5" ~ "weak2",
+    #     input$user_fishabund_score2 == "2" ~ "moderate",
+    #     input$user_fishabund_score2 == "2.5" ~ "moderate2",
+    #     input$user_fishabund_score2 == "3" ~ "strong",
+    #     
+    #   )
+    # )
+    # 
+    # updateRadioButtons(
+    #   session,
+    #   "vegetation_score",
+    #   selected = case_when(
+    #     input$user_DifferencesInVegetation_score == "0" ~ "poor",
+    #     input$user_DifferencesInVegetation_score == "0.5" ~ "poor2",
+    #     input$user_DifferencesInVegetation_score == "1" ~ "weak",
+    #     input$user_DifferencesInVegetation_score == "1.5" ~ "weak2",
+    #     input$user_DifferencesInVegetation_score == "2" ~ "moderate",
+    #     input$user_DifferencesInVegetation_score == "2.5" ~ "moderate2",
+    #     input$user_DifferencesInVegetation_score == "3" ~ "strong",
+    #     
+    #   )
+    # )
+    # 
+    # updateRadioButtons(
+    #   session,
+    #   "sinuosity",
+    #   selected = case_when(
+    #     input$user_Sinuosity_score == "0" ~ "poor",
+    #     input$user_Sinuosity_score == "0.5" ~ "poor2",
+    #     input$user_Sinuosity_score == "1" ~ "weak",
+    #     input$user_Sinuosity_score == "1.5" ~ "weak2",
+    #     input$user_Sinuosity_score == "2" ~ "moderate",
+    #     input$user_Sinuosity_score == "2.5" ~ "moderate2",
+    #     input$user_Sinuosity_score == "3" ~ "strong",
+    #     
+    #   )
+    # )
 
     
   })
@@ -1087,12 +1062,13 @@ server <- function(input, output, session) {
         f8_cap = input$inv3_cap,
         notes_aquainv = input$notes_aquainv,
         
+
         # ------------------- Aquatic Cover
-        algae_streambed = case_when(input$algae_streambed == "none" ~ "None Detected",
-                                    input$algae_streambed == 'lessthan2' ~ "< 2%",
-                                    input$algae_streambed == '2to10' ~ "2% to 10%",
-                                    input$algae_streambed == '10to40' ~ "10% to 40%",
-                                    input$algae_streambed == 'morethan40' ~ "40% and above"),
+        algae_streambed = case_when(input$user_alglivedead_cover_score == '0' ~ "None Detected",
+                                    input$user_alglivedead_cover_score == '1' ~ "< 2%",
+                                    input$user_alglivedead_cover_score == '5' ~ "2% to 10%",
+                                    input$user_alglivedead_cover_score == '35' ~ "10% to 40%",
+                                    input$user_alglivedead_cover_score == '50' ~ "40% and above"),
         ak = input$algae_checkbox,
         notes_algaecover = input$notes_algaecover,
         f9 = fig9(),
@@ -1102,14 +1078,16 @@ server <- function(input, output, session) {
         f11 = fig11(),
         f11_cap = input$alg3_cap,
         
+
+        
         # ------------------- Fish Abundance
-        fish_abundance = case_when(input$fish_abundance == 'poor' ~ 0,
-                                   input$fish_abundance == 'poor2' ~ 0.5,
-                                   input$fish_abundance == 'weak' ~ 1,
-                                   input$fish_abundance == 'weak2' ~ 1.5,
-                                   input$fish_abundance == 'moderate' ~ 2,
-                                   input$fish_abundance == 'moderate2' ~ 2.5,
-                                   input$fish_abundance == 'strong' ~ 3
+        fish_abundance = case_when(input$user_fishabund_score2 == '0' ~ 0,
+                                   input$user_fishabund_score2 == '0.5' ~ 0.5,
+                                   input$user_fishabund_score2 == '1' ~ 1,
+                                   input$user_fishabund_score2 == '1.5' ~ 1.5,
+                                   input$user_fishabund_score2 == '2' ~ 2,
+                                   input$user_fishabund_score2 == '2.5' ~ 2.5,
+                                   input$user_fishabund_score2 == '3' ~ 3
         ),
         fish_abundance_checkbox = input$fish_abundance_checkbox,
         notes_fish_abundance = input$notes_fish_abundance,
@@ -1120,15 +1098,15 @@ server <- function(input, output, session) {
         f14 = fig14(),
         f14_cap = input$fish3_cap,
         
-        
+
         # ------------------- Differences in vegetation
-        vegetation_score = case_when(input$vegetation_score == 'poor' ~ 0,
-                                     input$vegetation_score == 'poor2' ~ 0.5,
-                                     input$vegetation_score == 'weak' ~ 1,
-                                     input$vegetation_score == 'weak2' ~ 1.5,
-                                     input$vegetation_score == 'moderate' ~ 2,
-                                     input$vegetation_score == 'moderate2' ~ 2.5,
-                                     input$vegetation_score == 'strong' ~ 3
+        vegetation_score = case_when(input$user_DifferencesInVegetation_score == '0' ~ 0,
+                                     input$user_DifferencesInVegetation_score == '0.5' ~ 0.5,
+                                     input$user_DifferencesInVegetation_score == '1' ~ 1,
+                                     input$user_DifferencesInVegetation_score == '1.5' ~ 1.5,
+                                     input$user_DifferencesInVegetation_score == '2' ~ 2,
+                                     input$user_DifferencesInVegetation_score == '2.5' ~ 2.5,
+                                     input$user_DifferencesInVegetation_score == '3' ~ 3
         ),
         notes_differences_vegetation = input$notes_differences_vegetation,
         f15 = fig15(),
@@ -1141,15 +1119,15 @@ server <- function(input, output, session) {
         # ------------------- Channel Width
         bankwidth = session$userData$bankwidth,
         
-        
+
         # ------------------- Sinuosity
-        sinuosity = case_when(input$sinuosity == 'poor' ~ 0,
-                              input$sinuosity == 'poor2' ~ 0.5,
-                              input$sinuosity == 'weak' ~ 1,
-                              input$sinuosity == 'weak2' ~ 1.5,
-                              input$sinuosity == 'moderate' ~ 2,
-                              input$sinuosity == 'moderate2' ~ 2.5,
-                              input$sinuosity == 'strong' ~ 3
+        sinuosity = case_when(input$user_Sinuosity_score == '0' ~ 0,
+                              input$user_Sinuosity_score == '0.5' ~ 0.5,
+                              input$user_Sinuosity_score == '1' ~ 1,
+                              input$user_Sinuosity_score == '1.5' ~ 1.5,
+                              input$user_Sinuosity_score == '2' ~ 2,
+                              input$user_Sinuosity_score == '2.5' ~ 2.5,
+                              input$user_Sinuosity_score == '3' ~ 3
         ),
         notes_sinuosity = input$notes_sinuosity,
         f18 = fig18(),
