@@ -741,8 +741,14 @@ server <- function(input, output, session) {
       user_perennial_abundance=input$user_perennial_abundance,
       user_perennial_taxa=input$user_perennial_taxa,
       user_mayfly_abundance=input$user_mayfly_abundance,
-      user_fishabund_score2=input$user_fishabund_score2,
-      user_alglivedead_cover_score=input$user_alglivedead_cover_score,
+      user_fishabund_score2= case_when(
+        input$fish_abundance_checkbox == TRUE ~ "0",
+        input$fish_abundance_checkbox == FALSE ~ input$user_fishabund_score2
+      ),
+      user_alglivedead_cover_score=case_when(
+        input$algae_checkbox == TRUE ~ "0",
+        input$algae_checkbox == FALSE ~ input$user_alglivedead_cover_score
+      ),
       user_DifferencesInVegetation_score=input$user_DifferencesInVegetation_score,
       user_BankWidthMean=input$user_BankWidthMean,
       user_Sinuosity_score=input$user_Sinuosity_score,
@@ -751,7 +757,8 @@ server <- function(input, output, session) {
   })
 
   output$final_class <- renderUI({
-    
+    print("input$fish_abundance_checkbox")
+    print(input$user_fishabund_score2)
     #Storing variables in session to use in the report
     session$userData$class <- classify() %>% as.character()
     session$userData$classmsg <- glue::glue(
@@ -1050,10 +1057,10 @@ server <- function(input, output, session) {
         
         # ------------------- Biological indicators
         # ------------------- Aquatic Invertebrates
-        aqua_inv = input$aqua_inv,
-        may_flies = input$may_flies,
-        indicator_taxa = input$indicator_taxa,
-        indicator_families = input$indicator_families,
+        aqua_inv = input$user_TotalAbundance,
+        may_flies = input$user_mayfly_abundance,
+        indicator_taxa = input$user_perennial_taxa,
+        indicator_families = input$user_perennial_abundance,
         f6 = fig6(),
         f6_cap = input$inv1_cap,
         f7 = fig7(),
@@ -1081,13 +1088,13 @@ server <- function(input, output, session) {
 
         
         # ------------------- Fish Abundance
-        fish_abundance = case_when(input$user_fishabund_score2 == '0' ~ 0,
-                                   input$user_fishabund_score2 == '0.5' ~ 0.5,
-                                   input$user_fishabund_score2 == '1' ~ 1,
-                                   input$user_fishabund_score2 == '1.5' ~ 1.5,
-                                   input$user_fishabund_score2 == '2' ~ 2,
-                                   input$user_fishabund_score2 == '2.5' ~ 2.5,
-                                   input$user_fishabund_score2 == '3' ~ 3
+        fish_abundance = case_when(input$user_fishabund_score2 == '0' ~ "0 (Poor)",
+                                   input$user_fishabund_score2 == '0.5' ~ "0.5",
+                                   input$user_fishabund_score2 == '1' ~ "1 (Weak)",
+                                   input$user_fishabund_score2 == '1.5' ~ "1.5",
+                                   input$user_fishabund_score2 == '2' ~ "2 (Moderate)",
+                                   input$user_fishabund_score2 == '2.5' ~ "2.5",
+                                   input$user_fishabund_score2 == '3' ~ "3 (Strong)"
         ),
         fish_abundance_checkbox = input$fish_abundance_checkbox,
         notes_fish_abundance = input$notes_fish_abundance,
@@ -1100,13 +1107,13 @@ server <- function(input, output, session) {
         
 
         # ------------------- Differences in vegetation
-        vegetation_score = case_when(input$user_DifferencesInVegetation_score == '0' ~ 0,
-                                     input$user_DifferencesInVegetation_score == '0.5' ~ 0.5,
-                                     input$user_DifferencesInVegetation_score == '1' ~ 1,
-                                     input$user_DifferencesInVegetation_score == '1.5' ~ 1.5,
-                                     input$user_DifferencesInVegetation_score == '2' ~ 2,
-                                     input$user_DifferencesInVegetation_score == '2.5' ~ 2.5,
-                                     input$user_DifferencesInVegetation_score == '3' ~ 3
+        vegetation_score = case_when(input$user_DifferencesInVegetation_score == '0' ~ "0 (Poor)",
+                                     input$user_DifferencesInVegetation_score == '0.5' ~ "0.5",
+                                     input$user_DifferencesInVegetation_score == '1' ~ "1 (Weak)",
+                                     input$user_DifferencesInVegetation_score == '1.5' ~ "1.5",
+                                     input$user_DifferencesInVegetation_score == '2' ~ "2 (Moderate)",
+                                     input$user_DifferencesInVegetation_score == '2.5' ~ "2.5",
+                                     input$user_DifferencesInVegetation_score == '3' ~ "3 (Strong)"
         ),
         notes_differences_vegetation = input$notes_differences_vegetation,
         f15 = fig15(),
@@ -1121,13 +1128,13 @@ server <- function(input, output, session) {
         
 
         # ------------------- Sinuosity
-        sinuosity = case_when(input$user_Sinuosity_score == '0' ~ 0,
-                              input$user_Sinuosity_score == '0.5' ~ 0.5,
-                              input$user_Sinuosity_score == '1' ~ 1,
-                              input$user_Sinuosity_score == '1.5' ~ 1.5,
-                              input$user_Sinuosity_score == '2' ~ 2,
-                              input$user_Sinuosity_score == '2.5' ~ 2.5,
-                              input$user_Sinuosity_score == '3' ~ 3
+        sinuosity = case_when(input$user_Sinuosity_score == '0' ~ "0 (Poor)",
+                              input$user_Sinuosity_score == '0.5' ~ "0.5",
+                              input$user_Sinuosity_score == '1' ~ "1 (Weak)",
+                              input$user_Sinuosity_score == '1.5' ~ "1.5",
+                              input$user_Sinuosity_score == '2' ~ "2 (Moderate)",
+                              input$user_Sinuosity_score == '2.5' ~ "2.5",
+                              input$user_Sinuosity_score == '3' ~ "3 (Strong)"
         ),
         notes_sinuosity = input$notes_sinuosity,
         f18 = fig18(),
