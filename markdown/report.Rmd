@@ -348,16 +348,6 @@ if (!is.null(params$mean_temp)) {
 
 ## Aquatic Invertebrates
 
-Total abundance of aquatic invertebrates:
-
-```{r}
-if (!is.null(params$aqua_inv)) {
-  cat(params$aqua_inv)
-} else {
-  cat("Data was not provided")
-}
-```
-
 Total abundance of mayflies:
 
 ```{r}
@@ -368,21 +358,32 @@ if (!is.null(params$may_flies)) {
 }
 ```
 
-Total abundance of perennial indicator taxa: 
+Total abundance of aquatic macroinvertebrates:
+
+```{r}
+if (!is.null(params$aqua_inv)) {
+  cat(params$aqua_inv)
+} else {
+  cat("Data was not provided")
+}
+```
+
+
+Total abundance of perennial indicator families of aquatic macroinvertebrates:
+
+```{r}
+
+  cat(params$indicator_families)
+
+```
+
+Total number of perennial indicator families of aquatic macroinvertebrates:
 ```{r}
 if (!is.null(params$indicator_taxa)) {
   cat(params$indicator_taxa)
 } else {
   cat("Data was not provided")
 }
-```
-
-Total number of perennial indicator families: 
-
-```{r}
-
-  cat(params$indicator_families)
-
 ```
 
 Aquatic invertebrate photos and photo descriptions.
