@@ -39,6 +39,7 @@ vignettes/*.pdf
 .Renviron
 
 # custom
+markdown/
 data/prism
 testing/
 ignore/
