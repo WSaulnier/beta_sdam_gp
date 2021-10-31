@@ -8,21 +8,21 @@ nosnoparams_ui <- fluidRow(
     fluidRow(
       column(
         6,
-        numericInput("user_mayfly_abundance", label = NULL, value = 0, min = 0, step = 1)
-      ),
-      column(
-        6,
-        h6("Total abundance of mayflies")
-      )
-    ),
-    fluidRow(
-      column(
-        6,
         numericInput("user_TotalAbundance", label = NULL, value = 0, min = 0, step = 1)
       ),
       column(
         6,
         h6("Total abundance of aquatic macroinvertebrates")
+      )
+    ),
+    fluidRow(
+      column(
+        6,
+        numericInput("user_mayfly_abundance", label = NULL, value = 0, min = 0, step = 1)
+      ),
+      column(
+        6,
+        h6("Total abundance of mayflies")
       )
     ),
     fluidRow(

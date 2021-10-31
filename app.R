@@ -150,11 +150,12 @@ ui <- fluidPage(
               ),
               selected = NULL
             ),
-            textInput(
+            textAreaInput(
               "weather", 
               label = "Notes on current or recent weather conditions:" , 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             checkboxGroupInput(
@@ -170,11 +171,12 @@ ui <- fluidPage(
               ),
               selected = NULL
             ),
-            textInput(
+            textAreaInput(
               inputId = "boundary", 
               label = "Describe reach boundaries:" , 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             numericInput(
@@ -206,38 +208,6 @@ ui <- fluidPage(
               placeholder = NULL
             ),
             
-            #------- Site Photos
-            h4(HTML("<b>Site Photos</b>")),
-            fileInput(
-              "tld", 
-              "Top of reach looking downstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "mlu", 
-              "Middle of reach looking upstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "mld", 
-              "Middle of reach looking downstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "blu", 
-              "Bottom of reach looking upstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "sketch", 
-              "Site Sketch:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
             #------- Observed Hydrology
             h4(HTML(
               "<b>Observed Hydrology</b>")
@@ -260,18 +230,18 @@ ui <- fluidPage(
               value = "",
               min = 0,
             ),
-            textInput(
+            textAreaInput(
               inputId = "notes_observed_hydrology", 
               label = "Comments on observed hydrology:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             br(),
             #------- Indicators
-            h4(HTML("<b>Enter non-required indicators and supplemental information</b>")),
-            helpText("Indicators required for classification are filled in from entries above. 
-                   Other indicators measured during the assessment may be added here."),
+            h4(HTML("<b>Add photos and notes about indicators</b>")),
+            
             h4(HTML("<b>Aquatic Invertebrates</b>")),
             # numericInput(
             #   inputId = "aqua_inv",
@@ -293,11 +263,12 @@ ui <- fluidPage(
             #   label = "Total number of perennial indicator families:",
             #   value = ""
             # ),
-            textInput(
+            textAreaInput(
               inputId = "notes", 
               label = "Notes about aquatic invertebrates:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             fileInput(
@@ -353,11 +324,12 @@ ui <- fluidPage(
             #   selected = NULL,
             #   inline = T
             # ),
-            textInput(
+            textAreaInput(
               inputId = "notes_algaecover", 
               label = "Notes about algae cover:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             fileInput(
@@ -417,11 +389,12 @@ ui <- fluidPage(
             #   inline = T
             # ),
 
-            textInput(
+            textAreaInput(
               inputId = "notes_fish_abundance", 
               label = "Notes about fish abundance:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             fileInput(
@@ -478,11 +451,12 @@ ui <- fluidPage(
             #   selected = NULL,
             #   inline = T
             # ),
-            textInput(
+            textAreaInput(
               inputId = "notes_differences_vegetation", 
               label = "Notes about differences in vegetation:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             fileInput(
@@ -541,11 +515,12 @@ ui <- fluidPage(
             #   selected = "strong",
             #   inline = T
             # ),
-            textInput(
+            textAreaInput(
               inputId = "notes_sinuosity", 
               label = "Notes about sinuosity:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             fileInput(
@@ -588,19 +563,52 @@ ui <- fluidPage(
               placeholder = NULL
             ),
             
-            #------- Supplemental Information
+            #------- Notes and Photos
             h4(HTML("<b>Supplemental Information</b>")),
             HTML(
               "If observed, note the presence of the aquatic life stages of amphibians, 
              snakes, or turtles; iron-oxidizing bacteria and fungi; etc."
             ),
-            textInput(
+            
+            textAreaInput(
               inputId = "notes_supplemental_information", 
               label = "Additional notes about the assessment:", 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
+            fileInput(
+              "tld", 
+              "Top of reach looking downstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "mlu", 
+              "Middle of reach looking upstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "mld", 
+              "Middle of reach looking downstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "blu", 
+              "Bottom of reach looking upstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "sketch", 
+              "Site Sketch:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            h4(HTML("<b>Additional Photos</b>")),
             fileInput(
               "add1", 
               HTML("Additional Photo #1<br/> <span style='font-weight:normal'>Upload photo file here: </span>"), 

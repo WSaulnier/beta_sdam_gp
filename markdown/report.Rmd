@@ -3,6 +3,11 @@ title: "Beta Streamflow Duration Assessment for the Western Mountains"
 subtitle: "SDAM Version 1.0"
 revision: "SDAM revision date: October 6, 2021" 
 date: "Report generated on: `r format(Sys.time(), '%B %d, %Y')`"
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \usepackage{lastpage}
+- \cfoot{Page \thepage\ of \pageref{LastPage}}
 output: pdf_document
 always_allow_html: yes
 params:
@@ -127,6 +132,7 @@ params:
   
 ---
 
+
 ```{r, setup, include=FALSE}
 library(knitr)
 # Removing all code from appearing in the final knit document.
@@ -192,7 +198,7 @@ cat(params$j)
 
 Location:
 ```{r}
-cat(paste0(params$g," N, ", params$h, " W"))
+cat(paste0(params$g," N, ", params$h, "E"))
 ```
 
 Surrounding land use within 100 m:
@@ -250,18 +256,14 @@ Top of reach looking downstream:
 ```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["v"]], character(0))){ 
   knitr::include_graphics(params[["v"]])
-} else {
-    cat("Photo was not submitted")
-  }
+}
 ```
 
 Middle of reach looking upstream:
 ```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["u"]], character(0))){ 
   knitr::include_graphics(params[["u"]])
-} else {
-    cat("Photo was not submitted")
-  }
+}
 
 ```
 
@@ -270,18 +272,15 @@ Middle of reach looking downstream:
 
 if (!identical(params[["t"]], character(0))){ 
   knitr::include_graphics(params[["t"]])
-} else {
-    cat("Photo was not submitted")
-  }
+}
 ```
 
 Bottom of reach looking upstream:
 ```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["s"]], character(0))){ 
   knitr::include_graphics(params[["s"]])
-} else {
-    cat("Photo was not submitted")
-  }
+}
+
 ```
 
 ## Site Sketch
@@ -289,9 +288,8 @@ if (!identical(params[["s"]], character(0))){
 ```{r, out.width='50%', fig.align='center'}
 if (!identical(params[["w"]], character(0))){ 
   knitr::include_graphics(params[["w"]])
-} else {
-    cat("Photo was not submitted")
-  }
+}
+
 ```
 
 ***
@@ -348,39 +346,38 @@ if (!is.null(params$mean_temp)) {
 
 ## Aquatic Invertebrates
 
-Total abundance of mayflies:
-
-```{r}
-if (!is.null(params$may_flies)) {
-  cat(params$may_flies)
-} else {
-  cat("Data was not provided")
-}
-```
-
-Total abundance of aquatic macroinvertebrates:
 
 ```{r}
 if (!is.null(params$aqua_inv)) {
-  cat(params$aqua_inv)
+  glue("Total abundance of aquatic macroinvertebrates: ", cat(params$aqua_inv))
 } else {
   cat("Data was not provided")
 }
 ```
 
 
-Total abundance of perennial indicator families of aquatic macroinvertebrates:
 
 ```{r}
-
-  cat(params$indicator_families)
-
+if (!is.null(params$may_flies)) {
+  glue("Total abundance of mayflies: ", cat(params$may_flies))
+} else {
+  cat("Data was not provided")
+}
 ```
 
-Total number of perennial indicator families of aquatic macroinvertebrates:
+
+```{r}
+if (!is.null(params$indicator_families)) {
+    glue("Total abundance of perennial indicator families of aquatic macroinvertebrates: ", cat(params$indicator_families))
+} else {
+  cat("Data was not provided")
+}
+```
+
+
 ```{r}
 if (!is.null(params$indicator_taxa)) {
-  cat(params$indicator_taxa)
+  glue("Total number of perennial indicator families of aquatic macroinvertebrates: ", cat(params$indicator_taxa))
 } else {
   cat("Data was not provided")
 }
@@ -392,9 +389,7 @@ Aquatic invertebrate photos and photo descriptions.
 
 if (!identical(params[["f6"]], character(0))){ 
   knitr::include_graphics(params[["f6"]])
-} else {
-    cat("Photo #1 was not submitted")
-  }
+}
   
 ```
 
@@ -411,9 +406,7 @@ if (!identical(params[["f6"]], character(0))){
 
 if (!identical(params[["f7"]], character(0))){ 
   knitr::include_graphics(params[["f7"]])
-} else {
-    cat("Photo #2 was not submitted")
-  }
+}
   
 ```
 
@@ -427,9 +420,7 @@ if (!identical(params[["f7"]], character(0))){
 
 if (!identical(params[["f8"]], character(0))){ 
   knitr::include_graphics(params[["f8"]])
-} else {
-    cat("Photo #3 was not submitted")
-  }
+}
 
 ```
 
@@ -477,10 +468,7 @@ Algae photos and photo descriptions:
   
 if (!identical(params[["f9"]], character(0))){ 
   knitr::include_graphics(params[["f9"]])
-} else {
-    cat("Photo #1 was not submitted")
-  }
-
+}
 ```
 
 ```{r}
@@ -494,9 +482,7 @@ if (!identical(params[["f9"]], character(0))){
 
 if (!identical(params[["f10"]], character(0))){ 
   knitr::include_graphics(params[["f10"]])
-} else {
-    cat("Photo #2 was not submitted")
-  }
+}
 ```
 
 ```{r}
@@ -510,9 +496,7 @@ if (!identical(params[["f10"]], character(0))){
 if (!identical(params[["f11"]], character(0))){ 
   knitr::include_graphics(params[["f11"]])
 
-} else {
-    cat("Photo #3 was not submitted")
-  }
+}
 
 ```
 
@@ -552,9 +536,7 @@ Fish photos and descriptions:
 
 if (!identical(params[["f12"]], character(0))){ 
   knitr::include_graphics(params[["f12"]])
-} else {
-    cat("Photo #1 was not submitted")
-  }
+}
 
 ```
 
@@ -569,10 +551,7 @@ if (!identical(params[["f12"]], character(0))){
 
 if (!identical(params[["f13"]], character(0))){ 
   knitr::include_graphics(params[["f13"]])
-} else {
-    cat("Photo #2 was not submitted")
-  }
-
+}
 ```
 
 ```{r}
@@ -585,9 +564,7 @@ if (!identical(params[["f13"]], character(0))){
 
 if (!identical(params[["f14"]], character(0))){ 
   knitr::include_graphics(params[["f14"]])
-} else {
-    cat("Photo #3 was not submitted")
-  }
+}
 
 ```
 
@@ -624,9 +601,7 @@ Differences in vegetation photos and descriptions:
 
 if (!identical(params[["f15"]], character(0))){ 
   knitr::include_graphics(params[["f15"]])
-} else {
-    cat("Photo #1 was not submitted")
-  }
+}
 
 ```
 
@@ -641,9 +616,7 @@ if (!identical(params[["f15"]], character(0))){
 
 if (!identical(params[["f16"]], character(0))){ 
   knitr::include_graphics(params[["f16"]])
-} else {
-    cat("Photo #2 was not submitted")
-  }
+} 
 
 ```
 
@@ -657,9 +630,7 @@ if (!identical(params[["f16"]], character(0))){
 
 if (!identical(params[["f17"]], character(0))){ 
   knitr::include_graphics(params[["f17"]])
-} else {
-    cat("Photo #3 was not submitted")
-  }
+}
 
 ```
 
@@ -705,9 +676,7 @@ Sinuosity photos and descriptions:
 
 if (!identical(params[["f18"]], character(0))){ 
     knitr::include_graphics(params[["f18"]])
-} else {
-    cat("Photo #1 was not submitted")
-  }
+}
 
 ```
 
@@ -721,9 +690,7 @@ if (!identical(params[["f18"]], character(0))){
 
 if (!identical(params[["f19"]], character(0))){ 
     knitr::include_graphics(params[["f19"]])
-} else {
-    cat("Photo #2 was not submitted")
-  }
+}
 
 ```
 
@@ -738,9 +705,7 @@ if (!identical(params[["f19"]], character(0))){
 
 if (!identical(params[["f20"]], character(0))){ 
     knitr::include_graphics(params[["f20"]])
-} else {
-    cat("Photo #3 was not submitted")
-  }
+} 
 
 ```
 
@@ -764,9 +729,7 @@ Supplemental information photos and descriptions
 
 if (!identical(params[["f21"]], character(0))){ 
     knitr::include_graphics(params[["f21"]])
-} else {
-    cat("Photo #1 was not submitted")
-  }
+}
 
 ```
 
@@ -780,9 +743,7 @@ if (!identical(params[["f21"]], character(0))){
 
 if (!identical(params[["f22"]], character(0))){ 
     knitr::include_graphics(params[["f22"]])
-} else {
-    cat("Photo #2 was not submitted")
-  }
+}
 ```
 
 ```{r}
@@ -795,9 +756,7 @@ if (!identical(params[["f22"]], character(0))){
 
 if (!identical(params[["f23"]], character(0))){ 
     knitr::include_graphics(params[["f23"]])
-} else {
-    cat("Photo #3 was not submitted")
-  }
+}
 
 ```
 

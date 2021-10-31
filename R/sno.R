@@ -5,16 +5,7 @@ snoparams_ui <- fluidRow(
     div("Enter the data that you have collected for all indicators"),
     h5(HTML("<b>Biological indicators</b>")),
     div(HTML("<b><i>Aquatic invertebrate indicators</i></b>")),
-    fluidRow(
-      column(
-        6,
-        numericInput("user_mayfly_abundance", label = NULL, value = 0, min = 0, step = 1)
-      ),
-      column(
-        6,
-        h6("Total abundance of mayflies")
-      )
-    ),
+    
     fluidRow(
       column(
         6,
@@ -25,6 +16,20 @@ snoparams_ui <- fluidRow(
         h6("Total abundance of aquatic macroinvertebrates")
       )
     ),
+    
+    fluidRow(
+      column(
+        6,
+        numericInput("user_mayfly_abundance", label = NULL, value = 0, min = 0, step = 1)
+      ),
+      column(
+        6,
+        h6("Total abundance of mayflies")
+      )
+    ),
+    
+    
+    
     fluidRow(
       column(
         6,
@@ -35,6 +40,8 @@ snoparams_ui <- fluidRow(
         h6("Total abundance of perennial indicator families of aquatic macroinvertebrates")
       )
     ),
+    
+    
     fluidRow(
       column(
         6,
@@ -45,6 +52,8 @@ snoparams_ui <- fluidRow(
         h6("Total number of perennial indicator families of aquatic macroinvertebrates")
       )
     ),
+    
+    
     fluidRow(
       column(
         12,
