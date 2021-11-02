@@ -91,7 +91,7 @@ ui <- fluidPage(
             )
           ),
           conditionalPanel(
-            'input.runmodel == 1',
+            "input.paramchoice == 'sno' | input.paramchoice == 'nosno'" ,
             
             #------- General Information
             h4(HTML(
@@ -665,6 +665,88 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
+  
+  observeEvent(input$user_mayfly_abundance, {
+    print("input$user_TotalAbundance")
+    print(input$user_TotalAbundance)
+    print("input$user_mayfly_abundance")
+    print(input$user_mayfly_abundance)
+    if (input$user_mayfly_abundance > input$user_TotalAbundance){
+      showModal(
+        modalDialog(
+          "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
+          footer= modalButton("I understand"),
+          easyClose = FALSE
+        )
+      )
+      updateNumericInput(
+        session,
+        "user_mayfly_abundance",
+        value = 0
+      )
+    }
+  }
+  )
+  observeEvent(input$user_perennial_abundance, {
+    print("input$user_TotalAbundance")
+    print(input$user_TotalAbundance)
+    print("input$user_mayfly_abundance")
+    print(input$user_mayfly_abundance)
+    if (input$user_mayfly_abundance > input$user_TotalAbundance){
+      showModal(
+        modalDialog(
+          "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
+          footer= modalButton("OK"),
+          easyClose = FALSE
+        )
+      )
+      updateNumericInput(
+        session,
+        "user_mayfly_abundance",
+        value = 0
+      )
+    } else if (
+      (as.numeric(input$user_mayfly_abundance) + as.numeric(input$user_perennial_abundance)) > as.numeric(input$user_TotalAbundance)
+      ) {
+      showModal(
+        modalDialog(
+          "Total abundance of mayflies PLUS total abundance of perennial indicator families must be less than or equal to total abundance of aquatic macroinvertebrates", 
+          footer= modalButton("OK"),
+          easyClose = FALSE
+        )
+      )
+      updateNumericInput(
+        session,
+        "user_perennial_abundance",
+        value = 0
+      )
+    }
+  }
+  )
+  
+  observeEvent(input$user_perennial_taxa, {
+    print("input$user_perennial_abundance")
+    print(input$user_perennial_abundance)
+    print("input$user_perennial_taxa")
+    print(input$user_perennial_taxa)
+    if (input$user_perennial_taxa > input$user_perennial_abundance){
+      showModal(
+        modalDialog(
+          "Total abundance of perennial indicator families must be greater than or equal to the total number of perennial indicator families", 
+          footer= modalButton("OK"),
+          easyClose = FALSE
+        )
+      )
+      updateNumericInput(
+        session,
+        "user_perennial_taxa",
+        value = 0
+      )
+    }
+  }
+  )
+  
+  
   
   
   sno <- eventReactive(

@@ -9,7 +9,7 @@ snoparams_ui <- fluidRow(
     fluidRow(
       column(
         6,
-        numericInput("user_TotalAbundance", label = NULL, value = 0, min = 0, step = 1)
+        numericInput("user_TotalAbundance", label = NULL, value = 0, min = 0, max = 100, step = 1)
       ),
       column(
         6,
