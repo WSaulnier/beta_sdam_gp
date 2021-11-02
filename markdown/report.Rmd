@@ -349,7 +349,7 @@ if (!is.null(params$mean_temp)) {
 
 ```{r}
 if (!is.null(params$aqua_inv)) {
-  glue("Total abundance of aquatic macroinvertebrates: ", cat(params$aqua_inv))
+  cat("Total abundance of aquatic macroinvertebrates: ", params$aqua_inv)
 } else {
   cat("Data was not provided")
 }
@@ -359,7 +359,7 @@ if (!is.null(params$aqua_inv)) {
 
 ```{r}
 if (!is.null(params$may_flies)) {
-  glue("Total abundance of mayflies: ", cat(params$may_flies))
+  cat("Total abundance of mayflies: ", params$may_flies)
 } else {
   cat("Data was not provided")
 }
@@ -368,7 +368,7 @@ if (!is.null(params$may_flies)) {
 
 ```{r}
 if (!is.null(params$indicator_families)) {
-    glue("Total abundance of perennial indicator families of aquatic macroinvertebrates: ", cat(params$indicator_families))
+    cat("Total abundance of perennial indicator families of aquatic macroinvertebrates: ", params$indicator_families)
 } else {
   cat("Data was not provided")
 }
@@ -377,7 +377,7 @@ if (!is.null(params$indicator_families)) {
 
 ```{r}
 if (!is.null(params$indicator_taxa)) {
-  glue("Total number of perennial indicator families of aquatic macroinvertebrates: ", cat(params$indicator_taxa))
+  cat("Total number of perennial indicator families of aquatic macroinvertebrates: ", params$indicator_taxa)
 } else {
   cat("Data was not provided")
 }
