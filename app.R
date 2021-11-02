@@ -28,10 +28,10 @@ ui <- fluidPage(
     div(
       class="jumbotron",
       h2(HTML(
-        "Beta Streamflow Duration Assessment Method for Western Mountain Region
+        "Web application for the Beta Streamflow Duration Assessment Method for Western Mountain Region (Beta SDAM WM)
         ")
       ),
-      h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.0.0</a> Release date: Oct 6 2021 </p>")),
+      h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.0.0</a> Release date: Nov 2 2021 </p>")),
       img(src="wmtitle1.png"),
       img(src="wmtitle2.png"),
       img(src="wmtitle3.png"),
@@ -59,11 +59,11 @@ ui <- fluidPage(
             column(
               5, 
               fluidRow(
-                column(4,numericInput("lat", label = NULL,value = 39.9838)),
+                column(4,numericInput("lat", label = NULL, value = NULL)),
                 column(4, h5("Latitude (N)"))
               ),
               fluidRow(
-                column(4,numericInput("lon", label = NULL, value = -123.2881)),
+                column(4,numericInput("lon", label = NULL, value = NULL)),
                 column(4, h5("Longitude (E)"))
               )
             ),
