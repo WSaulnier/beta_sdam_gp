@@ -215,19 +215,19 @@ ui <- fluidPage(
             numericInput(
               inputId = "surfflow",
               label = "Percent of reach with surface flows:",
-              value = "",
+              value = 0,
               min = 0,
             ),
             numericInput(
               inputId = "subflow",
               label = "Percent of reach with surface and sub-surface flows:",
-              value = "",
+              value = 0,
               min = 0,
             ),
             numericInput(
               inputId = "pool",
               label = "Number of isolated pools:",
-              value = "",
+              value = 0,
               min = 0,
             ),
             textAreaInput(
@@ -666,16 +666,13 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
+  # Conditions in STEP 2
   observeEvent(input$user_mayfly_abundance, {
-    print("input$user_TotalAbundance")
-    print(input$user_TotalAbundance)
-    print("input$user_mayfly_abundance")
-    print(input$user_mayfly_abundance)
     if (input$user_mayfly_abundance > input$user_TotalAbundance){
       showModal(
         modalDialog(
           "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
-          footer= modalButton("I understand"),
+          footer= modalButton("OK"),
           easyClose = FALSE
         )
       )
@@ -688,10 +685,6 @@ server <- function(input, output, session) {
   }
   )
   observeEvent(input$user_perennial_abundance, {
-    print("input$user_TotalAbundance")
-    print(input$user_TotalAbundance)
-    print("input$user_mayfly_abundance")
-    print(input$user_mayfly_abundance)
     if (input$user_mayfly_abundance > input$user_TotalAbundance){
       showModal(
         modalDialog(
@@ -725,10 +718,6 @@ server <- function(input, output, session) {
   )
   
   observeEvent(input$user_perennial_taxa, {
-    print("input$user_perennial_abundance")
-    print(input$user_perennial_abundance)
-    print("input$user_perennial_taxa")
-    print(input$user_perennial_taxa)
     if (input$user_perennial_taxa > input$user_perennial_abundance){
       showModal(
         modalDialog(
@@ -746,8 +735,81 @@ server <- function(input, output, session) {
   }
   )
   
+  # Conditions in STEP 3
+  observeEvent(input$surfflow, {
+    if ((input$surfflow  < 0) | (input$surfflow  > 100) ){
+      showModal(
+        modalDialog(
+          "Percent of reach with surface flow must be between 0 and 100 (inclusive)",
+          footer= modalButton("OK"),
+          easyClose = FALSE
+        )
+      )
+      updateNumericInput(
+        session,
+        "surfflow",
+        value = 0
+      )
+    }
+  }
+  )
   
+  observeEvent(input$subflow, {
+    if (input$subflow < 0 | input$subflow > 100){
+      showmodal(
+        modaldialog(
+          "Percent of reach with surface and subsurface flow must be between 0 and 100 (inclusive)",
+          footer= modalbutton("OK"),
+          easyclose = false
+        )
+      )
+      updatenumericinput(
+        session,
+        "subflow",
+        value = 0
+      )
+    }
+  }
+  )
   
+  observeEvent(input$subflow, {
+    if (input$subflow < input$surfflow ){
+      showmodal(
+        modaldialog(
+          "Percent of reach with surface and subsurface flow must be greater than or equal to % of reach with surface flow",
+          footer= modalbutton("OK"),
+          easyclose = false
+        )
+      )
+      updatenumericinput(
+        session,
+        "subflow",
+        value = 0
+      )
+    }
+  }
+  )
+  
+  observeEvent(input$pool, {
+    if (input$surfflow == 100){
+      if ((input$pool != 0) | (!is.null(input$pool))  ) {
+      showmodal(
+        modaldialog(
+          "Number of isolated pools must be zero or blank if % of reach with surface flow is 100",
+          footer= modalbutton("OK"),
+          easyclose = false
+        )
+      )
+      updatenumericinput(
+        session,
+        "pool",
+        value = 0
+      )
+      }
+    }
+  }
+  )
+
   
   sno <- eventReactive(
     input$snobutton, 
@@ -761,8 +823,6 @@ server <- function(input, output, session) {
   output$snomsg <- renderUI({
     sno <- sno()
     all_msg <- qdapRegex::ex_between(sno$msg, "<p>", "</p>")[[1]]
-    print("all_msg")
-    print(all_msg)
     session$userData$snow_or_no <- qdapRegex::ex_between(all_msg[1], "<strong>", "</strong>")[[1]]
     session$userData$snow_persistence <- all_msg[2]
     session$userData$oct_precip <-  all_msg[3]
@@ -847,8 +907,6 @@ server <- function(input, output, session) {
   })
 
   output$final_class <- renderUI({
-    print("input$fish_abundance_checkbox")
-    print(input$user_fishabund_score2)
     #Storing variables in session to use in the report
     session$userData$class <- classify() %>% as.character()
     session$userData$classmsg <- glue::glue(
@@ -911,57 +969,62 @@ server <- function(input, output, session) {
   
   
   # Populate the some of the widgets in the Report tab from the EnterData tab
-  observeEvent(input$runmodel, {
-    print("input$user_TotalAbundance")
-    print(input$user_TotalAbundance)
-    print("input$user_mayfly_abundance")
-    print(input$user_mayfly_abundance)
-    print("input$user_perennial_abundance")
-    print(input$user_perennial_abundance)
+  # observeEvent(input$runmodel, {
+  #   print("Run Model Button is clicked")
+  #   print("input$user_TotalAbundance")
+  #   print(input$user_TotalAbundance)
+  #   print("input$user_mayfly_abundance")
+  #   print(input$user_mayfly_abundance)
+  #   print("input$user_perennial_abundance")
+  #   print(input$user_perennial_abundance)
+  #   print("input$user_perennial_taxa")
+  #   print(input$user_perennial_taxa)
     
-    updateNumericInput(
-      session,
-      "aqua_inv",
-      value = input$user_TotalAbundance
-    )
-    if (!is.null(input$user_mayfly_abundance) ){
-      updateNumericInput(
-        session,
-        "may_flies",
-        value = input$user_mayfly_abundance
-      )
-    }
-    updateNumericInput(
-      session,
-      "indicator_taxa",
-      value = input$user_perennial_abundance
-    )
-    updateNumericInput(
-      session,
-      "indicator_families",
-      value = input$user_perennial_taxa
-    )
+    # updateNumericInput(
+    #   session,
+    #   "aqua_inv",
+    #   value = input$user_TotalAbundance
+    # )
     
-    updateNumericInput(
-      session,
-      "vegetation_score",
-      value = input$user_DifferencesInVegetation_score
-    )
-    
-    updateNumericInput(
-      session,
-      "sinuosity",
-      value = input$user_Sinuosity_score
-    )
+    # if (!is.null(input$user_mayfly_abundance) ){
+    #   updateNumericInput(
+    #     session,
+    #     "may_flies",
+    #     value = input$user_mayfly_abundance
+    #   )
+    # }
+    # 
+    # updateNumericInput(
+    #   session,
+    #   "indicator_taxa",
+    #   value = input$user_perennial_abundance
+    # )
+    # updateNumericInput(
+    #   session,
+    #   "indicator_families",
+    #   value = input$user_perennial_taxa
+    # )
+    # 
+    # updateNumericInput(
+    #   session,
+    #   "vegetation_score",
+    #   value = input$user_DifferencesInVegetation_score
+    # )
+    # 
+    # updateNumericInput(
+    #   session,
+    #   "sinuosity",
+    #   value = input$user_Sinuosity_score
+    # )
     
     # Update the radio buttons for Indicators
-    print("RadioButtons")
-    print(input$user_alglivedead_cover_score)
-    print(input$user_fishabund_score2)
-    print(input$user_DifferencesInVegetation_score)
-    print(input$user_Sinuosity_score)
-    print("----")
-    
+    # print("RadioButtons")
+    # print(input$user_alglivedead_cover_score)
+    # print(input$user_fishabund_score2)
+    # print(input$user_DifferencesInVegetation_score)
+    # print(input$user_Sinuosity_score)
+    # print("----")
+    # 
     # updateRadioButtons(
     #   session,
     #   "algae_streambed",
@@ -1021,7 +1084,7 @@ server <- function(input, output, session) {
     # )
 
     
-  })
+  # })
   output$report <- downloadHandler(
     
     filename = glue::glue("Western Mountain Report ({format(Sys.time(), '%B %d, %Y')}).pdf"),
