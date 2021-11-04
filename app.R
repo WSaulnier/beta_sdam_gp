@@ -200,11 +200,12 @@ ui <- fluidPage(
               ),
               selected = NULL
             ),
-            textInput(
+            textAreaInput(
               inputId = "situation", 
               label = "Site disturbances/difficulties::" , 
               value = "", 
-              width = NULL, 
+              width = '300px',
+              height = '300px',
               placeholder = NULL
             ),
             
@@ -679,7 +680,7 @@ server <- function(input, output, session) {
       updateNumericInput(
         session,
         "user_mayfly_abundance",
-        value = 0
+        value = NULL
       )
     }
   }
@@ -729,7 +730,7 @@ server <- function(input, output, session) {
       updateNumericInput(
         session,
         "user_perennial_taxa",
-        value = 0
+        value = NULL
       )
     }
   }
@@ -748,7 +749,7 @@ server <- function(input, output, session) {
       updateNumericInput(
         session,
         "surfflow",
-        value = 0
+        value = NULL
       )
     }
   }
@@ -766,7 +767,7 @@ server <- function(input, output, session) {
       updatenumericinput(
         session,
         "subflow",
-        value = 0
+        value = NULL
       )
     }
   }
@@ -784,7 +785,7 @@ server <- function(input, output, session) {
       updatenumericinput(
         session,
         "subflow",
-        value = 0
+        value = NULL
       )
     }
   }
@@ -803,7 +804,7 @@ server <- function(input, output, session) {
       updatenumericinput(
         session,
         "pool",
-        value = 0
+        value = NULL
       )
       }
     }

@@ -5,9 +5,9 @@ account: sccwrp
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4955917
-bundleId: 5202022
+bundleId: 5214358
 url: https://sccwrp.shinyapps.io/beta_sdam_wm_dev/
-when: 1635843192.15525
-lastSyncTime: 1635843192.15525
+when: 1636055666.05072
+lastSyncTime: 1636055666.05072
 asMultiple: FALSE
 asStatic: FALSE

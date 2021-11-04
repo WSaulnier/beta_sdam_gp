@@ -213,7 +213,9 @@ cat(params$f)
 
 Assessment reach length (m):
 ```{r}
-cat(params$fff)
+if (!is.na(params$fff)){
+  cat(params$fff)
+}
 ```
 
 Disturbed or difficult conditions:
@@ -246,50 +248,6 @@ cat(params$o)
 Notes on observed hydrology:
 ```{r}
 cat(params$r)
-```
-
-***
-
-## Site Photos
-
-Top of reach looking downstream:
-```{r, out.width = '50%', out.height= '50%', out.extra='angle=0', fig.align='center'}
-if (!identical(params[["v"]], character(0))){ 
-  knitr::include_graphics(params[["v"]])
-}
-```
-
-Middle of reach looking upstream:
-```{r, out.width='50%', fig.align='center'}
-if (!identical(params[["u"]], character(0))){ 
-  knitr::include_graphics(params[["u"]])
-}
-
-```
-
-Middle of reach looking downstream:
-```{r, out.width='50%', fig.align='center'}
-
-if (!identical(params[["t"]], character(0))){ 
-  knitr::include_graphics(params[["t"]])
-}
-```
-
-Bottom of reach looking upstream:
-```{r, out.width='50%', fig.align='center'}
-if (!identical(params[["s"]], character(0))){ 
-  knitr::include_graphics(params[["s"]])
-}
-
-```
-
-## Site Sketch
-
-```{r, out.width='50%', fig.align='center'}
-if (!identical(params[["w"]], character(0))){ 
-  knitr::include_graphics(params[["w"]])
-}
-
 ```
 
 ***
@@ -449,10 +407,11 @@ cat(params$algae_streambed)
 
 ```{r}
 
-deposit <- case_when(
+if (params$ak){
+  deposit <- case_when(
     params$ak == TRUE ~ "All observed algae appear to be deposited from an upstream source.")
-
-cat(deposit)
+  cat(deposit)
+}
 
 ```
 
@@ -766,6 +725,49 @@ if (!identical(params[["f23"]], character(0))){
 }
 ```
 
+***
+
+## Site Photos
+
+Top of reach looking downstream:
+```{r, out.width = '50%', out.height= '50%', out.extra='angle=0', fig.align='center'}
+if (!identical(params[["v"]], character(0))){ 
+  knitr::include_graphics(params[["v"]])
+}
+```
+
+Middle of reach looking upstream:
+```{r, out.width='50%', fig.align='center'}
+if (!identical(params[["u"]], character(0))){ 
+  knitr::include_graphics(params[["u"]])
+}
+
+```
+
+Middle of reach looking downstream:
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["t"]], character(0))){ 
+  knitr::include_graphics(params[["t"]])
+}
+```
+
+Bottom of reach looking upstream:
+```{r, out.width='50%', fig.align='center'}
+if (!identical(params[["s"]], character(0))){ 
+  knitr::include_graphics(params[["s"]])
+}
+
+```
+
+## Site Sketch
+
+```{r, out.width='50%', fig.align='center'}
+if (!identical(params[["w"]], character(0))){ 
+  knitr::include_graphics(params[["w"]])
+}
+
+```
 
 
 **End of Report**
