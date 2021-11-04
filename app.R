@@ -669,143 +669,158 @@ server <- function(input, output, session) {
   
   # Conditions in STEP 2
   observeEvent(input$user_mayfly_abundance, {
-    if (input$user_mayfly_abundance > input$user_TotalAbundance){
-      showModal(
-        modalDialog(
-          "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
-          footer= modalButton("OK"),
-          easyClose = FALSE
+    if (!is.na( input$user_mayfly_abundance) ){
+      if (input$user_mayfly_abundance > input$user_TotalAbundance){
+        showModal(
+          modalDialog(
+            "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
+            footer= modalButton("OK"),
+            easyClose = FALSE
+          )
         )
-      )
-      updateNumericInput(
-        session,
-        "user_mayfly_abundance",
-        value = NULL
-      )
+        updateNumericInput(
+          session,
+          "user_mayfly_abundance",
+          value = 0
+        )
+      }
     }
   }
   )
   observeEvent(input$user_perennial_abundance, {
-    if (input$user_mayfly_abundance > input$user_TotalAbundance){
-      showModal(
-        modalDialog(
-          "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
-          footer= modalButton("OK"),
-          easyClose = FALSE
+    if (!is.na(input$user_perennial_abundance)){
+      if (input$user_mayfly_abundance > input$user_TotalAbundance){
+        showModal(
+          modalDialog(
+            "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
+            footer= modalButton("OK"),
+            easyClose = FALSE
+          )
         )
-      )
-      updateNumericInput(
-        session,
-        "user_mayfly_abundance",
-        value = 0
-      )
-    } else if (
-      (as.numeric(input$user_mayfly_abundance) + as.numeric(input$user_perennial_abundance)) > as.numeric(input$user_TotalAbundance)
-      ) {
-      showModal(
-        modalDialog(
-          "Total abundance of mayflies PLUS total abundance of perennial indicator families must be less than or equal to total abundance of aquatic macroinvertebrates", 
-          footer= modalButton("OK"),
-          easyClose = FALSE
+        updateNumericInput(
+          session,
+          "user_mayfly_abundance",
+          value = 0
         )
-      )
-      updateNumericInput(
-        session,
-        "user_perennial_abundance",
-        value = 0
-      )
+      } else if (
+        (as.numeric(input$user_mayfly_abundance) + as.numeric(input$user_perennial_abundance)) > as.numeric(input$user_TotalAbundance)
+        ) {
+        showModal(
+          modalDialog(
+            "Total abundance of mayflies PLUS total abundance of perennial indicator families must be less than or equal to total abundance of aquatic macroinvertebrates", 
+            footer= modalButton("OK"),
+            easyClose = FALSE
+          )
+        )
+        updateNumericInput(
+          session,
+          "user_perennial_abundance",
+          value = 0
+        )
+      }
     }
   }
   )
   
   observeEvent(input$user_perennial_taxa, {
-    if (input$user_perennial_taxa > input$user_perennial_abundance){
-      showModal(
-        modalDialog(
-          "Total abundance of perennial indicator families must be greater than or equal to the total number of perennial indicator families", 
-          footer= modalButton("OK"),
-          easyClose = FALSE
+    if (!is.na(input$user_perennial_taxa)){
+      if (input$user_perennial_taxa > input$user_perennial_abundance){
+        showModal(
+          modalDialog(
+            "Total abundance of perennial indicator families must be greater than or equal to the total number of perennial indicator families", 
+            footer= modalButton("OK"),
+            easyClose = FALSE
+          )
         )
-      )
-      updateNumericInput(
-        session,
-        "user_perennial_taxa",
-        value = NULL
-      )
+        updateNumericInput(
+          session,
+          "user_perennial_taxa",
+          value = 0
+        )
+      }
     }
   }
   )
   
   # Conditions in STEP 3
   observeEvent(input$surfflow, {
-    if ((input$surfflow  < 0) | (input$surfflow  > 100) ){
-      showModal(
-        modalDialog(
-          "Percent of reach with surface flow must be between 0 and 100 (inclusive)",
-          footer= modalButton("OK"),
-          easyClose = FALSE
+    print(input$surfflow)
+    if (!is.na(input$surfflow)){
+      if ((input$surfflow  < 0) | (input$surfflow  > 100) ){
+        showModal(
+          modalDialog(
+            "Percent of reach with surface flow must be between 0 and 100 (inclusive)",
+            footer= modalButton("OK"),
+            easyClose = FALSE
+          )
         )
-      )
-      updateNumericInput(
-        session,
-        "surfflow",
-        value = NULL
-      )
+        updateNumericInput(
+          session,
+          "surfflow",
+          value = 0
+        )
+      }
     }
   }
   )
   
   observeEvent(input$subflow, {
-    if (input$subflow < 0 | input$subflow > 100){
-      showmodal(
-        modaldialog(
-          "Percent of reach with surface and subsurface flow must be between 0 and 100 (inclusive)",
-          footer= modalbutton("OK"),
-          easyclose = false
+    if (!is.na(input$subflow)){
+      if (input$subflow < 0 | input$subflow > 100){
+        showModal(
+          modalDialog(
+            "Percent of reach with surface and subsurface flow must be between 0 and 100 (inclusive)",
+            footer= modalButton("OK"),
+            easyclose = FALSE
+          )
         )
-      )
-      updatenumericinput(
-        session,
-        "subflow",
-        value = NULL
-      )
+        updateNumericInput(
+          session,
+          "subflow",
+          value = 0
+        )
+      }
     }
   }
   )
   
   observeEvent(input$subflow, {
-    if (input$subflow < input$surfflow ){
-      showmodal(
-        modaldialog(
-          "Percent of reach with surface and subsurface flow must be greater than or equal to % of reach with surface flow",
-          footer= modalbutton("OK"),
-          easyclose = false
+    if(!is.na(input$subflow)){
+      if (input$subflow < input$surfflow ){
+        showModal(
+          modalDialog(
+            "Percent of reach with surface and subsurface flow must be greater than or equal to % of reach with surface flow",
+            footer= modalButton("OK"),
+            easyclose = FALSE
+          )
         )
-      )
-      updatenumericinput(
-        session,
-        "subflow",
-        value = NULL
-      )
+        updateNumericInput(
+          session,
+          "subflow",
+          value = 0
+        )
+      }
     }
   }
   )
   
   observeEvent(input$pool, {
-    if (input$surfflow == 100){
-      if ((input$pool != 0) | (!is.null(input$pool))  ) {
-      showmodal(
-        modaldialog(
-          "Number of isolated pools must be zero or blank if % of reach with surface flow is 100",
-          footer= modalbutton("OK"),
-          easyclose = false
+    if (!is.na(input$surfflow)){
+      if (input$surfflow == 100){
+        if ((input$pool != 0) | (!is.null(input$pool))  ) {
+        showModal(
+          modalDialog(
+            "Number of isolated pools must be zero or blank if % of reach with surface flow is 100",
+            footer= modalButton("OK"),
+            easyclose = FALSE
+          )
         )
-      )
-      updatenumericinput(
-        session,
-        "pool",
-        value = NULL
-      )
+        updateNumericInput(
+          session,
+          "pool",
+          value = 0
+        )
+        }
       }
     }
   }
