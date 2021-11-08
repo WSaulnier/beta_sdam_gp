@@ -826,7 +826,23 @@ server <- function(input, output, session) {
   }
   )
 
-  
+  observeEvent(input$lon, {
+    if ((!is.na(input$lon)) && (input$lon > 0)){
+      showModal(
+        modalDialog(
+          "Value must be negative",
+          footer= modalButton("OK"),
+          easyclose = FALSE
+        )
+      )
+      updateNumericInput(
+        session,
+        "lon",
+        value = 0
+      )
+    }
+  }
+  )
   sno <- eventReactive(
     input$snobutton, 
     {
