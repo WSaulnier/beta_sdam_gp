@@ -61,7 +61,7 @@ ui <- fluidPage(
           
           fluidRow(
             column(
-              5, 
+              5,
               fluidRow(
                 column(4,numericInput("lat", label = NULL, value = NULL)),
                 column(4, h5("Latitude (N)"))
@@ -94,10 +94,11 @@ ui <- fluidPage(
               uiOutput('params')
             )
           ),
-
           conditionalPanel(
-            #"if input.runmodel > 0",
-            condition = "output.valid",
+            
+            # the condition parameter is a JS statement which should return a boolean to decide whether to display the panel or not
+            condition = "document.getElementById('final_class') !== null && document.getElementById('final_class').innerText.toLowerCase().includes('this reach is classified as')",
+            
             #------- General Information
             h4(HTML(
               "Step 4: Enter additional information (optional)")
@@ -970,10 +971,6 @@ server <- function(input, output, session) {
     
     HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
     
-    #Attempt to use this output in the conditionalPanel
-    output$valid <- reactive({
-      is.character(session$userData$class)
-    })
       
   
   #------------ Report Tab
@@ -1307,7 +1304,6 @@ server <- function(input, output, session) {
       )
     }
   )
-  outputOptions(output, "valid", suspendWhenHidden = FALSE)
 }
 
 shinyApp(ui=ui, server=server)
