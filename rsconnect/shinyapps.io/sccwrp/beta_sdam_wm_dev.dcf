@@ -1,0 +1,13 @@
+name: beta_sdam_wm_dev
+title: beta_sdam_wm_dev
+username:
+account: sccwrp
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4955917
+bundleId: 5231277
+url: https://sccwrp.shinyapps.io/beta_sdam_wm_dev/
+when: 1636452497.20434
+lastSyncTime: 1636452497.20434
+asMultiple: FALSE
+asStatic: FALSE
