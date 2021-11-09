@@ -90,8 +90,9 @@ ui <- fluidPage(
               uiOutput('params')
             )
           ),
+
           conditionalPanel(
-            "input.paramchoice == 'sno' | input.paramchoice == 'nosno'" ,
+            "input.runmodel > 0",
             
             #------- General Information
             h4(HTML(
@@ -243,6 +244,35 @@ ui <- fluidPage(
             #------- Indicators
             h4(HTML("<b>Add photos and notes about indicators</b>")),
             
+            fileInput(
+              "tld", 
+              "Top of reach looking downstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "mlu", 
+              "Middle of reach looking upstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "mld", 
+              "Middle of reach looking downstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "blu", 
+              "Bottom of reach looking upstream:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
+            
+            fileInput(
+              "sketch", 
+              "Site Sketch:", 
+              accept = c('image/png', 'image/jpeg')
+            ),
             h4(HTML("<b>Aquatic Invertebrates</b>")),
             # numericInput(
             #   inputId = "aqua_inv",
@@ -579,35 +609,7 @@ ui <- fluidPage(
               height = '300px',
               placeholder = NULL
             ),
-            fileInput(
-              "tld", 
-              "Top of reach looking downstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
             
-            fileInput(
-              "mlu", 
-              "Middle of reach looking upstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "mld", 
-              "Middle of reach looking downstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "blu", 
-              "Bottom of reach looking upstream:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
-            
-            fileInput(
-              "sketch", 
-              "Site Sketch:", 
-              accept = c('image/png', 'image/jpeg')
-            ),
             
             h4(HTML("<b>Additional Photos</b>")),
             fileInput(
