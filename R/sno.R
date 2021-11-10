@@ -142,7 +142,7 @@ snoparams_ui <- fluidRow(
       column(
         6,
         numericInput("user_BankWidthMean", 
-                     label = HTML("<b><i>Bank width (m.m)</i></b>"), 
+                     label = HTML("<b><i>Bankfull channel width (m.m)</i></b>"), 
                      value = "")
       ),
     ),
