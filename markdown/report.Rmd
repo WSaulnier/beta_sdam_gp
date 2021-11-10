@@ -198,7 +198,7 @@ cat(params$j)
 
 Location:
 ```{r}
-cat(paste0(params$g," N, ", params$h, "E"))
+cat(paste0(params$g," N, ", params$h, " E"))
 ```
 
 Surrounding land use within 100 m:
