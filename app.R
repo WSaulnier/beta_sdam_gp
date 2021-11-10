@@ -24,6 +24,10 @@ ui <- fluidPage(
         }
     "))
   ),
+  tags$style(type="text/css",
+             ".shiny-output-error { visibility: hidden; }",
+             ".shiny-output-error:before { visibility: hidden; }"
+  ),
   titlePanel(
     div(
       class="jumbotron",
@@ -57,7 +61,7 @@ ui <- fluidPage(
           
           fluidRow(
             column(
-              5, 
+              5,
               fluidRow(
                 column(4,numericInput("lat", label = NULL, value = NULL)),
                 column(4, h5("Latitude (N)"))
@@ -90,9 +94,10 @@ ui <- fluidPage(
               uiOutput('params')
             )
           ),
-
           conditionalPanel(
-            "input.runmodel > 0",
+            
+            # the condition parameter is a JS statement which should return a boolean to decide whether to display the panel or not
+            condition = "document.getElementById('final_class') !== null && document.getElementById('final_class').innerText.toLowerCase().includes('this reach is classified as')",
             
             #------- General Information
             h4(HTML(
@@ -668,7 +673,8 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  
+  print("session$userData$class")
+  print(is.character(session$userData$class))
   # Conditions in STEP 2
   observeEvent(input$user_mayfly_abundance, {
     if (!is.na( input$user_mayfly_abundance) ){
@@ -828,11 +834,11 @@ server <- function(input, output, session) {
   }
   )
 
-  observeEvent(input$lon, {
+  observeEvent(input$snobutton, {
     if ((!is.na(input$lon)) && (input$lon > 0)){
       showModal(
         modalDialog(
-          "Value must be negative",
+          "Longitude value must be negative",
           footer= modalButton("OK"),
           easyclose = FALSE
         )
@@ -845,6 +851,7 @@ server <- function(input, output, session) {
     }
   }
   )
+
   sno <- eventReactive(
     input$snobutton, 
     {
@@ -853,8 +860,10 @@ server <- function(input, output, session) {
     }
   )
   
+  
   # paramsui = params ui, ui that displays more inputs to grab more parameters
   output$snomsg <- renderUI({
+    
     sno <- sno()
     all_msg <- qdapRegex::ex_between(sno$msg, "<p>", "</p>")[[1]]
     session$userData$snow_or_no <- qdapRegex::ex_between(all_msg[1], "<strong>", "</strong>")[[1]]
@@ -939,10 +948,12 @@ server <- function(input, output, session) {
       user_hydric=input$user_hydric
     )
   })
-
+  
   output$final_class <- renderUI({
     #Storing variables in session to use in the report
     session$userData$class <- classify() %>% as.character()
+    print("session$userData$class")
+    print(is.character(session$userData$class))
     session$userData$classmsg <- glue::glue(
       "The {case_when(
         input$paramchoice == 'sno' ~ 'snow influenced', 
@@ -959,6 +970,8 @@ server <- function(input, output, session) {
     
     
     HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
+    
+      
   
   #------------ Report Tab
   
@@ -1002,123 +1015,6 @@ server <- function(input, output, session) {
   fig23 <- reactive({gsub("\\\\", "/", input$add3$datapath)})
   
   
-  # Populate the some of the widgets in the Report tab from the EnterData tab
-  # observeEvent(input$runmodel, {
-  #   print("Run Model Button is clicked")
-  #   print("input$user_TotalAbundance")
-  #   print(input$user_TotalAbundance)
-  #   print("input$user_mayfly_abundance")
-  #   print(input$user_mayfly_abundance)
-  #   print("input$user_perennial_abundance")
-  #   print(input$user_perennial_abundance)
-  #   print("input$user_perennial_taxa")
-  #   print(input$user_perennial_taxa)
-    
-    # updateNumericInput(
-    #   session,
-    #   "aqua_inv",
-    #   value = input$user_TotalAbundance
-    # )
-    
-    # if (!is.null(input$user_mayfly_abundance) ){
-    #   updateNumericInput(
-    #     session,
-    #     "may_flies",
-    #     value = input$user_mayfly_abundance
-    #   )
-    # }
-    # 
-    # updateNumericInput(
-    #   session,
-    #   "indicator_taxa",
-    #   value = input$user_perennial_abundance
-    # )
-    # updateNumericInput(
-    #   session,
-    #   "indicator_families",
-    #   value = input$user_perennial_taxa
-    # )
-    # 
-    # updateNumericInput(
-    #   session,
-    #   "vegetation_score",
-    #   value = input$user_DifferencesInVegetation_score
-    # )
-    # 
-    # updateNumericInput(
-    #   session,
-    #   "sinuosity",
-    #   value = input$user_Sinuosity_score
-    # )
-    
-    # Update the radio buttons for Indicators
-    # print("RadioButtons")
-    # print(input$user_alglivedead_cover_score)
-    # print(input$user_fishabund_score2)
-    # print(input$user_DifferencesInVegetation_score)
-    # print(input$user_Sinuosity_score)
-    # print("----")
-    # 
-    # updateRadioButtons(
-    #   session,
-    #   "algae_streambed",
-    #   selected = case_when(
-    #     input$user_alglivedead_cover_score == "0" ~ "none",
-    #     input$user_alglivedead_cover_score == "1" ~ "lessthan2",
-    #     input$user_alglivedead_cover_score == "5" ~ "2to10",
-    #     input$user_alglivedead_cover_score == "35" ~ "10to40",
-    #     input$user_alglivedead_cover_score == "50" ~ "morethan40",
-    #     
-    #   )
-    # )
-    # 
-    # updateRadioButtons(
-    #   session,
-    #   "fish_abundance",
-    #   selected = case_when(
-    #     input$user_fishabund_score2 == "0" ~ "poor",
-    #     input$user_fishabund_score2 == "0.5" ~ "poor2",
-    #     input$user_fishabund_score2 == "1" ~ "weak",
-    #     input$user_fishabund_score2 == "1.5" ~ "weak2",
-    #     input$user_fishabund_score2 == "2" ~ "moderate",
-    #     input$user_fishabund_score2 == "2.5" ~ "moderate2",
-    #     input$user_fishabund_score2 == "3" ~ "strong",
-    #     
-    #   )
-    # )
-    # 
-    # updateRadioButtons(
-    #   session,
-    #   "vegetation_score",
-    #   selected = case_when(
-    #     input$user_DifferencesInVegetation_score == "0" ~ "poor",
-    #     input$user_DifferencesInVegetation_score == "0.5" ~ "poor2",
-    #     input$user_DifferencesInVegetation_score == "1" ~ "weak",
-    #     input$user_DifferencesInVegetation_score == "1.5" ~ "weak2",
-    #     input$user_DifferencesInVegetation_score == "2" ~ "moderate",
-    #     input$user_DifferencesInVegetation_score == "2.5" ~ "moderate2",
-    #     input$user_DifferencesInVegetation_score == "3" ~ "strong",
-    #     
-    #   )
-    # )
-    # 
-    # updateRadioButtons(
-    #   session,
-    #   "sinuosity",
-    #   selected = case_when(
-    #     input$user_Sinuosity_score == "0" ~ "poor",
-    #     input$user_Sinuosity_score == "0.5" ~ "poor2",
-    #     input$user_Sinuosity_score == "1" ~ "weak",
-    #     input$user_Sinuosity_score == "1.5" ~ "weak2",
-    #     input$user_Sinuosity_score == "2" ~ "moderate",
-    #     input$user_Sinuosity_score == "2.5" ~ "moderate2",
-    #     input$user_Sinuosity_score == "3" ~ "strong",
-    #     
-    #   )
-    # )
-
-    
-  # })
   output$report <- downloadHandler(
     
     filename = glue::glue("Western Mountain Report ({format(Sys.time(), '%B %d, %Y')}).pdf"),
@@ -1408,7 +1304,6 @@ server <- function(input, output, session) {
       )
     }
   )
-  
 }
 
 shinyApp(ui=ui, server=server)
