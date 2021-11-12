@@ -24,10 +24,6 @@ ui <- fluidPage(
         }
     "))
   ),
-  tags$style(type="text/css",
-             ".shiny-output-error { visibility: hidden; }",
-             ".shiny-output-error:before { visibility: hidden; }"
-  ),
   titlePanel(
     div(
       class="jumbotron",
@@ -37,7 +33,8 @@ ui <- fluidPage(
       ),
       h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.0.0</a> Release date: Nov 2 2021 </p>")),
       img(src="wmtitle1.png"),
-      img(src="wmtitle2.png"),
+      img(src="wmtitle
+2.png"),
       img(src="wmtitle3.png"),
       img(src="wmtitle4.png")
     ),
@@ -834,23 +831,23 @@ server <- function(input, output, session) {
   }
   )
 
-  observeEvent(input$snobutton, {
-    if ((!is.na(input$lon)) && (input$lon > 0)){
-      showModal(
-        modalDialog(
-          "Longitude value must be negative",
-          footer= modalButton("OK"),
-          easyclose = FALSE
-        )
-      )
-      updateNumericInput(
-        session,
-        "lon",
-        value = 0
-      )
-    }
-  }
-  )
+  # observeEvent(input$snobutton, {
+  #   if ((!is.na(input$lon)) && (input$lon > 0)){
+  #     showModal(
+  #       modalDialog(
+  #         "Longitude value must be negative",
+  #         footer= modalButton("OK"),
+  #         easyclose = FALSE
+  #       )
+  #     )
+  #     updateNumericInput(
+  #       session,
+  #       "lon",
+  #       value = 0
+  #     )
+  #   }
+  # }
+  # )
 
   sno <- eventReactive(
     input$snobutton, 

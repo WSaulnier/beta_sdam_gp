@@ -150,6 +150,7 @@ Beta_SDAM_WM<-function(
     ClassProbs = predict(NonSnowDomModel_Simplified, newdata = xdf, type="prob") %>% as.data.frame()
   
   #Classify results based on predicted probabilities of class membership
+  
   xdf<- bind_cols(xdf, ClassProbs) %>%
     mutate(ALI = I + P,
            Class = case_when(P>=.5~"Perennial",
@@ -175,19 +176,20 @@ snowdom <- function(lat, lon){
   df <- data.frame(lat = lat, lon = lon)
   # df <- data.frame(lat = 40.8, lon = -124)
   # df <- data.frame(lat = 0, lon = 0)
-  
+
   snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2_Match.tif')
   wm_strata <- st_read('data/shapefiles/WM_Strata.shp')
-  
+ 
   ysf<-df %>%
     st_as_sf(coords=c("lon", "lat"),
              remove=F,
              crs=4326) %>%
     st_transform(crs=st_crs(wm_strata)) %>% 
     st_join(wm_strata, join = st_within)
-  
+  print("ysf")
+  print(ysf)
   in_wm <- ifelse(is.na(ysf$Region), F, T)
-  
+
   
   
   xsf<-df %>%
@@ -198,6 +200,8 @@ snowdom <- function(lat, lon){
     st_buffer(10000) %>%
     st_transform(crs=st_crs(snowp_raster))
   #Suppress warnings here
+  print("good to here") 
+  print(xsf)
   xsf$MeanSnowPersistence_10=exactextractr::exact_extract(x=snowp_raster, y=xsf, 'mean')
   xsf$SnowDom_SP10=case_when(
     is.na(xsf$MeanSnowPersistence_10) ~ "Outside snow raster",
@@ -206,6 +210,18 @@ snowdom <- function(lat, lon){
   )
   
   sno_inf <- xsf$SnowDom_SP10
+  print("sno_inf")
+  print(sno_inf)
+  
+  if (sno_inf == 'Outside snow raster') {
+    return(
+      list(
+        canrun = F,
+        msg = HTML('<strong>Warning</strong>: The reach is outside the Western Mountains region and cannot be assessed with the Beta SDAM WM.'),
+        mod = character(0)
+      )
+    )
+  }
   
   # Get May and October Precipitation
   prism_set_dl_dir("data/prism")
@@ -228,21 +244,13 @@ snowdom <- function(lat, lon){
   
   
   # More stuff for May and Oct precip
+
   mydf_prism<-bind_cols(
     raster::extract(tmax_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(tmax = 1),
     raster::extract(ppt.m05_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m05 = 1),
     raster::extract(ppt.m10_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m10 = 1)
   )
   
-  if (sno_inf == 'Outside snow raster') {
-    return(
-      list(
-        canrun = F,
-        msg = HTML('<strong>Warning</strong>: Site is outside the project area. Site cannot be assessed'),
-        mod = character(0)
-      )
-    )
-  }
   
   if (in_wm) {
     
