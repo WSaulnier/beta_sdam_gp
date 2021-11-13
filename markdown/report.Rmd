@@ -160,63 +160,30 @@ cat(paste0(glue::glue("Note: {params$class_wm_msg}")))
 
 ## General Site Information
 
-Project name or number:
-```{r}
-# Adding cat() to all of the outputs to remove the [1] that would otherwise print immediately before them.
-cat(params$a)
-```
+Project name or number: `r params$a`
 
-Site code or identifier:
-```{r}
-cat(params$c)
-```
+Site code or identifier: `r params$c`
 
-Assessor(s):
-```{r}
-cat(params$b)
-```
+Assessor(s): `r params$b`
 
-Waterway name:
-```{r}
-cat(params$d)
-```
+Waterway name: `r params$d`
 
-Visit date:
-```{r}
-cat(params$e)
-```
+Visit date: `r params$e`
 
-Current weather conditions:
-```{r}
-cat(params$bm)
-```
+Current weather conditions: `r params$bm`
 
 Notes on current or recent weather conditions:
 ```{r}
 cat(params$j)
 ```
 
-Location:
-```{r}
-cat(paste0(params$g," N, ", params$h, " E"))
-```
+Location: `r paste0(params$g," N, ", params$h, " E")`
 
-Surrounding land use within 100 m:
-```{r}
-cat(params$l)
-```
+Surrounding land use within 100 m: `r params$l`
 
-Description of reach boundaries:
-```{r}
-cat(params$f)
-```
+Description of reach boundaries: `r params$f`
 
-Assessment reach length (m):
-```{r}
-if (!is.na(params$fff)){
-  cat(params$fff)
-}
-```
+Assessment reach length (m): `r if (!is.na(params$fff)){params$fff}`
 
 Disturbed or difficult conditions:
 ```{r, tidy=TRUE, tidy.opts=list(width.cutoff=60)}
@@ -230,28 +197,58 @@ cat(params$k)
 
 ## Observed hydrology:
 
-Percent of reach with surface flow:
-```{r}
-cat(params$m)
+Percent of reach with surface flow: `r params$m`
+
+Percent of reach with surface and sub-surface flows: `r params$n`
+
+Number of isolated pools: `r params$o`
+
+Notes on observed hydrology: `r params$r`
+
+***
+## Site Photos
+
+Top of reach looking downstream:
+```{r, out.width = '50%', out.height= '50%', out.extra='angle=0', fig.align='center'}
+if (!identical(params[["v"]], character(0))){ 
+  knitr::include_graphics(params[["v"]])
+}
 ```
 
-Percent of reach with surface and sub-surface flows:
-```{r}
-cat(params$n)
+Middle of reach looking upstream:
+```{r, out.width='50%', fig.align='center'}
+if (!identical(params[["u"]], character(0))){ 
+  knitr::include_graphics(params[["u"]])
+}
+
 ```
 
-Number of isolated pools:
-```{r}
-cat(params$o)
+Middle of reach looking downstream:
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["t"]], character(0))){ 
+  knitr::include_graphics(params[["t"]])
+}
 ```
 
-Notes on observed hydrology:
-```{r}
-cat(params$r)
+Bottom of reach looking upstream:
+```{r, out.width='50%', fig.align='center'}
+if (!identical(params[["s"]], character(0))){ 
+  knitr::include_graphics(params[["s"]])
+}
+
+```
+
+## Site Sketch
+
+```{r, out.width='50%', fig.align='center'}
+if (!identical(params[["w"]], character(0))){ 
+  knitr::include_graphics(params[["w"]])
+}
+
 ```
 
 ***
-
 ## Indicators
 
 Indicators used to classify the assessment reach are indicated with an asterisk.
@@ -302,7 +299,7 @@ if (!is.null(params$mean_temp)) {
 ***
 ## Biological indicators
 
-## Aquatic Invertebrates
+### Aquatic Invertebrates
 
 
 ```{r}
@@ -397,13 +394,9 @@ cat(params$notes_aquainv)
 
 ***
 
-## Algae Cover
+### Algal Cover
 
-Algae cover on the stream-bed:
-
-```{r}
-cat(params$algae_streambed)
-```
+Algal cover on the stream-bed: `r params$algae_streambed`
 
 ```{r}
 
@@ -415,7 +408,7 @@ if (params$ak){
 
 ```
 
-Notes on algae cover:
+Notes on algal cover:
 
 ```{r}
 cat(params$notes_algaecover)
@@ -467,14 +460,9 @@ if (!identical(params[["f11"]], character(0))){
 
 ***
 
-## Fish
+### Fish
 
-Fish abundance:
-
-```{r}
-cat(params$fish_abundance)
-```
-
+Fish abundance: `r params$fish_abundance`
 
 ```{r}
 if (params$fish_abundance_checkbox){
@@ -534,18 +522,10 @@ if (!identical(params[["f14"]], character(0))){
 ```
 
 ***
-## Differences in vegetation
 
-Differences in vegetation score:
+### Differences in vegetation
 
-```{r}
-if (!is.null(params$vegetation_score)){
-  cat(params$vegetation_score)
-} else {
-  cat("Data was not provided")
-  }
-
-```
+Differences in vegetation score: `r if (!is.null(params$vegetation_score)){params$vegetation_score}`
 
 Notes about differences in vegetation:
 
@@ -604,24 +584,11 @@ if (!identical(params[["f17"]], character(0))){
 
 ## Geomorphological indicators
 
-## Bank width (m)
+### Bankfull channel width (m): `r params$bankwidth`
 
-```{r}
-cat(params$bankwidth)
-```
+### Sinuosity
 
-## Sinuosity
-
-Sinuosity score:
-
-```{r}
-if (!is.null(params$vegetation_score)
-     ){
-  cat(params$sinuosity)
-} else{
-  cat("Data was not provided")
-}
-```
+Sinuosity score: `r if (!is.null(params$vegetation_score)){params$sinuosity}`
 
 Notes about sinuosity
 
@@ -724,50 +691,5 @@ if (!identical(params[["f23"]], character(0))){
   cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f23_cap, perl = TRUE)))
 }
 ```
-
-***
-
-## Site Photos
-
-Top of reach looking downstream:
-```{r, out.width = '50%', out.height= '50%', out.extra='angle=0', fig.align='center'}
-if (!identical(params[["v"]], character(0))){ 
-  knitr::include_graphics(params[["v"]])
-}
-```
-
-Middle of reach looking upstream:
-```{r, out.width='50%', fig.align='center'}
-if (!identical(params[["u"]], character(0))){ 
-  knitr::include_graphics(params[["u"]])
-}
-
-```
-
-Middle of reach looking downstream:
-```{r, out.width='50%', fig.align='center'}
-
-if (!identical(params[["t"]], character(0))){ 
-  knitr::include_graphics(params[["t"]])
-}
-```
-
-Bottom of reach looking upstream:
-```{r, out.width='50%', fig.align='center'}
-if (!identical(params[["s"]], character(0))){ 
-  knitr::include_graphics(params[["s"]])
-}
-
-```
-
-## Site Sketch
-
-```{r, out.width='50%', fig.align='center'}
-if (!identical(params[["w"]], character(0))){ 
-  knitr::include_graphics(params[["w"]])
-}
-
-```
-
 
 **End of Report**

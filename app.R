@@ -342,8 +342,8 @@ ui <- fluidPage(
               width = NULL, 
               placeholder = NULL
             ),
-            #------- Algae Cover
-            h4(HTML("<b>Algae Cover</b>")),
+            #------- Algal Cover
+            h4(HTML("<b>Algal Cover</b>")),
             # radioButtons(
             #   inputId = "algae_streambed",
             #   label = "Algae cover on the streambed:",
@@ -359,7 +359,7 @@ ui <- fluidPage(
             # ),
             textAreaInput(
               inputId = "notes_algaecover", 
-              label = "Notes about algae cover:", 
+              label = "Notes about Algal cover:", 
               value = "", 
               width = '300px',
               height = '300px',
