@@ -251,6 +251,21 @@ snowdom <- function(lat, lon){
     raster::extract(ppt.m10_RS, xsf, fun=mean, na.rm=T, sp=F) %>% as.data.frame() %>% dplyr::rename(ppt.m10 = 1)
   )
   
+  # This block of code is to provide whether the region is snow dominance or not, and also other info.
+  outwm_sno_or_no <- xsf$SnowDom_SP10
+  outwm_msg <- glue::glue(
+    HTML(
+      paste0(
+        "<h5>",
+        "<p>This reach is <strong>{sno_inf}</strong></p><br>",
+        "<p>Snow persistence is {round(xsf$MeanSnowPersistence_10, 1)}</p><br>",
+        "<p>May precipitation (mm): {round(mydf_prism$ppt.m05, 1)}</p><br>",
+        "<p>October precipitation (mm): {round(mydf_prism$ppt.m10, 1)}</p><br>",
+        "<p>Mean annual max temperature (Deg C): {round(mydf_prism$tmax, 1)}</p><br>"
+      )
+    )
+  )
+  # -------
   
   if (in_wm) {
     
@@ -317,7 +332,7 @@ snowdom <- function(lat, lon){
     }
     
     msg <- paste0(msg, '</h5>')
-    
+
     return(
       list(
         canrun = T,
@@ -331,7 +346,11 @@ snowdom <- function(lat, lon){
     return(
       list(
         canrun = T,
-        msg = HTML("<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only."),
+        msg = glue::glue( 
+          HTML(
+            "<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only. <br> The site is {outwm_sno_or_no} <br> {outwm_msg}"
+          )
+        ),
         mod = character(0)
       )
     )

@@ -263,7 +263,6 @@ cat(paste0("The site is ",params$snow_or_no))
 
 <!-- May precipitation (mm): -->
 ```{r}
-
 if (!is.null(params$modelused) ) {
   cat(params$may_precip)
 } else {
@@ -301,44 +300,15 @@ if (!is.null(params$mean_temp)) {
 
 ### Aquatic Invertebrates
 
+Total abundance of aquatic macroinvertebrates: `r if (!is.null(params$aqua_inv)) {params$aqua_inv}`
 
-```{r}
-if (!is.null(params$aqua_inv)) {
-  cat("Total abundance of aquatic macroinvertebrates: ", params$aqua_inv)
-} else {
-  cat("Data was not provided")
-}
-```
+Total abundance of mayflies: `r if (!is.null(params$may_flies)) {params$may_flies}`
 
+Total abundance of perennial indicator families of aquatic macroinvertebrates: `r if (!is.null(params$indicator_families)) {params$indicator_families}`
 
+Total number of perennial indicator families of aquatic macroinvertebrates: `r if (!is.null(params$indicator_taxa)) {params$indicator_taxa}`
 
-```{r}
-if (!is.null(params$may_flies)) {
-  cat("Total abundance of mayflies: ", params$may_flies)
-} else {
-  cat("Data was not provided")
-}
-```
-
-
-```{r}
-if (!is.null(params$indicator_families)) {
-    cat("Total abundance of perennial indicator families of aquatic macroinvertebrates: ", params$indicator_families)
-} else {
-  cat("Data was not provided")
-}
-```
-
-
-```{r}
-if (!is.null(params$indicator_taxa)) {
-  cat("Total number of perennial indicator families of aquatic macroinvertebrates: ", params$indicator_taxa)
-} else {
-  cat("Data was not provided")
-}
-```
-
-Aquatic invertebrate photos and photo descriptions.
+Aquatic invertebrate photos and photo descriptions:
 
 ```{r, out.width='50%', fig.align='center'}
 
@@ -386,7 +356,7 @@ if (!identical(params[["f8"]], character(0))){
 ```
 
 
-Notes on aquatic invertebrates
+Notes on aquatic invertebrates:
 
 ```{r}
 cat(params$notes_aquainv)
@@ -590,7 +560,7 @@ if (!identical(params[["f17"]], character(0))){
 
 Sinuosity score: `r if (!is.null(params$vegetation_score)){params$sinuosity}`
 
-Notes about sinuosity
+Notes about sinuosity:
 
 ```{r}
 cat(params$notes_sinuosity)
@@ -646,11 +616,12 @@ if (!identical(params[["f20"]], character(0))){
 ## Supplemental Information
 
 Additional notes about the assessment:
+
 ```{r}
 cat(params$notes_supplemental_information)
 ```
 
-Supplemental information photos and descriptions
+Supplemental information photos and descriptions:
 ```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f21"]], character(0))){ 
