@@ -348,7 +348,7 @@ snowdom <- function(lat, lon){
         canrun = T,
         msg = glue::glue( 
           HTML(
-            "<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only. <br> The site is {outwm_sno_or_no} <br> {outwm_msg}"
+            "<strong>Warning</strong>: Site is outside the Western Mountains. Classifications for the Beta SDAM WM are presented for informational purposes only. <br> {outwm_msg}"
           )
         ),
         mod = character(0)
