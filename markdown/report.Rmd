@@ -147,14 +147,14 @@ options(tinytex.verbose = TRUE)
 opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
 ```
 
-***
+<!-- *** -->
 
-## Classification:
+<!-- ## Classification: -->
 
-```{r}
-cat(params$class_wm)
-cat(paste0(glue::glue("Note: {params$class_wm_msg}")))
-```
+<!-- ```{r} -->
+<!-- cat(params$class_wm) -->
+<!-- cat(paste0(glue::glue("Note: {params$class_wm_msg}"))) -->
+<!-- ``` -->
 
 ***
 

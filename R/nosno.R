@@ -157,10 +157,10 @@ nosnoparams_ui <- fluidRow(
       )
     ),
     fluidRow(
-      column(
-        6,
-        actionButton("runmodel", "Run Model")
-      ),
+      # column(
+      #   6,
+      #   actionButton("runmodel", "Run Model")
+      # ),
       column(
         6,
         shinycustomloader::withLoader(uiOutput('final_class'))
