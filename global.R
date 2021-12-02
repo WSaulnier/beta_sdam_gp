@@ -328,9 +328,9 @@ snowdom <- function(lat, lon){
       "<p>Mean annual max temperature (Deg C): {round(mydf_prism$tmax, 1)}</p><br>"
     )
     
-    if (xdf$Class_final %in% c('Intermittent','At least intermittent','Perennial')) {
-      msg <- paste0(msg, '<p>Reach is likely at least intermittent based on climatic conditions alone</p>')
-    }
+    # if (xdf$Class_final %in% c('Intermittent','At least intermittent','Perennial')) {
+    #   msg <- paste0(msg, '<p>Reach is likely at least intermittent based on climatic conditions alone</p>')
+    # }
     
     msg <- paste0(msg, '</h5>')
 
