@@ -82,6 +82,12 @@ addinfo <- fluidRow(
               </a>"))),
              
            ),
+           tags$p(HTML(
+             "R code used to develop this application is available here: 
+             <a href =\"https://github.com/SCCWRP/beta_sdam_wm\" 
+             > https://github.com/SCCWRP/beta_sdam_wm </a>"
+             )
+            ),
            tags$p("For additional support with this website, please contact Dr. Raphael Mazor (raphaelm@sccwrp.org) 
                   at the Southern California Coastal Water Research Project.")
          )

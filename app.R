@@ -95,8 +95,8 @@ ui <- fluidPage(
             
             # the condition parameter is a JS statement which should return a boolean to decide whether to display the panel or not
             #condition = "document.getElementById('final_class') !== null && document.getElementById('final_class').innerText.toLowerCase().includes('this reach is classified as')",
-            #condition = "document.getElementById('final_class') !== null && document.getElementById('final_class').innerText.toLowerCase().includes('this reach is classified as')",
-            "(input.paramchoice == 'sno') || (input.paramchoice == 'nosno')",
+            condition = "document.getElementById('final_class') !== null && document.getElementById('final_class').innerText.toLowerCase().includes('this reach is classified as')",
+            #"(input.paramchoice == 'sno') || (input.paramchoice == 'nosno')",
             #------- General Information
             h4(HTML(
               "Step 4: Enter additional information (optional)")
