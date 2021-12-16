@@ -14,7 +14,7 @@ addinfo <- fluidRow(
             ),
            
            tags$p(HTML("The user manual, training material, and other resources may be accessed from the 
-                       <a href =\"https://betasdamwm-sccwrp.hub.arcgis.com/\">
+                       <a href =\"https://sdam-for-western-mountains-sccwrp.hub.arcgis.com/\">
                        SDAM WM Training Website.
                        </a>")),
            
