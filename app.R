@@ -33,9 +33,9 @@ ui <- fluidPage(
       ),
       h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.0.1</a> Release date: Nov 15 2021 </p>")),
       img(src="wmtitle1.png"),
-      img(src="wmtitle
-2.png"),
-      img(src="wmtitle3.png"),
+#       img(src="wmtitle
+# 2.png"),
+      # img(src="wmtitle3.png"),
       img(src="wmtitle4.png")
     ),
     "SDAM Western Mountains"
