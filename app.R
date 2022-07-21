@@ -1,9 +1,6 @@
 source('global.R')
-# source('sno.R')
-# source('nosno.R')
 # source('additionalinfo.R')
 source('./R/background.R')
-# source('R/global_20220628_v2.R')
 ### Maybe needed?
 # install.packages('rmarkdown')
 # install.packages('tinytex')
@@ -37,8 +34,10 @@ ui <- fluidPage(
             color: white;
             text-align: center;
         }
+
     "))
     ),
+
     titlePanel(
         div(
             class="jumbotron",
@@ -83,9 +82,6 @@ ui <- fluidPage(
                                 column(4,numericInput("lon", label = NULL, value = -103.517482)),
                                 column(1, h5("Longitude"))
                             )
-                            # fluidRow(
-                            #     actionButton("reg_button", label="Assess Plains Region") 
-                            # )
                         ),
                         column(
                             2,
@@ -101,15 +97,7 @@ ui <- fluidPage(
                                 uiOutput(outputId = "reg_class") %>%
                                     tagAppendAttributes(class = 'border-my-text')
                             )
-                            # h2(HTML("<b>Bankful Width</b>")),
-                            
                         )
-                        # column(
-                        #     2,
-                        #     ""
-                        # )
-                        
-                        
                     ),
                     fluidRow(
                         column(
@@ -123,10 +111,9 @@ ui <- fluidPage(
                             7,
                             
                             h3(HTML("Step 2: Enter required indicator data")),
+                            
                             # biological indicators----
                             h4(HTML("<b><u>Biological Indicators</u></b>")),
-                            # div(HTML("<b><i>Aquatic invertebrate indicators</i></b>")),
-                            
                             fluidRow(
                                 column(
                                     4,
@@ -192,7 +179,6 @@ ui <- fluidPage(
                                                         value = 3,
                                                         step = 1,
                                                         icon = icon("hashtag"))
-                                       # numericInput("select", "Choose the Number of Densiometer Readings (max. 12)", min = 1, max = 12, value = 3, step = 1)
                                 )
                             ),
                             
@@ -280,7 +266,6 @@ ui <- fluidPage(
                                                         value = 3,
                                                         step = 1,
                                                         icon = icon("hashtag"))
-                                       # sliderInput("select_bank", "Choose the Number of Bankful Measurements (max. 12)", min = 1, max = 3, value = 3)
                                 )
                             ),
                             fluidRow(
@@ -289,7 +274,6 @@ ui <- fluidPage(
                                     uiOutput("bankUI")
                                 ),
                                 column(
-                                    # h2(HTML("<b>Bankful Width</b>")),
                                     width = 6,
                                     uiOutput(outputId = "bank_text") %>%
                                         tagAppendAttributes(class = 'border-my-text')
@@ -311,8 +295,6 @@ ui <- fluidPage(
                                         uiOutput("class_out") %>%
                                             tagAppendAttributes(class = 'border-my-class')
                                     )
-                                    
-                                    # shinycustomloader::withLoader(uiOutput('final_class'))
                                 ),
                             ),
                             fluidRow(
@@ -328,11 +310,8 @@ ui <- fluidPage(
                     
                     # Report Inputs----   
                     conditionalPanel(
-                        
-                        # the condition parameter is a JS statement which should return a boolean to decide whether to display the panel or not
-                        #condition = "document.getElementById('final_class') !== null && document.getElementById('final_class').innerText.toLowerCase().includes('this reach is classified as')",
                         condition = "output.class_out",
-                        #"(input.paramchoice == 'sno') || (input.paramchoice == 'nosno')",
+
                         ## General Information----
                         HTML('<hr style="color: black; height: 6px; background-color: black;">'),
                         h3(HTML(
@@ -485,6 +464,7 @@ ui <- fluidPage(
                         ## Indicators----
                         HTML('<hr style="color: black; height: 3px; background-color: black;">'),
                         h4(HTML("<b>Add photos and notes about indicators</b>")),
+                        
                         ### General Photos----
                         slatesFileInput(
                             "tld",
@@ -517,27 +497,6 @@ ui <- fluidPage(
                         ),
                         ### EPT Taxa.-----
                         h4(HTML("<b>Aquatic Invertebrates</b>")),
-                        # numericInput(
-                        #   inputId = "aqua_inv",
-                        #   label = "Total abundance of aquatic invertebrates : ",
-                        #   value = ""
-                        # ),
-                        # numericInput(
-                        #   inputId = "may_flies",
-                        #   label = "Total abundance of mayflies: ",
-                        #   value = ""
-                        # ),
-                        # numericInput(
-                        #   inputId = "indicator_taxa",
-                        #   label = "Total abundance of perennial indicator taxa:",
-                        #   value = ""
-                        # ),
-                        # numericInput(
-                        #   inputId = "indicator_families",
-                        #   label = "Total number of perennial indicator families:",
-                        #   value = ""
-                        # ),
-                        
                         textAreaInput(
                             inputId = "notes_ept_taxa",
                             label = "Notes about EPT Taxa:",
@@ -546,7 +505,6 @@ ui <- fluidPage(
                             height = '300px',
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "inv1",
                             HTML("Invertebrate Photo #1<br /> <span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -559,7 +517,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "inv2",
                             HTML("Invertebrate Photo #2<br /> <span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -577,7 +534,6 @@ ui <- fluidPage(
                             HTML("Invertebrate Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
                             accept = c('image/png', 'image/jpeg')
                         ),
-                        
                         textInput(
                             inputId = "inv3_cap",
                             label = HTML("<span style='font-weight:normal'>Invertebrate Photo #3 caption:</span>"),
@@ -585,7 +541,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "inv4",
                             HTML("Invertebrate Photo #4<br /> <span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -598,7 +553,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "inv5",
                             HTML("Invertebrate Photo #5<br /> <span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -616,7 +570,6 @@ ui <- fluidPage(
                             HTML("Invertebrate Photo #6<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
                             accept = c('image/png', 'image/jpeg')
                         ),
-                        
                         textInput(
                             inputId = "inv6_cap",
                             label = HTML("<span style='font-weight:normal'>Invertebrate Photo #6 caption:</span>"),
@@ -625,22 +578,9 @@ ui <- fluidPage(
                             placeholder = NULL
                         ),
                         
-                        
                         ### Hydrophytes----
                         h4(HTML("<b>Hydrophytic Plant Abundance</b>")),
-                        # radioButtons(
-                        #   inputId = "algae_streambed",
-                        #   label = "Algae cover on the streambed:",
-                        #   choices = c(
-                        #     "None Detected" = 'none',
-                        #     "< 2%" = 'lessthan2',
-                        #     "2% to 10%" = '2to10',
-                        #     "10% to 40%" = '10to40',
-                        #     "40% and above" = 'morethan40'
-                        #   ),
-                        #   selected = NULL,
-                        #   inline = T
-                        # ),
+                        
                         textAreaInput(
                             inputId = "notes_hydrophytes",
                             label = "Notes about hydrophytes:",
@@ -661,7 +601,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "hydro2",
                             HTML("Hydrophyte Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -679,7 +618,6 @@ ui <- fluidPage(
                             HTML("Hydrophyte Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
                             accept = c('image/png', 'image/jpeg')
                         ),
-                        
                         textInput(
                             inputId = "hydro3_cap",
                             label = HTML("<span style='font-weight:normal'>Hydrophyte Photo #3 caption:</span>"),
@@ -687,8 +625,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
-                        
                         slatesFileInput(
                             "hydro4",
                             HTML("Hydrophyte Photo #4<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -701,7 +637,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "hydro5",
                             HTML("Hydrophyte Photo #5<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -777,21 +712,6 @@ ui <- fluidPage(
                         ),
                         ### Upland Rooted-----
                         h4(HTML("<b>Absence of upland rooted plants in the streambed</b>")),
-                        # radioButtons(
-                        #   inputId = "vegetation_score",
-                        #   label = "Differences in vegetation score:",
-                        #   choices = c(
-                        #     "0 (Poor)" = 'poor',
-                        #     "0.5" = 'poor2',
-                        #     "1 (Weak)" = 'weak',
-                        #     "1.5" = 'weak2',
-                        #     "2 (Moderate)" = 'moderate',
-                        #     "2.5" = 'moderate2',
-                        #     "3 (Strong)" = 'strong'
-                        #   ),
-                        #   selected = NULL,
-                        #   inline = T
-                        # ),
                         textAreaInput(
                             inputId = "notes_rooted", 
                             label = "Notes about upland rooted vegetation:", 
@@ -825,7 +745,6 @@ ui <- fluidPage(
                             width = NULL, 
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "veg3", 
                             HTML("Upland Rooted Plants Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"), 
@@ -840,21 +759,7 @@ ui <- fluidPage(
                         ),
                         ### Channel Dimensions----
                         h4(HTML("<b>Floodplain and Channel Dimensions</b>")),
-                        # radioButtons(
-                        #   inputId = "vegetation_score",
-                        #   label = "Differences in vegetation score:",
-                        #   choices = c(
-                        #     "0 (Poor)" = 'poor',
-                        #     "0.5" = 'poor2',
-                        #     "1 (Weak)" = 'weak',
-                        #     "1.5" = 'weak2',
-                        #     "2 (Moderate)" = 'moderate',
-                        #     "2.5" = 'moderate2',
-                        #     "3 (Strong)" = 'strong'
-                        #   ),
-                        #   selected = NULL,
-                        #   inline = T
-                        # ),
+                        
                         textAreaInput(
                             inputId = "notes_channel",
                             label = "Notes on floodplain and channel dimensions:",
@@ -893,7 +798,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "channel2",
                             HTML("Channel Photo #2<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -906,7 +810,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "channel3",
                             HTML("Channel Photo #3<br /><span style='font-weight:normal'>Upload photo file here:</span>"),
@@ -922,21 +825,7 @@ ui <- fluidPage(
                         
                         ### Sinuosity----
                         h4(HTML("<b>Sinuosity</b>")),
-                        # radioButtons(
-                        #   inputId = "sinuosity",
-                        #   label = "Sinuosity score:",
-                        #   choices = c(
-                        #     "0 (Poor)" = 'poor',
-                        #     "0.5" = 'poor2',
-                        #     "1 (Weak)" = 'weak',
-                        #     "1.5" = 'weak2',
-                        #     "2 (Moderate)" = 'moderate',
-                        #     "2.5" = 'moderate2',
-                        #     "3 (Strong)" = 'strong'
-                        #   ),
-                        #   selected = "strong",
-                        #   inline = T
-                        # ),
+
                         textAreaInput(
                             inputId = "notes_sinuosity",
                             label = "Notes about sinuosity:",
@@ -963,7 +852,6 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "sinu2",
                             HTML("Sinuosity Photo #2<br /> <span style='font-weight:normal'> Upload photo file here: </span>"),
@@ -976,13 +864,11 @@ ui <- fluidPage(
                             width = NULL,
                             placeholder = NULL
                         ),
-                        
                         slatesFileInput(
                             "sinu3",
                             HTML("Sinuosity Photo #3<br /> <span style='font-weight:normal'>Upload photo file here:</span>"),
                             accept = c('image/png', 'image/jpeg')
                         ),
-                        
                         textInput(
                             inputId = "sinu3_cap",
                             label = HTML("<span style='font-weight:normal'>Sinuosity Photo #3 caption:</span>"),
@@ -1091,23 +977,14 @@ server <- function(input, output, session) {
             user_lon = input$lon
         )
     })
-    # region_class <- eventReactive(input$reg_button, {
-    #   point_region(
-    #     user_lat = input$lat,
-    #     user_lon = input$lon
-    #   )
-    # })
-    
-    
-    
+   
     output$reg_class <- renderUI ({
         h2(HTML(paste0("<b>Great Plains Region: <br>", region_class(), "</b>")))
     })
-    
-    
+  
     
     # percent shade calculation -----
-    # dynamic UI output for length variable 1:12 for densiometer recordings
+    # dynamic UI output for length 1:12 for densiometer recordings
     output$densiUI <- renderUI({
         lapply(
             X = 1:input$select,
@@ -1127,7 +1004,7 @@ server <- function(input, output, session) {
         )
     })
     
-    # Densiometer input names
+    # Densiometer input names for use in report possibly
     densi_inputs <- reactive({
         list_names <- c()
         for(x in 1:length(densi_list())){
@@ -1162,7 +1039,7 @@ server <- function(input, output, session) {
     
     # Bankfull width calculation----
     
-    # dynamic UI output for length variable 1:3 for bankfull width recordings
+    # dynamic UI output for length 1:3 for bankfull width recordings
     output$bankUI <- renderUI({
         lapply(
             X = 1:input$select_bank,
@@ -1170,7 +1047,6 @@ server <- function(input, output, session) {
                 numericInput(inputId = paste0("bank", i),
                              label = paste0("Bankfull Measurement ", i), 
                              value = 0)
-                # sliderInput(inputId = paste0("bank", i), label = i, min = 0, max = 17, value = i)
             }
         )
     })
@@ -1185,7 +1061,7 @@ server <- function(input, output, session) {
         )
     })
     
-    # Densiometer input names
+    # Densiometer input names to be possibly used in report
     bank_inputs <- reactive({
         list_names <- c()
         for(x in 1:length(bank_list())){
@@ -1213,24 +1089,26 @@ server <- function(input, output, session) {
         h3(HTML(paste0("<b>Bankful Width (m): ", bank_mean(), "</b>")))
         
     })
-    df <- reactive({
-        df <- tibble(
-            user_lat = as.numeric(input$lat),
-            user_lon = as.numeric(input$lon),
-            user_SubstrateSorting_score = input$user_Substrate,
-            user_Sinuosity_score = input$user_Sinuosity,
-            user_UplandRootedPlants_score = input$user_UplandRootedPlants,
-            user_ChannelDimensions_score = input$user_ChannelDimensions,
-            user_BankWidthMean = bank_mean(),
-            user_EPT_taxa = input$user_EPT,
-            user_Hydrophyte_total = input$user_Hydrophyte,
-            user_PctShade = densi_shade_dec()
-        )
-    })
     
-    output$help <- renderTable ({
-        df()
-    })
+    # used for debugging model
+    # df <- reactive({
+    #     df <- tibble(
+    #         user_lat = as.numeric(input$lat),
+    #         user_lon = as.numeric(input$lon),
+    #         user_SubstrateSorting_score = input$user_Substrate,
+    #         user_Sinuosity_score = input$user_Sinuosity,
+    #         user_UplandRootedPlants_score = input$user_UplandRootedPlants,
+    #         user_ChannelDimensions_score = input$user_ChannelDimensions,
+    #         user_BankWidthMean = bank_mean(),
+    #         user_EPT_taxa = input$user_EPT,
+    #         user_Hydrophyte_total = input$user_Hydrophyte,
+    #         user_PctShade = densi_shade_dec()
+    #     )
+    # })
+    
+    # output$help <- renderTable ({
+    #     df()
+    # })
     
     
     # run rf model and output stream classification----
@@ -1256,82 +1134,10 @@ server <- function(input, output, session) {
     
     
     # error_message----
-    # print("session$userData$class")
-    # print(is.character(session$userData$class))
-    # # Conditions in STEP 2
-    # observeEvent(input$user_mayfly_abundance, {
-    #     if (!is.na( input$user_mayfly_abundance) ){
-    #         if (input$user_mayfly_abundance > input$user_TotalAbundance){
-    #             showModal(
-    #                 modalDialog(
-    #                     "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
-    #                     footer= modalButton("OK"),
-    #                     easyClose = FALSE
-    #                 )
-    #             )
-    #             updateNumericInput(
-    #                 session,
-    #                 "user_mayfly_abundance",
-    #                 value = 0
-    #             )
-    #         }
-    #     }
-    # }
-    # )
-    # observeEvent(input$user_perennial_abundance, {
-    #     if (!is.na(input$user_perennial_abundance)){
-    #         if (input$user_mayfly_abundance > input$user_TotalAbundance){
-    #             showModal(
-    #                 modalDialog(
-    #                     "Total abundance of mayflies must be less than total abundance of aquatic macroinvertebrates.", 
-    #                     footer= modalButton("OK"),
-    #                     easyClose = FALSE
-    #                 )
-    #             )
-    #             updateNumericInput(
-    #                 session,
-    #                 "user_mayfly_abundance",
-    #                 value = 0
-    #             )
-    #         } else if (
-    #             (as.numeric(input$user_mayfly_abundance) + as.numeric(input$user_perennial_abundance)) > as.numeric(input$user_TotalAbundance)
-    #         ) {
-    #             showModal(
-    #                 modalDialog(
-    #                     "Total abundance of mayflies PLUS total abundance of perennial indicator families must be less than or equal to total abundance of aquatic macroinvertebrates", 
-    #                     footer= modalButton("OK"),
-    #                     easyClose = FALSE
-    #                 )
-    #             )
-    #             updateNumericInput(
-    #                 session,
-    #                 "user_perennial_abundance",
-    #                 value = 0
-    #             )
-    #         }
-    #     }
-    # }
-    # )
-    # 
-    # observeEvent(input$user_perennial_taxa, {
-    #     if (!is.na(input$user_perennial_taxa)){
-    #         if (input$user_perennial_taxa > input$user_perennial_abundance){
-    #             showModal(
-    #                 modalDialog(
-    #                     "Total abundance of perennial indicator families must be greater than or equal to the total number of perennial indicator families", 
-    #                     footer= modalButton("OK"),
-    #                     easyClose = FALSE
-    #                 )
-    #             )
-    #             updateNumericInput(
-    #                 session,
-    #                 "user_perennial_taxa",
-    #                 value = 0
-    #             )
-    #         }
-    #     }
-    # }
-    # )
+    
+    # REVISIT: attempted to add error messages but with bankfull/densiometer numeric input type, input
+    # does not allow values outside range and therefore, won't trigger a modal error condition
+    
     # Densiometer recording number outside range 
     # observeEvent(input$select, {
     #     if (input$select < 3){
@@ -1362,6 +1168,7 @@ server <- function(input, output, session) {
     #         )
     #     }
     # })
+    
     # Conditions in STEP 3
     observeEvent(input$surfflow, {
         print(input$surfflow)
@@ -1446,99 +1253,7 @@ server <- function(input, output, session) {
     }
     )
     
-    # # observeEvent(input$snobutton, {
-    # #   if ((!is.na(input$lon)) && (input$lon > 0)){
-    # #     showModal(
-    # #       modalDialog(
-    # #         "Longitude value must be negative",
-    # #         footer= modalButton("OK"),
-    # #         easyclose = FALSE
-    # #       )
-    # #     )
-    # #     updateNumericInput(
-    # #       session,
-    # #       "lon",
-    # #       value = 0
-    # #     )
-    # #   }
-    # # }
-    # # )
-    # 
-    # sno <- eventReactive(
-    #     input$snobutton, 
-    #     {
-    #         snowdom(input$lat, input$lon)
-    #         
-    #     }
-    # )
-    # 
-    # 
-    # # paramsui = params ui, ui that displays more inputs to grab more parameters
-    # output$snomsg <- renderUI({
-    #     
-    #     sno <- sno()
-    #     all_msg <- qdapRegex::ex_between(sno$msg, "<p>", "</p>")[[1]]
-    #     session$userData$snow_or_no <- qdapRegex::ex_between(all_msg[1], "<strong>", "</strong>")[[1]]
-    #     session$userData$snow_persistence <- all_msg[2]
-    #     session$userData$oct_precip <-  all_msg[3]
-    #     session$userData$may_precip <-  all_msg[4]
-    #     session$userData$mean_temp <-  all_msg[5]
-    #     
-    #     
-    #     
-    #     
-    #     if (sno$canrun) {
-    #         fluidRow(
-    #             column(
-    #                 12,
-    #                 fluidRow(
-    #                     column(12, h4(HTML(glue::glue('<p>{sno$msg}</p>'))))
-    #                 ),
-    #                 fluidRow(
-    #                     column(
-    #                         12,
-    #                         radioButtons(
-    #                             "paramchoice", 
-    #                             h4(HTML("Step 2: Select Model")),
-    #                             c(
-    #                                 "Snow Influenced" = 'sno',
-    #                                 "Non Snow Influenced" = 'nosno'
-    #                             ),
-    #                             selected = character(0),
-    #                             inline = T
-    #                         )
-    #                     )
-    #                 )
-    #             )
-    #         )
-    #     } else {
-    #         fluidRow(
-    #             column(
-    #                 12,
-    #                 fluidRow(
-    #                     column(12, h4(HTML(glue::glue('<p>{sno$msg}</p><hr>'))))
-    #                 )
-    #             )
-    #         )
-    #     }
-    # })
-    # 
-    # 
-    # output$params <- renderUI({
-    #     if (!is.null(input$paramchoice)) {
-    #         if (input$paramchoice == 'sno') {
-    #             return(snoparams_ui)
-    #         } else {
-    #             return(nosnoparams_ui)
-    #         }
-    #     } else {
-    #         return('')
-    #     }
-    # })
-    # 
-    
-    # 
-    # 
+  
     # Report Tab--------------------------------------------------------------
     
     # Need to process figures separately.
@@ -1601,26 +1316,17 @@ server <- function(input, output, session) {
         filename = glue::glue("Great Plains SDAM Report ({format(Sys.time(), '%B %d, %Y')}).pdf"),
         content = function(file) {
             tryCatch({
-                # Copy the report file to a temporary directory before processing it, in
-                # case we don't have write permissions to the current working dir (which
-                # can happen when deployed).
-                # print(input[["final_class"]])
-                #
-                #
-                #
+
                 showModal(modalDialog("Please wait while the report is being generated.....", footer=NULL))
                 tempReport <- file.path("markdown/report.Rmd")
                 file.copy("report.Rmd", tempReport, overwrite = TRUE)
-                # print("fig6")
-                # print(fig6())
-                # print("input$algae_streambed")
-                # print(input$algae_streambed)
+
                 # Set up parameters to pass to Rmd document
                 params <- list(
                     # -------------------Classification
                     class_gp = classification(),
                     gp_region = region_class(),
-                    # class_gp_msg = session$userData$classmsg,
+
                     
                     # -------------------General Site Information
                     a = input$project,
@@ -1650,8 +1356,6 @@ server <- function(input, output, session) {
                     ) %>% as.character() %>% paste0(collapse = ", "),
                     f = input$boundary,
                     fff = input$actreach,
-                    # bn = paste(as.character(input$radio_situation),collapse = ","),
-                    #
                     bn = plyr::mapvalues(
                         input$radio_situation,
                         from = c(
@@ -1663,11 +1367,6 @@ server <- function(input, output, session) {
                             "Discharges","Drought","Vegetation removal/limitations",
                             "Other (explain in notes)","None")
                     ) %>% as.character() %>% paste0(collapse = ", "),
-                    
-                    
-                    
-                    
-                    
                     k = input$situation,
                     
                     # ------------------- Site Photos
@@ -1681,51 +1380,14 @@ server <- function(input, output, session) {
                     n = input$subflow,
                     o = input$pool,
                     r = input$notes_observed_hydrology,
-                    # i = input$datum,
-                    # p = input$channel,
                     
                     # ------------------- Site Sketch
                     w = fig5(),
                     
-                    # ------------------- Climatic indicators
-                    # snow_or_no = ifelse(
-                    #     is.null(session$userData$snow_or_no),
-                    #     "Data was not entered",
-                    #     session$userData$snow_or_no
-                    # ),
-                    # snow_persistence = ifelse(
-                    #     is.null(session$userData$snow_persistence),
-                    #     "Data was not entered",
-                    #     session$userData$snow_persistence
-                    # ),
-                    # oct_precip = ifelse(
-                    #     is.null(session$userData$oct_precip),
-                    #     "Data was not entered",
-                    #     session$userData$oct_precip
-                    # ),
-                    # may_precip = ifelse(
-                    #     is.null(session$userData$may_precip),
-                    #     "Data was not entered",
-                    #     session$userData$may_precip
-                    # ),
-                    # mean_temp = ifelse(
-                    #     is.null(session$userData$mean_temp),
-                    #     "Data was not entered",
-                    #     session$userData$mean_temp
-                    # ),
-                    # modelused = ifelse(
-                    #     is.null(session$userData$modelused),
-                    #     "Data was not entered",
-                    #     session$userData$modelused
-                    # ),
-                    
-                    
+       
                     # ------------------- Biological indicators
                     # EPT Taxa----
                     aqua_inv = input$user_EPT,
-                    # may_flies = input$user_mayfly_abundance,
-                    # indicator_taxa = input$user_perennial_taxa,
-                    # indicator_families = input$user_perennial_abundance,
                     f6 = fig6(),
                     f6_cap = input$inv1_cap,
                     f7 = fig7(),
@@ -1743,7 +1405,6 @@ server <- function(input, output, session) {
                     
                     # Hydrophytes----
                     hydrophytes = input$user_Hydrophyte,
-                    # ak = input$algae_checkbox,
                     notes_hydrophytes= input$notes_hydrophytes,
                     f9 = fig9(),
                     f9_cap = input$hydro1_cap,
@@ -1849,48 +1510,7 @@ server <- function(input, output, session) {
                     f27 = fig27(),
                     f27_cap = input$add4_cap
                     
-                    
-                    # # aa = fig6(),
-                    # ab = input$hyd1_cap,
-                    # #ac = fig7(),
-                    # ad = input$hyd2_cap,
-                    # #ae = fig8(),
-                    # af = input$hyd3_cap,
-                    # #ag = fig9(),
-                    # ah = input$hyd4_cap,
-                    # ai = case_when(input$radio_bmi == 0 ~ "None",
-                    #                input$radio_bmi == 0.5 ~ "1 to 19",
-                    #                input$radio_bmi == 1 ~ "20+"),
-                    # aj = ifelse(input$radio_ept == 0, "No", "Yes"),
-                    # al = fig10(),
-                    # am = fig11(),
-                    # an = input$invnotes,
-                    # ao = case_when(input$radio_algae == 0 ~ "Not detected",
-                    #                input$radio_algae == 1 ~ "No, <10% cover",
-                    #                input$radio_algae == 2 ~ "Yes >10% cover"),
-                    # ap = fig12(),
-                    # aq = case_when(input$fish == 0 ~ "No fish observed",
-                    #                input$fish == 1 ~ "No, only mosquito fish observed",
-                    #                input$fish == 2 ~ "Yes, fish other than mosquitofish observed"),
-                    # ar = fig13(),
-                    # as = input$amph,
-                    # at = input$snake,
-                    # av = case_when(input$radio_hydro == 0 ~ "0 species",
-                    #                input$radio_hydro == 0.5 ~ "1 - 2 species",
-                    #                input$radio_hydro == 1 ~ "3+ species"),
-                    # ba = fig14(),
-                    # bb = input$algnotes,
-                    # bc = input$hydnotes,
-                    # bd = input$fishnotes,
-                    # be = input$add_cap,
-                    # # bf = input$other_ind,
-                    # bg = input$add_notes
-                    # bh = fig15(),
-                    # bi = input$add_cap2,
-                    # bo = input$hydro_comments,
-                    # #rf = predict_flowduration(),
-                    # tbl = predict_figure()#,
-                    #fig_map = fig_map()
+
                 )
                 
                 # Knit the document, passing in the `params` list, and eval it in a
