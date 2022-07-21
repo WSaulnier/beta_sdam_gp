@@ -1,7 +1,7 @@
 ---
-title: "Beta Streamflow Duration Assessment for the Western Mountains"
+title: "Beta Streamflow Duration Assessment for the Great Plains"
 subtitle: "SDAM Version 1.0"
-revision: "SDAM revision date: October 6, 2021" 
+revision: "SDAM revision date: July, 2022" 
 date: "Report generated on: `r format(Sys.time(), '%B %d, %Y')`"
 header-includes:
 - \usepackage{fancyhdr}
@@ -9,7 +9,7 @@ header-includes:
 - \usepackage{lastpage}
 - \cfoot{Page \thepage\ of \pageref{LastPage}}
 output: pdf_document
-always_allow_html: yes
+always_allow_html: no
 params:
   a: NA
   b: NA
@@ -79,26 +79,45 @@ params:
   f7_cap: NA
   f8: NA 
   f8_cap: NA 
-  notes_aquainv: NA 
-  algae_streambed: NA 
-  notes_algaecover: NA 
+  f6_1: NA 
+  f6_1cap: NA 
+  f7_1: NA 
+  f7_1cap: NA
+  f8_1: NA 
+  f8_1cap: NA
+  notes_aquainv: NA
+  hydrophytes: NA
+  notes_hydrophytes: NA 
+  # algae_streambed: NA 
+  # notes_algaecover: NA 
   f9: NA 
   f9_cap: NA 
   f10: NA 
   f10_cap: NA 
   f11: NA 
   f11_cap: NA
-  fish_abundance: NA 
-  fish_abundance_checkbox: NA 
-  notes_fish_abundance: NA 
+  f9_1: NA 
+  f9_1cap: NA 
+  f10_1: NA 
+  f10_1cap: NA 
+  f11_1: NA 
+  f11_1cap: NA
+  substrate: NA
+  notes_substrate: NA
+  # fish_abundance: NA 
+  # fish_abundance_checkbox: NA 
+  # notes_fish_abundance: NA 
   f12: NA 
   f12_cap: NA
   f13: NA 
   f13_cap: NA 
   f14: NA 
   f14_cap: NA 
-  vegetation_score: NA 
-  notes_differences_vegetation: NA 
+  upland_rooted: NA
+  upland_checkbox: NA
+  notes_rooted: NA
+  # vegetation_score: NA 
+  # notes_differences_vegetation: NA 
   f15: NA 
   f15_cap: NA 
   f16: NA 
@@ -113,13 +132,23 @@ params:
   f19_cap: NA 
   f20: NA 
   f20_cap: NA 
-  notes_supplemental_information: NA 
+  channel_dim: NA
+  notes_channel: NA
   f21: NA 
   f21_cap: NA 
   f22: NA 
   f22_cap: NA 
   f23: NA 
   f23_cap: NA 
+  notes_supplemental_information: NA 
+  f24: NA 
+  f24_cap: NA 
+  f25: NA 
+  f25_cap: NA 
+  f26: NA 
+  f26_cap: NA 
+  f27: NA
+  f27_cap: NA
   snow_or_no: NA 
   snow_persistence: NA 
   oct_precip: NA 
@@ -129,6 +158,13 @@ params:
   class_wm: NA
   class_wm_msg: NA
   bankwidth: NA
+  shade: NA
+  class_gp: NA
+  val_length: NA
+  bank2x: NA
+  fpw: NA
+  entrenchment: NA
+  gp_region: NA
   
 ---
 
@@ -163,6 +199,8 @@ opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
 Project name or number: `r params$a`
 
 Site code or identifier: `r params$c`
+
+Great Plains Region: `r params$gp_region`
 
 Assessor(s): `r params$b`
 
@@ -251,62 +289,25 @@ if (!identical(params[["w"]], character(0))){
 ***
 ## Indicators
 
-Indicators used to classify the assessment reach are indicated with an asterisk.
 
-## Climatic indicators
-
-<!-- Snow persistence: -->
-```{r}
-cat(params$snow_persistence)
-cat(paste0("The site is ",params$snow_or_no))
-```
-
-<!-- May precipitation (mm): -->
-```{r}
-if (!is.null(params$modelused) ) {
-  cat(params$may_precip)
-} else {
-  cat("Data was not provided")
-}
-```
-<!-- ```{r, out.width='50%', fig.align='center'} -->
-<!-- knitr::include_graphics(params[["al"]]) -->
-<!-- ``` -->
-
-<!-- ```{r, out.width='50%', fig.align='center'} -->
-<!-- knitr::include_graphics(params[["am"]]) -->
-<!-- ``` -->
-
-<!-- October precipitation (mm):  -->
-```{r}
-if (!is.null(params$oct_precip)) {
-  cat(params$oct_precip)
-} else {
-  cat("Data was not provided")
-}
-```
-
-<!-- Mean annual maximum temperature (Deg C):  -->
-```{r}
-if (!is.null(params$mean_temp)) {
-  cat(params$mean_temp)
-} else {
-  cat("Data was not provided")
-}
-```
-
-***
 ## Biological indicators
+
+
+### Stream Shading
+
+Percent Shade: `r if (!is.null(params$shade)){params$shade}`%
+
 
 ### Aquatic Invertebrates
 
-Total abundance of aquatic macroinvertebrates: `r if (!is.null(params$aqua_inv)) {params$aqua_inv}`
+Number of EPT families identified from the assessment reach: `r if (!is.null(params$aqua_inv)) {params$aqua_inv}`
 
-Total abundance of mayflies: `r if (!is.null(params$may_flies)) {params$may_flies}`
+Notes on aquatic invertebrates:
 
-Total abundance of perennial indicator families of aquatic macroinvertebrates: `r if (!is.null(params$indicator_families)) {params$indicator_families}`
+```{r}
+cat(params$notes_aquainv)
+```
 
-Total number of perennial indicator families of aquatic macroinvertebrates: `r if (!is.null(params$indicator_taxa)) {params$indicator_taxa}`
 
 Aquatic invertebrate photos and photo descriptions:
 
@@ -356,35 +357,66 @@ if (!identical(params[["f8"]], character(0))){
 ```
 
 
-Notes on aquatic invertebrates:
 
-```{r}
-cat(params$notes_aquainv)
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f6_1"]], character(0))){ 
+  knitr::include_graphics(params[["f6_1"]])
+}
+  
 ```
 
-***
-
-### Algal Cover
-
-Algal cover on the stream-bed: `r params$algae_streambed`
 
 ```{r}
 
-if (params$ak){
-  deposit <- case_when(
-    params$ak == TRUE ~ "All observed algae appear to be deposited from an upstream source.")
-  cat(deposit)
+if (!identical(params[["f6_1"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f6_1cap, perl = TRUE)))
+}
+```
+
+
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f7_1"]], character(0))){ 
+  knitr::include_graphics(params[["f7_1"]])
+}
+  
+```
+
+```{r}
+if (!identical(params[["f7_1"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f7_1cap, perl = TRUE)))
+}
+```
+
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f8_1"]], character(0))){ 
+  knitr::include_graphics(params[["f8_1"]])
 }
 
 ```
 
-Notes on algal cover:
-
 ```{r}
-cat(params$notes_algaecover)
+if (!identical(params[["f8_1"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f8_1cap, perl = TRUE)))
+}
 ```
 
-Algae photos and photo descriptions:
+
+***
+
+### Hydrophytes
+
+Number of hydrophytic plant species identified from the assessment reach without odd distribution: `r if (!is.null(params$hydrophytes)) {params$hydrophytes}`
+
+Notes on hydrophytes:
+
+```{r}
+cat(params$notes_hydrophytes)
+```
+
+Hydrophyte photos and photo descriptions:
 
 ```{r, out.width='50%', fig.align='center'}
   
@@ -428,26 +460,65 @@ if (!identical(params[["f11"]], character(0))){
 }
 ```
 
-***
 
-### Fish
-
-Fish abundance: `r params$fish_abundance`
+```{r, out.width='50%', fig.align='center'}
+  
+if (!identical(params[["f9_1"]], character(0))){ 
+  knitr::include_graphics(params[["f9_1"]])
+}
+```
 
 ```{r}
-if (params$fish_abundance_checkbox){
-  cat("All fish observed were mosquitofish.")
+if (!identical(params[["f9_1"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f9_1cap, perl = TRUE)))
 }
 ```
 
 
-Notes about fish abundance:
+```{r, out.width='50%', fig.align='center'}
 
-```{r}
-cat(params$notes_fish_abundance)
+if (!identical(params[["f10_1"]], character(0))){ 
+  knitr::include_graphics(params[["f10_1"]])
+}
 ```
 
-Fish photos and descriptions: 
+```{r}
+if (!identical(params[["f10_1"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f10_1cap, perl = TRUE)))
+}
+```
+
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f11_1"]], character(0))){ 
+  knitr::include_graphics(params[["f11_1"]])
+
+}
+
+```
+
+```{r}
+if (!identical(params[["f11_1"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f11_1cap, perl = TRUE)))
+}
+```
+
+
+***
+## Geomorphic Indicators
+
+### Substrate Sorting
+
+Substrate Sorting Score: `r if (!is.null(params$substrate)){params$substrate}`
+
+
+Notes about substrate sorting:
+
+```{r}
+cat(params$notes_substrate)
+```
+
+Substrate sorting photos and descriptions: 
 
 ```{r, out.width='50%', fig.align='center'}
 
@@ -491,20 +562,29 @@ if (!identical(params[["f14"]], character(0))){
 }
 ```
 
+
 ***
 
-### Differences in vegetation
+### Upland Rooted Plants
 
-Differences in vegetation score: `r if (!is.null(params$vegetation_score)){params$vegetation_score}`
+Upland Rooted Plants score: `r if (!is.null(params$upland_rooted)){params$upland_rooted}`
 
-Notes about differences in vegetation:
 
 ```{r}
-cat(params$notes_differences_vegetation)
+if (params$upland_checkbox){
+  cat("No vegetation observed within reach.")
+}
 ```
 
 
-Differences in vegetation photos and descriptions:
+Notes about absence of upland rooted plants in streambed:
+
+```{r}
+cat(params$notes_rooted)
+```
+
+
+Upland Rooted Plants photos and descriptions:
 
 ```{r, out.width='50%', fig.align='center'}
 
@@ -552,13 +632,15 @@ if (!identical(params[["f17"]], character(0))){
 
 ***
 
-## Geomorphological indicators
-
 ### Bankfull channel width (m): `r params$bankwidth`
+
+***
 
 ### Sinuosity
 
-Sinuosity score: `r if (!is.null(params$vegetation_score)){params$sinuosity}`
+Sinuosity score: `r if (!is.null(params$sinuosity)){params$sinuosity}`
+
+Valley Length (m): `r if (!is.null(params$val_length)){params$val_length}`
 
 Notes about sinuosity:
 
@@ -613,15 +695,24 @@ if (!identical(params[["f20"]], character(0))){
 
 ***
 
-## Supplemental Information
+### Floodplain and channel dimensions
 
-Additional notes about the assessment:
+Floodplain and channel dimensions score: `r if (!is.null(params$channel_dim)){params$channel_dim}`
+
+2x maximum bankfull depth (m.m): `r if (!is.null(params$bank2x)){params$bank2x}`
+
+Flood-prone width (m.m): `r if (!is.null(params$fpw)){params$fpw}`
+
+Entrenchment Ratio: `r if (!is.null(params$entrenchment)){params$entrenchment}`
+
+Notes about channel dimensions:
 
 ```{r}
-cat(params$notes_supplemental_information)
+cat(params$notes_channel)
 ```
 
-Supplemental information photos and descriptions:
+
+Floodplain and channel dimensions photos and descriptions:
 ```{r, out.width='50%', fig.align='center'}
 
 if (!identical(params[["f21"]], character(0))){ 
@@ -663,4 +754,81 @@ if (!identical(params[["f23"]], character(0))){
 }
 ```
 
+***
+
+## Supplemental Information
+
+Additional notes about the assessment:
+
+```{r}
+cat(params$notes_supplemental_information)
+```
+
+Supplemental information photos and descriptions:
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f24"]], character(0))){ 
+    knitr::include_graphics(params[["f24"]])
+}
+
+```
+
+```{r}
+if (!identical(params[["f24"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f24_cap, perl = TRUE)))
+}
+```
+
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f25"]], character(0))){ 
+    knitr::include_graphics(params[["f25"]])
+}
+```
+
+```{r}
+if (!identical(params[["f25"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f25_cap, perl = TRUE)))
+}
+```
+
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f26"]], character(0))){ 
+    knitr::include_graphics(params[["f26"]])
+}
+
+```
+
+```{r}
+if (!identical(params[["f26"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f26_cap, perl = TRUE)))
+}
+```
+
+```{r, out.width='50%', fig.align='center'}
+
+if (!identical(params[["f27"]], character(0))){ 
+    knitr::include_graphics(params[["f27"]])
+}
+
+```
+
+```{r}
+if (!identical(params[["f27"]], character(0))){ 
+  cat(paste0("Description: ",gsub('(?=(?:.{91})+$)', "\n", params$f27_cap, perl = TRUE)))
+}
+```
+
+
+
+*** 
+
+## `r params$class_gp`
+
+***
+
+
+
 **End of Report**
+

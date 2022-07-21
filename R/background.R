@@ -1,7 +1,14 @@
 bkgrnd <- fluidRow(
+  tags$style(HTML("
+                  .center-img{
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;
+                  }")),
   column(10,
     tagList(
-      tags$p(HTML("This is a draft tool to calculate the Beta Streamflow Duration Assessment Method (SDAM) developed for the Western Mountains region. 
+      tags$p(HTML("This is a draft tool to calculate the Beta Streamflow Duration Assessment Method (SDAM) developed for the Great Plains region. 
              Do not use for regulatory purposes without prior consulting with the EPA product delivery team. For more information, consult the 
              <a href=\"https://www.epa.gov/streamflow-duration-assessment\">Environmental Protection Agency's Streamflow Duration Assessment Methods homepage.</a>")),
       tags$p(HTML("Streams may exhibit a diverse range of hydrologic regimes that strongly influence physical, chemical, and 
@@ -23,20 +30,21 @@ bkgrnd <- fluidRow(
         tags$li(tags$p("Intermittent reaches are channels that contain water for only part of the year, typically during the wet season, where the streambed may be below the water table and/or where the snowmelt from surrounding uplands provides sustained flow. The flow may vary greatly with stormwater runoff.")),
         tags$li(tags$p("Perennial reaches contain water continuously during a year of normal rainfall, often with the streambed located below the water table for most of the year. Groundwater supplies the baseflow for perennial reaches, but flow is also supplemented by stormwater runoff or snowmelt."))
       ),
-      tags$img(src="sdamwm.png"),
-      tags$p("This online reporting tool allows application of the Beta Streamflow Duration Assessment Method for the Western Mountains (SDAM WM), the EPA’s standard method for the Western Mountains region outside the Pacific Northwest (SDAM PNW, described in Nadeau 2015). The SDAM WM is based on the presence of biological, geomorphological, and climatic indicators that associated with gradients of streamflow duration. "),
-      tags$p("The Beta SDAM WM is based on six indicators measured in the field, plus climatic indicators measured using this website. The indicators are:"),
+      tags$img(src="gp_regions.jpg", style="height: 510px", class="center-img"),
+      br(),
+      tags$p("This online reporting tool allows application of the Beta Streamflow Duration Assessment Method for the Great Plains (SDAM GP). The SDAM GP is based on the presence of biological, geomorphological, and hydrologic indicators that are associated with gradients of streamflow duration. "),
+      tags$p("The Beta SDAM GP is based on eight indicators measured in the field, plus a spatial variable created using this website. The indicators are:"),
       tags$ul(
         tags$li(
           HTML(
             "<p>Biological indicators:
             <br>
-            <ol>
+            <ul>
               <li>The abundance and richness of aquatic invertebrates (specifically, the total abundance, the abundance of mayflies, and the abundance and richness of perennial indicator families)</li>
-              <li>Algal cover on the streambed</li>
-              <li>Fish abundance</li>
-              <li>Differences in vegetation between the channel and surrounding uplands</li>
-            </ol>
+              <li>Percent shading</li>
+              <li>Number of hydrophytic plant species</li>
+              <li>Absence of rooted upland plants in the streambed</li>
+            </ul>
             "
           )
         ),
@@ -44,29 +52,28 @@ bkgrnd <- fluidRow(
           HTML(
             "<p>Geomorphological indicators
             <br>
-            <ol>
-              <li>Channel width</li>
+            <ul>
+              <li>Bankfull channel width</li>
               <li>Sinuosity</li>
-            </ol>
+              <li>Floodplain and channel dimensions  </li>
+              <li>Particle size or stream substrate sorting </li>
+            </ul>
             </p>
             "
           )
         ),
         tags$li(
           HTML(
-            "<p>Climatic indicators
+            "<p>Regional location indicator:
             <br>
-            <ol>
-              <li>Long-term precipitation (specifically, the average precipitation in May and October)</li>
-              <li>Long-term maximum annual air temperature</li>
-            </ol>
+            <ul>
+              <li>Northern or Southern Great Plains</li>
+            </ul>
             </p>
             "
           )
         )
       ),
-      tags$p("In addition, fish are used as a “single indicator” which can classify a stream as at least intermittent, even if the other indicators suggest an ephemeral classification."),
-      
       tags$p("Users may obtain classifications using this website, after which they have the option to generate a report in standardized format."),
       tags$p(
         HTML(
@@ -74,13 +81,8 @@ bkgrnd <- fluidRow(
           refer to the <a href=\"https://www.epa.gov/streamflow-duration-assessment\">EPA website</a>."
         )
       ),
-      tags$p("For additional support with this website, please contact Dr. Raphael Mazor (raphaelm@sccwrp.org) at the Southern California Coastal Water Research Project."),
       tags$p("No information entered on this site is stored or retained by EPA or its contractors.")
-      
-      
-      
-      
-      
+ 
     )
   )
 )

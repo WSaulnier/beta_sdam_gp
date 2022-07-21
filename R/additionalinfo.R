@@ -3,13 +3,13 @@ addinfo <- fluidRow(
          tagList(
            br(),
            tags$p(HTML("For additional information, please refer to the user manual developed 
-                       for the Beta Streamflow Duration Assessment Method for the Western Mountains. 
+                       for the Beta Streamflow Duration Assessment Method for the Great Plains. 
                        Information about this method can be found on the 
                        <a
                        href=\"
                        https://www.epa.gov/streamflow-duration-assessment/beta-streamflow-duration-assessment-method-western-mountains\">
                        Environmental Protection Agency's Streamflow Duration Assessment Methods 
-                       for the Western Mountains homepage.
+                       for the Great Plains homepage.
                        </a>")
             ),
            
