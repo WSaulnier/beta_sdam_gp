@@ -34,6 +34,61 @@ ui <- fluidPage(
             color: white;
             text-align: center;
         }
+        #reg_button {
+            background-color:#94d9f2;
+            padding: 7px;
+            font-size: 110%;
+            font-weight: bold;
+            border-style: outset;
+            
+            box-shadow: 0 8px 12px 0 rgba(0,0,0,0.24), 0 1px 1px 0 rgba(0,0,0,0.19);
+            transition-duration: 0.1s;
+        }
+        #reg_button:hover {
+            background-color:#5d8b9c;
+            color: black;
+            border-style: solid;
+            border-color: black;
+            border-width: px;
+        }
+        #runmodel {
+            background-color:#94d9f2;
+            padding: 7px;
+            font-size: 110%;
+            font-weight: bold;
+            border-style: outset;
+            
+            box-shadow: 0 8px 12px 0 rgba(0,0,0,0.24), 0 1px 1px 0 rgba(0,0,0,0.19);
+            transition-duration: 0.1s;
+        }
+        #runmodel:hover {
+            background-color:#5d8b9c;
+            color: black;
+            border-style: solid;
+            border-color: black;
+            border-width: px;
+        }
+        #report {
+            background-color:#94d9f2;
+            padding: 7px;
+            font-size: 110%;
+            font-weight: bold;
+            border-style: outset;
+            
+            box-shadow: 0 8px 12px 0 rgba(0,0,0,0.24), 0 1px 1px 0 rgba(0,0,0,0.19);
+            transition-duration: 0.1s;
+        }
+        #report:hover {
+            background-color:#5d8b9c;
+            color: black;
+            border-style: solid;
+            border-color: black;
+            border-width: px;
+        }
+        .leaflet-popup-content {
+            text-align: center;
+        }
+
 
     "))
     ),
@@ -65,40 +120,96 @@ ui <- fluidPage(
                 tabPanel(
                     "Enter Data", 
                     br(),
-                    fluidRow(column(12, h3("Step 1: Enter coordinates"), 
-                                    div('Enter coordinates in decimal degrees to determine if the site is in the study area and if the site is in the Northern or Southern Plains Region'))),
-                    
+                    fluidRow(column(12, h3("Step 1: Enter coordinates or select Great Plains region"), 
+                                    )),
+                    # coordinates----
                     fluidRow(
-                        tags$head(
-                            tags$style(HTML('#reg_button {background-color:#b4bfd1;}'))
-                        ),
-                        column(
-                            4,
-                            fluidRow(
-                                column(4,numericInput("lat", label = NULL, value =  46.993162)),
-                                column(1, h5("Latitude"))
-                            ),
-                            fluidRow(
-                                column(4,numericInput("lon", label = NULL, value = -103.517482)),
-                                column(1, h5("Longitude"))
-                            )
-                        ),
-                        column(
-                            2,
-                            br(),
-                            br(),
-                            actionButton("reg_button", label="Assess Plains Region")
-                        ),
-                        column(
-                            4,
-                            conditionalPanel(
-                                condition = "input.reg_button != 0",
-                                
-                                uiOutput(outputId = "reg_class") %>%
-                                    tagAppendAttributes(class = 'border-my-text')
+                      column(12,
+                             selectInput(
+                               "vol_region",
+                               label = HTML("<b><i>Select method for determining Great Plains region.</b></i>"),
+                               choices = c(
+                                 "Enter Coordinates",
+                                 "Select Great Plains Region",
+                                 "Select Location on Map"
+                               ),
+                               selected = "No",
+                               width = '20%'
+                             )
+                      )
+                    ),
+                    fluidRow(
+                        column(7,
+                               HTML('<hr style="color: black; height: 1px; background-color: black;">')
+                               )
+                    ),
+                    
+                    conditionalPanel(
+                        
+                      condition = "input.vol_region == 'Enter Coordinates'",
+                      fluidRow(
+                          column(
+                              4,
+                              div(HTML('<b><i>Enter coordinates in decimal degrees to determine if the site is in the study area and if the site is in the Northern or Southern Plains Region. </i></b>')),
+                              div(id = "placeholder"),
+                              div(id = "coords",
+                                fluidRow(
+                                  # div(id = "placeholder",
+                                    column(4,
+                                           numericInput("lat", label = NULL, value =  46.993162)),
+                                    column(1, h5("Latitude"))
+                                ),
+                                fluidRow(
+                                    column(4,numericInput("lon", label = NULL, value = -103.517482)),
+                                    column(1, h5("Longitude"))
+                                ),
+                                fluidRow(
+                                    column(4,
+                                           br(),
+                                           div(actionButton("reg_button", 
+                                                            label=div("Assess Plains Region", icon('long-arrow-right'))
+                                                            ) 
+                                               ))
+                                )
+                              )
+                          ),
+                          column(
+                              4,
+                              conditionalPanel(
+                                  condition = "input.reg_button != 0",
+                                  
+                                  uiOutput(outputId = "reg_class") %>%
+                                      tagAppendAttributes(class = 'border-my-text')
+                              )
+                          )
+                      )
+                    ),
+                    conditionalPanel(
+                      condition = "input.vol_region == 'Select Great Plains Region'",
+                      fluidRow(
+                        column(12,
+                               selectInput(
+                                 "user_region",
+                                 HTML("<b><i>Select Great Plains Region if not entering coordinates:</b></i>"),
+                                 c(
+                                   "No Region Selected" = "No Region",
+                                   "Northern Great Plains" = "Northern",
+                                   "Southern Great Plains" = "Southern"
+                                 )
+                               )
+                        )
+                      )
+                    ),
+                    ## leaflet map----
+                    conditionalPanel(
+                        condition = "input.vol_region == 'Select Location on Map'",
+                        fluidRow(
+                            column(6,
+                                leafletOutput("map", height ='500px')
                             )
                         )
                     ),
+                    ## break
                     fluidRow(
                         column(
                             12,
@@ -133,7 +244,7 @@ ui <- fluidPage(
                                 ),
                                 column(
                                     4,
-                                    h6("Number of hydrophytic plant species identified from the assessment reach without odd distribution")
+                                    h6("Number of hydrophytic plant species without an odd distribution (e.g., <2% of assessment area) from the assessment reach")
                                 )
                             ),
                             
@@ -210,11 +321,9 @@ ui <- fluidPage(
                                         HTML("<b><i>Particle size/stream substrate sorting</b></i>"),
                                         c(
                                             "0 (Poor)" = 0,
-                                            "0.5" = 0.5,
-                                            "1 (Weak)" = 1,
-                                            "1.5" = 1.5,
-                                            "2 (Moderate)" = 2,
-                                            "2.5" = 2.5,
+                                            "0.75" = 0.75,
+                                            "1.5 (Weak)" = 1.5,
+                                            "2.25" = 2.25,
                                             "3 (Strong)" = 3
                                         ),
                                         inline = T
@@ -280,13 +389,30 @@ ui <- fluidPage(
                                 )
                             ),
                             fluidRow(
+                                
                                 HTML('<hr style="color: black; height: 3px; background-color: black;">'),
                                 tags$head(
-                                    tags$style(HTML('#runmodel{background-color:#b4bfd1;}'))
+                                    tags$style(HTML('#runmodel {background-color:#94d9f2;
+                                                            padding: 8px;
+                                                            font-size: 110%;
+                                                            font-weight: bold;
+                                                            border-style: outset;
+                                                            
+                                                            box-shadow: 0 8px 12px 0 rgba(0,0,0,0.24), 0 1px 1px 0 rgba(0,0,0,0.19);
+                                                            transition-duration: 0.1s;
+                                                            }',
+                                                    '#runmodel:hover {
+                                                            background-color:#5d8b9c;
+                                                            color: black;
+                                                            border-style: solid;
+                                                            border-color: black;
+                                                            border-width: px;
+                                                            
+                                                            }'))
                                 ),
                                 column(
                                     6,
-                                    actionButton("runmodel", "Run Model")
+                                    actionButton("runmodel", div("Run Model", icon('long-arrow-right')))
                                 ),
                                 column(
                                     6,
@@ -363,7 +489,7 @@ ui <- fluidPage(
                             choices = c(
                                 "Storm/Heavy Rain" = 'heavyrain',
                                 "Steady Rain" = 'steadyrain',
-                                "Intermitten Rain" = 'intermittenrain',
+                                "Intermittent Rain" = 'intermittentrain',
                                 "Snowing" = 'snowing',
                                 "Cloudy" = 'cloudy',
                                 "Clear/Sunny" = 'clearsunny'
@@ -384,7 +510,7 @@ ui <- fluidPage(
                             choices = c(
                                 "Urban, industrial, or residential" = 'urban',
                                 "Agricultural" = 'agricultural',
-                                "Developed open-space " = 'openspace',
+                                "Developed open-space (e.g., golf course, parks, lawn grasses)" = 'openspace',
                                 "Forested" = 'forested',
                                 "Other Natural" = 'othernatural',
                                 "Other" = 'other'
@@ -412,7 +538,7 @@ ui <- fluidPage(
                                 "Recent flood or debris flow" = 'flood',
                                 "Stream modifications (e.g., channelization)" = 'stream_modifications',
                                 "Diversions" = 'diversions',
-                                "Discharges" = 'discharges',
+                                "Water discharges" = 'discharges',
                                 "Drought" = 'drought',
                                 "Vegetation removal/limitations" = 'vegetation',
                                 "Other (explain in notes)" = 'other',
@@ -971,18 +1097,170 @@ ui <- fluidPage(
 server <- function(input, output, session) {
     
     # region -----
-    region_class <- reactive({
-        point_region(
-            user_lat = input$lat,
-            user_lon = input$lon
-        )
+
+
+    region_class <- eventReactive(c(input$reg_button, input$map_click,input$vol_region),{
+        if(!is.null(map_coords()) && input$vol_region == 'Select Location on Map'){
+            x <- point_region(map_coords()[1], map_coords()[2])
+        } else {
+            x <- point_region(user_lat = input$lat, user_lon = input$lon)
+        }
+        x
     })
-   
-    output$reg_class <- renderUI ({
-        h2(HTML(paste0("<b>Great Plains Region: <br>", region_class(), "</b>")))
+    
+
+
+
+    observe({
+        print(is.atomic(region_class()))
+        if (is.atomic(region_class())){
+            print(region_class())
+        } else {
+        print(region_class()$region)
+        }
+    })
+    
+  # if site is out of GP regions, offer a URL to alternate SDAM.  If site out of SDAM
+  # study areas, return warning message from global function
+  observeEvent(c(input$reg_button, region_class()),{
+      
+      if (is.atomic(region_class())){
+          output$reg_class <- renderUI ({
+              h2(HTML(paste0("<b>Great Plains Region: <br>", region_class(), "</b>")))
+          })
+      } else
+          if (!is.atomic(region_class())){
+          print(region_class()$region)
+          if (region_class()$region != 'Northern' && region_class()$region != 'Southern' && !is.na(region_class()$region)){
+              print(region_class()$URL)
+              if (region_class()$URL != 'development' && region_class()$URL != 'planning'){
+                  show_alert(
+                      title = "Location Error!",
+                      text = tagList(
+                          tags$p(HTML(paste0("This site is outside of the Great Plains SDAM study area  The site is located in the ",
+                                             '<a href=\"', region_class()$URL, '">',
+                                             region_class()$region), ' SDAM.</a>')
+                          )
+                      ),
+                      type = "error"
+                  )
+              } else {
+                  show_alert(
+                      title = "Location Error!",
+                      text = tagList(
+                          tags$p(HTML(paste0("This site is located outside of the Great Plains SDAM study area.  The site is located in the <b>",
+                                             region_class()$region, "</b> SDAM region.  The ",
+                                             region_class()$region, " is in the <b>",
+                                             region_class()$URL, "</b> stage. If you would like to proceed with running the Great Plains
+                                   model, you may exit this dialogue and select a Great Plains region."))
+                          )
+                      ),
+                      type = "error"
+                  )
+              }
+
+          } else if (is.na(region_class()$region)){
+
+              show_alert(
+                  title = "Location Error!",
+                  text = tagList(
+                      tags$p(HTML(paste0("The location of your site is outside of the SDAM study areas.",
+                                         " Please check your latitude and longitude coordinates to ensure they are entered correctly.<br>",
+                                         " If you would like to proceed with running the Great Plains",
+                                         " model, you may exit this dialogue and select a Great Plains region.")
+                      )
+                      )
+                  ),
+                  type = "error"
+              )
+
+          } else {
+              output$reg_class <- renderUI ({
+                  if(!is.na(region_class()$region)){
+                      if(region_class()$region == 'Northern' || region_class()$region == 'Southern'){
+                          h2(HTML(paste0("<b>Great Plains Region: <br>", region_class()$region, "</b>")))
+                      } else {
+                          h2(HTML(paste0("<b>SDAM Region: <br>", region_class()$region, "</b>")))
+                      }
+                  }
+              })
+          }
+      }
+  })
+
+    # leaflet map render-----
+    output$map <- renderLeaflet({
+        factPal <- colorFactor(pal = rainbow(9), levels = regions_leaflet$SDAM)
+        leaflet(regions_leaflet) %>%
+            addPolygons(stroke = FALSE,
+                        fillOpacity = 0.3,
+                        smoothFactor = 2,
+                        color = ~factPal(regions_leaflet$SDAM),
+                        group = "SDAM Regions") %>%
+            setView(lng = -100,
+                    lat = 40,
+                    zoom = 6) %>%
+            addLegend("bottomright",
+                      title = HTML("<b><u>SDAM Regions</u></b>"),
+                      pal = factPal,
+                      values = regions_leaflet$SDAM,
+                      group = "SDAM Regions") %>%
+
+            addProviderTiles(providers$Esri.NatGeoWorldMap,
+                             group = 'NatGeo World (Default)') %>%
+            addProviderTiles(providers$Esri.WorldImagery,
+                             group = 'Imagery') %>%
+            addLayersControl(
+                baseGroups=c("NatGeo World (Default)", "Imagery"),
+                overlayGroups = "SDAM Regions",
+                options = layersControlOptions(collapsed = FALSE)) %>%
+            leafem::addMouseCoordinates() %>%
+            addFullscreenControl()
     })
   
-    
+    # coordinates 
+    map_coords <- reactive({
+        click = input$map_click
+        if(is.null(click))
+            return()
+        coords = c(round(click$lat,4), round(click$lng,4))
+        updateNumericInput(
+            session,
+            "lat",
+            value = coords[1]
+        )
+        updateNumericInput(
+            session,
+            "lon",
+            value = coords[2]
+        )
+        coords
+    })
+
+    # map click----
+    observe({
+        click = input$map_click
+        if(is.null(click))
+            return()
+        region <- if(region_class()$region == 'Southern' || region_class()$region == 'Northern'){
+            paste0(region_class()$region, ' Great Plains')
+        } else {
+            paste0(region_class()$region, ' SDAM Region')
+        }
+       
+        text<-HTML(paste("<b><u>", region, "</u></b><br>",
+            "Latitude: ", round(click$lat, 4), ", Longtitude: ", round(click$lng, 4)))
+        text2<-paste("You've selected point ", text)
+        map_proxy = leafletProxy("map") %>%
+            clearPopups() %>%
+            addPopups(round(click$lng, 4), round(click$lat, 4), text)
+
+        print(paste0(click$lat, ', ', click$lng))
+    })
+
+
+
+
     # percent shade calculation -----
     # dynamic UI output for length 1:12 for densiometer recordings
     output$densiUI <- renderUI({
@@ -1109,7 +1387,9 @@ server <- function(input, output, session) {
     # output$help <- renderTable ({
     #     df()
     # })
-    
+    # observe({
+    #   print(input$user_region)
+    # })
     
     # run rf model and output stream classification----
     classification <- eventReactive(input$runmodel, {
@@ -1123,8 +1403,8 @@ server <- function(input, output, session) {
             user_BankWidthMean = as.numeric(bank_mean()),
             user_EPT_taxa = as.numeric(input$user_EPT),
             user_Hydrophyte_total = as.numeric(input$user_Hydrophyte),
-            user_PctShade = as.numeric(densi_shade_dec())
-        )
+            user_PctShade = as.numeric(densi_shade_dec()),
+            var_input_reg = input$user_region)
     })
     
     
@@ -1325,7 +1605,10 @@ server <- function(input, output, session) {
                 params <- list(
                     # -------------------Classification
                     class_gp = classification(),
-                    gp_region = region_class(),
+                    gp_region = case_when(
+                        input$user_region != "No Region"  ~ input$user_region,
+                        input$user_region == "No Region" ~ region_class()$region
+                    ),
 
                     
                     # -------------------General Site Information
@@ -1336,7 +1619,7 @@ server <- function(input, output, session) {
                     e = input$date,
                     bm = case_when(input$radio_weather == 'heavyrain' ~ "Storm/heavy rain",
                                    input$radio_weather == 'steadyrain' ~ "Steady rain",
-                                   input$radio_weather == 'intermittenrain' ~ "Intermittent rain",
+                                   input$radio_weather == 'intermittentrain' ~ "Intermittent rain",
                                    input$radio_weather == 'snowing' ~ "Snowing",
                                    input$radio_weather == 'cloudy' ~ "Cloudy",
                                    input$radio_weather == 'clearsunny' ~ "Clear/Sunny"),
@@ -1348,7 +1631,7 @@ server <- function(input, output, session) {
                     l = plyr::mapvalues(
                         input$check_use,
                         from = c(
-                            "urban","agricultural", "openspace",
+                            "urban","agricultural", "Developed open-space (e.g., golf course, parks, lawn grasses)",
                             "forested","othernatural","other"),
                         to = c(
                             "Urban, industrial, or residential", "Agricultural","Developed open-space",
@@ -1360,11 +1643,11 @@ server <- function(input, output, session) {
                         input$radio_situation,
                         from = c(
                             "flood","stream_modifications", "diversions",
-                            "discharges","drought","vegetation",
+                            "Water discharges","drought","vegetation",
                             "other","none"),
                         to = c(
                             "Recent flood or debris flow","Stream modifications (e.g., channelization)","Diversions",
-                            "Discharges","Drought","Vegetation removal/limitations",
+                            "Water discharges","Drought","Vegetation removal/limitations",
                             "Other (explain in notes)","None")
                     ) %>% as.character() %>% paste0(collapse = ", "),
                     k = input$situation,

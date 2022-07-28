@@ -30,7 +30,7 @@ bkgrnd <- fluidRow(
         tags$li(tags$p("Intermittent reaches are channels that contain water for only part of the year, typically during the wet season, where the streambed may be below the water table and/or where the snowmelt from surrounding uplands provides sustained flow. The flow may vary greatly with stormwater runoff.")),
         tags$li(tags$p("Perennial reaches contain water continuously during a year of normal rainfall, often with the streambed located below the water table for most of the year. Groundwater supplies the baseflow for perennial reaches, but flow is also supplemented by stormwater runoff or snowmelt."))
       ),
-      tags$img(src="gp_regions.jpg", style="height: 510px", class="center-img"),
+      tags$img(src="gp_regions.png", style="height: 510px", class="center-img"),
       br(),
       tags$p("This online reporting tool allows application of the Beta Streamflow Duration Assessment Method for the Great Plains (SDAM GP). The SDAM GP is based on the presence of biological, geomorphological, and hydrologic indicators that are associated with gradients of streamflow duration. "),
       tags$p("The Beta SDAM GP is based on eight indicators measured in the field, plus a spatial variable created using this website. The indicators are:"),
@@ -40,7 +40,7 @@ bkgrnd <- fluidRow(
             "<p>Biological indicators:
             <br>
             <ul>
-              <li>The abundance and richness of aquatic invertebrates (specifically, the total abundance, the abundance of mayflies, and the abundance and richness of perennial indicator families)</li>
+              <li>Number of Ephemeroptera, Plecoptera, and Trichoptera (EPT) families</li>
               <li>Percent shading</li>
               <li>Number of hydrophytic plant species</li>
               <li>Absence of rooted upland plants in the streambed</li>
