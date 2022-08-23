@@ -100,7 +100,7 @@ ui <- fluidPage(
                 "Web application for the Beta Streamflow Duration Assessment Method for Great Plains Region (Beta SDAM GP)
         ")
             ),
-            h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.0.1</a> Release date: July 2022 </p>")),
+            h4(HTML("<p>Version <a href=\"https://github.com/WSaulnier/beta_sdam_gp\">1.0.1</a> Release date: July 2022 </p>")),
             img(src="eph.jpg", style = "height: 400px"),
             img(src="int2.jpg", style = "height: 400px"),
             img(src="per2.jpg", style = "height: 400px")

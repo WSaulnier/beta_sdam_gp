@@ -88,10 +88,10 @@ Beta_SDAM_GP <- function(
                     # assign appropriate class based on probabilities
                     output_df <- bind_cols(pnts_join_df, ClassProbs) %>%
                             mutate(ALI = I + P,
-                                    Class = case_when(P>=.5~"Perennial",
-                                                      I>=.5~"Intermittent",
-                                                      E>=0.5~"Ephemeral",
-                                                      ALI >= 0.5 ~ "At least intermittent",
+                                    Class = case_when(P>=.5~"perennial",
+                                                      I>=.5~"intermittent",
+                                                      E>=0.5~"ephemeral",
+                                                      ALI >= 0.5 ~ "at least intermittent",
                                                       T~"Need more information")
                                     )
                     print(glue::glue("User Supplied Coordinates: '{output_df$Strata_UNC}'"))
@@ -140,10 +140,10 @@ Beta_SDAM_GP <- function(
                 # assign appropriate class based on probabilities
                 output_df <- bind_cols(df, ClassProbs) %>%
                     mutate(ALI = I + P,
-                           Class = case_when(P>=.5~"Perennial",
-                                             I>=.5~"Intermittent",
-                                             E>=0.5~"Ephemeral",
-                                             ALI >= 0.5 ~ "At least intermittent",
+                           Class = case_when(P>=.5~"perennial",
+                                             I>=.5~"intermittent",
+                                             E>=0.5~"ephemeral",
+                                             ALI >= 0.5 ~ "at least intermittent",
                                              T~"Need more information")
                     )
                 
@@ -161,7 +161,17 @@ point_region <- function(
         # check to see if user supplied lat/long is in Great Plains regions
         pnts_df <- sf::st_as_sf(df, coords = c("lon", "lat"), crs = 4326, remove = FALSE)
         pnts_join_df <- sf::st_join(pnts_df, regions_leaflet) 
-        
+        # if (is.na(pnts_join_df$region)){
+        #         spatial_msg <- paste0(
+        #                 "<h5>",
+        #                 "<p>The location of your site is outside of the SDAM study areas.<p><br>",
+        #                 "<p>Please check your latitude and longitude coordinates to ensure they are entered correctly.<p><br>"
+        #         )
+        #         print(spatial_msg)
+        # } else {
+        # 
+        #         pnts_join_df
+        # }
         pnts_join_df
         
 }
