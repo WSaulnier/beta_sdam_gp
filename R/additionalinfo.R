@@ -7,34 +7,49 @@ addinfo <- fluidRow(
                        Information about this method can be found on the 
                        <a
                        href=\"
-                       https://www.epa.gov/streamflow-duration-assessment/beta-streamflow-duration-assessment-method-western-mountains\">
+                       https://www.epa.gov/streamflow-duration-assessment/streamflow-duration-assessment-method-great-plains\">
                        Environmental Protection Agency's Streamflow Duration Assessment Methods 
-                       for the Great Plains homepage.
+                       for the Great Plains website.
                        </a>")
             ),
            
+           # tags$p(HTML("The user manual, training material, and other resources may be accessed from the 
+           #             <a href =\"https://sdam-for-western-mountains-sccwrp.hub.arcgis.com/\">
+           #             SDAM GP Training Website.
+           #             </a>")),
            tags$p(HTML("The user manual, training material, and other resources may be accessed from the 
-                       <a href =\"https://sdam-for-western-mountains-sccwrp.hub.arcgis.com/\">
-                       SDAM WM Training Website.
-                       </a>")),
+                       SDAM GP Training Website (coming soon)."
+                       )),
            
            tags$p("Identification of aquatic invertebrates:"),
            tags$ul(
              tags$li(tags$p(HTML(
-             "<a href =\"https://xerces.org/publications/id-monitoring/macroinvertebrate-indicators-of-streamflow\">
-                 The Xerces Society
-              </a>"))),
-             tags$li(tags$p(HTML(
              "<a href =\"https://www.macroinvertebrates.org/\">
                  Macroinvertebrates.org
               </a>"))),
+             tags$li(tags$p(HTML(
+             "<a href =\"https://www.waterbugkey.vcsu.edu/index.htm\">
+                 Digital Key to Aquatic Insects of North Dakota
+              </a>"))),
              tags$li(tags$p(HTML("
-              <a href =\"https://www.safit.org/\">
-                 The Southwest Association of Freshwater Invertebrate Taxonomists
+              <a href =\"https://dep.wv.gov/WWE/getinvolved/sos/Pages/UMW.aspx\">
+                 Guide to Aquatic Invertebrates of the Upper Midwest
+              </a>"))),
+             tags$li(tags$p(HTML("
+              <a href =\"https://sciencebase.usgs.gov/naamdrc/\">
+                 North America Macroinvertebrate Digital Reference Collection
+              </a>"))),
+             tags$li(tags$p(HTML("
+              <a href =\"https://freshwater-science.org/\">
+                 The Society for Freshwater Scientists
+              </a>"))),
+             tags$li(tags$p(HTML("
+              <a href =\"https://www.epa.gov/sites/default/files/2015-10/documents/macroinvertebrate_field_guide.pdf\">
+                 Macroinvertebrate Indicators of Streamflow Duration OR, WA, & ID
               </a>"))),
              tags$li(tags$p(HTML(
-             "<a href =\"https://freshwater-science.org/\">
-                 The Society for Freshwater Scientists
+             "<a href =\"http://cfb.unh.edu/StreamKey/html/index.html\">
+                 UNH Center for Freshwater Biology: An Image-based key to stream insects
              </a>")))
            ),
            
@@ -45,35 +60,35 @@ addinfo <- fluidRow(
                  U.S. Army Corps of Engineers National Wetland Plant Lists
               </a>"))),
              tags$li(tags$p(HTML(
-               "<a href =\"https://swbiodiversity.org/seinet/index.php\">
-                 SEINet
-              </a> (Arizona and New Mexico)"))),
+               "<a href =\"https://midwestherbaria.org/portal/index.php\">
+                 Consortium of Midwest Herbaria
+              </a> (IL, MI, MN, and WI)"))),
              tags$li(tags$p(HTML("
-              <a href =\"https://www.calflora.org/\">
-                 Calflora
-              </a>(California)"))),
+              <a href =\"https://www.wildflower.org/collections/\">
+                 Lady Bird Johnson Wildflower Center
+              </a>(Continental U.S.)"))),
              tags$li(tags$p(HTML(
-               "<a href =\"https://calscape.org/\">
-                 California Native Plant Society
-             </a>(California)"))),
+               "<a href =\"https://www.kswildflower.org/\">
+                 Kansas Wildflowers and Grasses
+             </a>(KS)"))),
              tags$li(tags$p(HTML(
-               "<a href =\"https://aznps.com/floras/#:~:text=Arizona%20Flora,Mohave%2C%20and%20Great%20Basin%20Deserts.\">
-                 Arizona Native Plant Society
-             </a>(Arizona)"))),
+               "<a href =\"https://www.minnesotawildflowers.info/\">
+                 Minnesota Wildflowers
+             </a>(MN)"))),
              tags$li(tags$p(HTML(
                "<a href =\"http://rmh.uwyo.edu/data/search.php\">
                  Rocky Mountain Herbarium
-             </a>(Montana, Wyoming, Colorado, Utah, Arizona, and New Mexico)")))
-           ),
-           
-           tags$p("Identification of amphibians and reptiles:"),
-           tags$ul(
+             </a>(Incl. MT, WY, CO, and NM)"))),
              tags$li(tags$p(HTML(
-               "<a href =\"http://www.californiaherps.com/\">
-                 California Herps
-              </a>"))),
+               "<a href =\"https://cnhp.colostate.edu/cwic/library/field-guides/\">
+                 Colorado Wetland Field Guides
+             </a>(CO)"))),
+             tags$li(tags$p(HTML(
+               "<a href =\"https://www.austintexas.gov/sites/default/files/files/Watershed/blog/creekside/WetlandGuideByFamily_WEB.pdf\">
+                 Central Texas Wetland Plants
+             </a>(TX)")))
            ),
-           
+
            tags$p("Bankfull indicators:"),
            tags$ul(
              tags$li(tags$p(HTML(
@@ -84,12 +99,12 @@ addinfo <- fluidRow(
            ),
            tags$p(HTML(
              "R code used to develop this application is available here: 
-             <a href =\"https://github.com/SCCWRP/beta_sdam_wm\" 
-             > https://github.com/SCCWRP/beta_sdam_wm </a>"
+             <a href =\"https://github.com/WSaulnier/beta_sdam_gp\" 
+             > https://github.com/WSaulnier/beta_sdam_gp </a>"
              )
             ),
-           tags$p("For additional support with this website, please contact Dr. Raphael Mazor (raphaelm@sccwrp.org) 
-                  at the Southern California Coastal Water Research Project.")
+           tags$p("For additional support with this website, please contact Will Saulnier (wsaulnier@eprusa.net) 
+                  at Ecosystem Planning and Restoration.")
          )
   )
 )

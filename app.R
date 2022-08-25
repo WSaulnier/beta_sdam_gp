@@ -1,5 +1,5 @@
 source('global.R')
-# source('additionalinfo.R')
+source('./R/additionalinfo.R')
 source('./R/background.R')
 ### Maybe needed?
 # install.packages('rmarkdown')
@@ -1080,18 +1080,20 @@ ui <- fluidPage(
                         br()
                     )
                     
+                ),
+                tabPanel(
+                    "Additional Resources",
+                    addinfo
                 )
                 
             )
         )
     )
+
 )
 
 
-# tabPanel(
-#     "Additional Resources",
-#     addinfo
-# )
+
 
 # server-----------------------------------------------------------------------
 server <- function(input, output, session) {
