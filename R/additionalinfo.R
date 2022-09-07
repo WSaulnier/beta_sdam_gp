@@ -8,18 +8,14 @@ addinfo <- fluidRow(
                        <a
                        href=\"
                        https://www.epa.gov/streamflow-duration-assessment/streamflow-duration-assessment-method-great-plains\">
-                       Environmental Protection Agency's Streamflow Duration Assessment Methods 
+                       Environmental Protection Agency's Beta Streamflow Duration Assessment Methods 
                        for the Great Plains website.
-                       </a>")
+                       </a> and the user manual, training material, and other resources may be accessed from the 
+                       <a
+                       href=\"
+                       https://sdam-for-great-plains-eprusa.hub.arcgis.com/\">
+                       SDAM GP Training Hub.")
             ),
-           
-           # tags$p(HTML("The user manual, training material, and other resources may be accessed from the 
-           #             <a href =\"https://sdam-for-western-mountains-sccwrp.hub.arcgis.com/\">
-           #             SDAM GP Training Website.
-           #             </a>")),
-           tags$p(HTML("The user manual, training material, and other resources may be accessed from the 
-                       SDAM GP Training Website (coming soon)."
-                       )),
            
            tags$p("Identification of aquatic invertebrates:"),
            tags$ul(
@@ -92,7 +88,7 @@ addinfo <- fluidRow(
            tags$p("Bankfull indicators:"),
            tags$ul(
              tags$li(tags$p(HTML(
-               "<a href =\"https://www.fs.fed.us/biology/nsaec/assets/BankfullStageWestern/BankfullStageWesternUS1995.html\">
+               "<a href =\"https://www.fs.usda.gov/biology/nsaec/products-videoswebinars.html\">
                  U.S. Forest Service National Stream and Aquatic Ecology Center
               </a>"))),
              

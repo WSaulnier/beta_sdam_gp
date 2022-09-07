@@ -97,10 +97,10 @@ ui <- fluidPage(
         div(
             class="jumbotron",
             h2(HTML(
-                "Web application for the Beta Streamflow Duration Assessment Method for Great Plains Region (Beta SDAM GP)
+                "Web application for the Beta Streamflow Duration Assessment Method for the Great Plains Region (Beta SDAM GP)
         ")
             ),
-            h4(HTML("<p>Version <a href=\"https://github.com/WSaulnier/beta_sdam_gp\">1.0.1</a> Release date: July 2022 </p>")),
+            h4(HTML("<p>Version <a href=\"https://github.com/WSaulnier/beta_sdam_gp\">1.0.1</a> Release date: September 2022 </p>")),
             img(src="eph.jpg", style = "height: 400px"),
             img(src="int2.jpg", style = "height: 400px"),
             img(src="per2.jpg", style = "height: 400px")
@@ -127,7 +127,7 @@ ui <- fluidPage(
                       column(12,
                              selectInput(
                                "vol_region",
-                               label = HTML("<b><i>Select method for determining Great Plains region.</b></i>"),
+                               label = HTML("<b><i>Select approach for determining Great Plains region.</b></i>"),
                                choices = c(
                                  "Enter Coordinates",
                                  "Select Great Plains Region",
@@ -244,7 +244,7 @@ ui <- fluidPage(
                                 ),
                                 column(
                                     4,
-                                    h6("Number of hydrophytic plant species without an odd distribution (e.g., <2% of assessment area) from the assessment reach")
+                                    h6("Number of hydrophytic plant species not having an odd distribution pattern (e.g., <2% of assessment area) from the assessment.")
                                 )
                             ),
                             
@@ -369,7 +369,8 @@ ui <- fluidPage(
                                 HTML('<hr style="color: black; height: 1px; background-color: black;">'),
                                 column(width = 12,
                                        numericInputIcon("select_bank",
-                                                        "Enter the Number of Bankful Measurements (min. 1, max. 3)",
+                                                        HTML("Enter the Number of Bankfull Measurements (m) <br>(min. 1, max. 3)"),
+                                                        width = "325px",
                                                         min = 1,
                                                         max = 3,
                                                         value = 3,

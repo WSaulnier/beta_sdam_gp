@@ -7,6 +7,7 @@ bkgrnd <- fluidRow(
                   width: 50%;
                   }")),
   column(10,
+    HTML("<br><br>"),
     tagList(
       tags$p(HTML("This is a draft tool to calculate the Beta Streamflow Duration Assessment Method (SDAM) developed for the Great Plains region. 
              Do not use for regulatory purposes without prior consulting with the EPA product delivery team. For more information, consult the 
@@ -32,8 +33,8 @@ bkgrnd <- fluidRow(
       ),
       tags$img(src="gp_regions.png", style="height: 510px", class="center-img"),
       br(),
-      tags$p("This online reporting tool allows application of the Beta Streamflow Duration Assessment Method for the Great Plains (SDAM GP). The SDAM GP is based on the presence of biological, geomorphological, and hydrologic indicators that are associated with gradients of streamflow duration. "),
-      tags$p("The Beta SDAM GP is based on eight indicators measured in the field, plus a spatial variable created using this website. The indicators are:"),
+      tags$p("This online tool supports application of the Beta Streamflow Duration Assessment Method for the Great Plains (Beta SDAM GP) by running the developed random forest model based on entered data to obtain the classification for individual assessment reaches. The Beta SDAM GP is based on the presence of biological, geomorphological, and hydrologic indicators that are associated with gradients of streamflow duration. "),
+      tags$p("The Beta SDAM GP is based on eight indicators measured in the field, plus a spatial variable generated using this website. The indicators are:"),
       tags$ul(
         tags$li(
           HTML(
@@ -45,6 +46,7 @@ bkgrnd <- fluidRow(
               <li>Number of hydrophytic plant species</li>
               <li>Absence of rooted upland plants in the streambed</li>
             </ul>
+            </p>
             "
           )
         ),
