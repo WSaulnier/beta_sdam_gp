@@ -1131,63 +1131,65 @@ server <- function(input, output, session) {
           output$reg_class <- renderUI ({
               h2(HTML(paste0("<b>Great Plains Region: <br>", region_class(), "</b>")))
           })
-      } else
-          if (!is.atomic(region_class())){
-          print(region_class()$region)
-          if (region_class()$region != 'Northern' && region_class()$region != 'Southern' && !is.na(region_class()$region)){
-              print(region_class()$URL)
-              if (region_class()$URL != 'development' && region_class()$URL != 'planning'){
-                  show_alert(
-                      title = "Location Error!",
-                      text = tagList(
-                          tags$p(HTML(paste0("This site is outside of the Great Plains SDAM study area  The site is located in the ",
-                                             '<a href=\"', region_class()$URL, '">',
-                                             region_class()$region), ' SDAM.</a>')
-                          )
-                      ),
-                      type = "error"
-                  )
-              } else {
-                  show_alert(
-                      title = "Location Error!",
-                      text = tagList(
-                          tags$p(HTML(paste0("This site is located outside of the Great Plains SDAM study area.  The site is located in the <b>",
-                                             region_class()$region, "</b> SDAM region.  The ",
-                                             region_class()$region, " is in the <b>",
-                                             region_class()$URL, "</b> stage. If you would like to proceed with running the Great Plains
-                                   model, you may exit this dialogue and select a Great Plains region."))
-                          )
-                      ),
-                      type = "error"
-                  )
-              }
-
-          } else if (is.na(region_class()$region)){
-
-              show_alert(
-                  title = "Location Error!",
-                  text = tagList(
-                      tags$p(HTML(paste0("The location of your site is outside of the SDAM study areas.",
-                                         " Please check your latitude and longitude coordinates to ensure they are entered correctly.<br>",
-                                         " If you would like to proceed with running the Great Plains",
-                                         " model, you may exit this dialogue and select a Great Plains region.")
-                      )
-                      )
-                  ),
-                  type = "error"
+      } else if (!is.atomic(region_class())){
+   
+        if (is.na(region_class()$region)){
+          
+          show_alert(
+            title = "Location Error!",
+            text = tagList(
+              tags$p(HTML(paste0("The location of your site is outside of the SDAM study areas.",
+                                 " Please check your latitude and longitude coordinates to ensure they are entered correctly.<br>",
+                                 " If you would like to proceed with running the Great Plains",
+                                 " model, you may exit this dialogue and select a Great Plains region.")
               )
+              )
+            ),
+            type = "error"
+          )
+          
+        } else {
+          
+            if (region_class()$region != 'Northern' && region_class()$region != 'Southern' && !is.na(region_class()$region)){
 
-          } else {
-              output$reg_class <- renderUI ({
-                  if(!is.na(region_class()$region)){
-                      if(region_class()$region == 'Northern' || region_class()$region == 'Southern'){
-                          h2(HTML(paste0("<b>Great Plains Region: <br>", region_class()$region, "</b>")))
-                      } else {
-                          h2(HTML(paste0("<b>SDAM Region: <br>", region_class()$region, "</b>")))
-                      }
-                  }
-              })
-          }
+                if (region_class()$URL != 'development' && region_class()$URL != 'planning'){
+                    show_alert(
+                        title = "Location Error!",
+                        text = tagList(
+                            tags$p(HTML(paste0("This site is outside of the Great Plains SDAM study area  The site is located in the ",
+                                               '<a href=\"', region_class()$URL, '">',
+                                               region_class()$region), ' SDAM.</a>')
+                            )
+                        ),
+                        type = "error"
+                    )
+                } else {
+                    show_alert(
+                        title = "Location Error!",
+                        text = tagList(
+                            tags$p(HTML(paste0("This site is located outside of the Great Plains SDAM study area.  The site is located in the <b>",
+                                               region_class()$region, "</b> SDAM region.  The ",
+                                               region_class()$region, " is in the <b>",
+                                               region_class()$URL, "</b> stage. If you would like to proceed with running the Great Plains
+                                     model, you may exit this dialogue and select a Great Plains region."))
+                            )
+                        ),
+                        type = "error"
+                    )
+                }
+  
+            } else {
+                output$reg_class <- renderUI ({
+                    if(!is.na(region_class()$region)){
+                        if(region_class()$region == 'Northern' || region_class()$region == 'Southern'){
+                            h2(HTML(paste0("<b>Great Plains Region: <br>", region_class()$region, "</b>")))
+                        } else {
+                            h2(HTML(paste0("<b>SDAM Region: <br>", region_class()$region, "</b>")))
+                        }
+                    }
+                })
+            }
+        }
       }
   })
 
@@ -1245,12 +1247,16 @@ server <- function(input, output, session) {
         click = input$map_click
         if(is.null(click))
             return()
-        region <- if(region_class()$region == 'Southern' || region_class()$region == 'Northern'){
-            paste0(region_class()$region, ' Great Plains')
-        } else {
-            paste0(region_class()$region, ' SDAM Region')
+        region <- if(!is.na(region_class()$region)){
+    
+          if(region_class()$region == 'Southern' || region_class()$region == 'Northern'){
+              paste0(region_class()$region, ' Great Plains')
+          } else {
+              paste0(region_class()$region, ' SDAM Region')
+          }
+          
         }
-       
+
         text<-HTML(paste("<b><u>", region, "</u></b><br>",
             "Latitude: ", round(click$lat, 4), ", Longtitude: ", round(click$lng, 4)))
         text2<-paste("You've selected point ", text)

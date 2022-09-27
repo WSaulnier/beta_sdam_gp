@@ -14,7 +14,7 @@ addinfo <- fluidRow(
                        <a
                        href=\"
                        https://sdam-for-great-plains-eprusa.hub.arcgis.com/\">
-                       SDAM GP Training Hub.")
+                       SDAM GP Training Hub.</a>")
             ),
            
            tags$p("Identification of aquatic invertebrates:"),
@@ -55,6 +55,10 @@ addinfo <- fluidRow(
                "<a href =\"https://wetland-plants.usace.army.mil/nwpl_static/v34/home/home.html\">
                  U.S. Army Corps of Engineers National Wetland Plant Lists
               </a>"))),
+             tags$li(tags$p(HTML(
+               "<a href =\"https://plants.usda.gov/home\">
+               USDA Plants Database
+               </a>"))),
              tags$li(tags$p(HTML(
                "<a href =\"https://midwestherbaria.org/portal/index.php\">
                  Consortium of Midwest Herbaria
