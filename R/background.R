@@ -7,11 +7,8 @@ bkgrnd <- fluidRow(
                   width: 50%;
                   }")),
   column(10,
-    HTML("<br><br>"),
+    HTML("<br>"),
     tagList(
-      tags$p(HTML("This is a draft tool to calculate the Beta Streamflow Duration Assessment Method (SDAM) developed for the Great Plains region. 
-             Do not use for regulatory purposes without prior consulting with the EPA product delivery team. For more information, consult the 
-             <a href=\"https://www.epa.gov/streamflow-duration-assessment\">Environmental Protection Agency's Streamflow Duration Assessment Methods homepage.</a>")),
       tags$p(HTML("Streams may exhibit a diverse range of hydrologic regimes that strongly influence physical, chemical, and 
              biological characteristics of streams and their adjacent riparian areas. 
              Such hydrologic information supports many management decisions. 
