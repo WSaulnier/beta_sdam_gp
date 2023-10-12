@@ -1,0 +1,13 @@
+name: GP_Test
+title: GP_Test
+username:
+account: ecosystemplanningrestoration
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6810820
+bundleId: 6347287
+url: https://ecosystemplanningrestoration.shinyapps.io/GP_Test/
+when: 1664373271.19507
+lastSyncTime: 1664373271.19508
+asMultiple: FALSE
+asStatic: FALSE

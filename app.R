@@ -444,7 +444,8 @@ ui <- fluidPage(
                         h3(HTML(
                             "Step 3: Enter additional information (optional)")
                         ),
-                        h5('Enter information about the assessment. Indicators required for classification are filled in from entries above'),
+                        h5('Enter information about the assessment. Indicators required for classification are filled in from entries above.'),
+                        h5('* Please note that the web application will timeout after 60 minutes of inactivity and data entered will be lost.'),
                         br(),
                         h4(HTML(
                             "<b>General Site Information</b>")
@@ -1099,6 +1100,9 @@ ui <- fluidPage(
 # server-----------------------------------------------------------------------
 server <- function(input, output, session) {
     
+    # bump up max file upload size to 30MB
+    options(shiny.maxRequestSize=30*1024^2)
+    
     # region -----
 
 
@@ -1416,47 +1420,28 @@ server <- function(input, output, session) {
             var_input_reg = input$user_region)
     })
     
+    # alert users about the issues with an ALI classification
+    test_str <- "at least intermittent"
+    observeEvent(classification(), {
+        if (str_detect(classification(),test_str)){
+            show_alert(
+                title = "Classification Alert!",
+                text = tagList(
+                    tags$p(HTML(paste0("In rare circumstances, this tool may incorrectly apply At least intermittent classification to streams that could be ephemeral. If your data results in a classification of At least intermittent, please contact <b>streamflow-duration-assessment@epa.gov</b>. At this time, we do not recommend making management decisions based on At least intermittent classifications without first contacting <b>streamflow-duration-assessment@epa.gov</b>. Classifications of perennial, intermittent, and ephemeral are unaffected."
+                    )
+                    )
+                    )
+                ),
+                type = "error"
+            )
+        }
+    })
+    
     
     output$class_out <- renderUI ({
         h2(HTML(paste0("<b>", classification(), "</b>")))
     })
     
-    
-    # error_message----
-    
-    # REVISIT: attempted to add error messages but with bankfull/densiometer numeric input type, input
-    # does not allow values outside range and therefore, won't trigger a modal error condition
-    
-    # Densiometer recording number outside range 
-    # observeEvent(input$select, {
-    #     if (input$select < 3){
-    #         show_alert(
-    #             title = "Error!",
-    #             text = "The number of densiometer recordings should be between 1-12.  Please enter a number in this range.",
-    #             type = "error"
-    #         )
-    #     }
-    # })
-    # Densiometer recording number outside range
-    # observe({
-    #     if (input$select < 4){
-    #         showModal(
-    #             modalDialog("The number of bankfull recordings should be between 1-3.  Please enter a number in this range."),
-    #             footer= modalButton("OK"),
-    #             easyClose = FALSE
-    #         )
-    #     }
-    # })
-    # # Densiometer recording number outside range 
-    # observeEvent(input$bank_select, {
-    #     if (input$bank_select < 1 | input$bank_select > 3){
-    #         show_alert(
-    #             title = "Error!",
-    #             text = "The number of bankfull recordings should be between 1-3.  Please enter a number in this range.",
-    #             type = "error"
-    #         )
-    #     }
-    # })
     
     # Conditions in STEP 3
     observeEvent(input$surfflow, {
