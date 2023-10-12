@@ -445,7 +445,7 @@ ui <- fluidPage(
                             "Step 3: Enter additional information (optional)")
                         ),
                         h5('Enter information about the assessment. Indicators required for classification are filled in from entries above.'),
-                        h5('* Please note that the web application will timeout after 60 minutes of inactivity and data entered will be lost.'),
+                        h5('* Please note that the web application will timeout after 60 minutes of inactivity and data entered will be lost. Maximum file upload size is 30MB'),
                         br(),
                         h4(HTML(
                             "<b>General Site Information</b>")

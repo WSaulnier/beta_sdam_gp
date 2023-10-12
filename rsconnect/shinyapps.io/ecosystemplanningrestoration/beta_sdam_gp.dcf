@@ -5,8 +5,8 @@ account: ecosystemplanningrestoration
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6662941
-bundleId: 7795170
+bundleId: 7795205
 url: https://ecosystemplanningrestoration.shinyapps.io/beta_sdam_gp/
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData
+ignoredFiles: .RData|README.md
