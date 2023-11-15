@@ -91,9 +91,12 @@ Beta_SDAM_GP <- function(
                                     Class = case_when(P>=.5~"perennial",
                                                       I>=.5~"intermittent",
                                                       E>=0.5~"ephemeral",
-                                                      ALI >= 0.5 ~ "at least intermittent",
+                                                      P>E ~ "at least intermittent",
+                                                      E>P ~ "less than perennial",
+                                                      P==E & I>P ~ "Need more information",
+                                                      P==E & I<=P ~ "Need more information",
                                                       T~"Need more information")
-                                    )
+                            )
                     print(glue::glue("User Supplied Coordinates: '{output_df$Strata_UNC}'"))
                     paste0("This reach is classified as ", output_df$Class)
             }
@@ -143,7 +146,10 @@ Beta_SDAM_GP <- function(
                            Class = case_when(P>=.5~"perennial",
                                              I>=.5~"intermittent",
                                              E>=0.5~"ephemeral",
-                                             ALI >= 0.5 ~ "at least intermittent",
+                                             P>E ~ "at least intermittent",
+                                             E>P ~ "less than perennial",
+                                             P==E & I>P ~ "Need more information",
+                                             P==E & I<=P ~ "Need more information",
                                              T~"Need more information")
                     )
                 

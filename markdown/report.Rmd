@@ -1,7 +1,7 @@
 ---
 title: "Beta Streamflow Duration Assessment for the Great Plains"
-subtitle: "SDAM Version 1.0"
-revision: "SDAM revision date: July, 2022" 
+subtitle: "SDAM Version 1.1 Release Date: November 2023"
+revision: "SDAM revision date: November, 2023" 
 date: "Report generated on: `r format(Sys.time(), '%B %d, %Y')`"
 header-includes:
 - \usepackage{fancyhdr}
