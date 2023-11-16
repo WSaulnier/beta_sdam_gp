@@ -80,7 +80,8 @@ bkgrnd <- fluidRow(
           refer to the <a href=\"https://www.epa.gov/streamflow-duration-assessment\">EPA website</a>."
         )
       ),
-      tags$p("No information entered on this site is stored or retained by EPA or its contractors.")
+      tags$p("No information entered on this site is stored or retained by EPA or its contractors."),
+      tags$p('Note: Prior to version 1.1 released on November 16, 2023, the beta SDAM for the GP version 1.0 incorrectly applied the "At least intermittent" classifications to some streams that should have been a "ephemeral", "less than perennial", or "needs more information" classification. If your data resulted in a classification of "At least intermittent" using version 1.0 please check your classification using version 1.1. Classifications of "perennial", "intermittent", and "ephemeral" using version 1.0 are unaffected.')
  
     )
   )

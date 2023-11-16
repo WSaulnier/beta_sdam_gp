@@ -120,6 +120,7 @@ ui <- fluidPage(
                 tabPanel(
                     "Enter Data", 
                     br(),
+                    h4(p(HTML("<b><u><i>This is an analysis tool and does not store data. After 60 minutes the tool will timeout and all data will have to be re-entered.</i></u></b>"),style="color:#b80404")),
                     fluidRow(column(12, h3("Step 1: Enter coordinates or select Great Plains region"), 
                                     )),
                     # coordinates----
@@ -1421,22 +1422,22 @@ server <- function(input, output, session) {
     })
     
     # alert users about the issues with an ALI classification
-    test_str <- "at least intermittent"
-    observeEvent(classification(), {
-        if (str_detect(classification(),test_str)){
-            show_alert(
-                title = "Classification Alert!",
-                text = tagList(
-                    tags$p(HTML(paste0("In rare circumstances, this tool may incorrectly apply At least intermittent classification to streams that could be ephemeral. If your data results in a classification of At least intermittent, please contact <b>streamflow-duration-assessment@epa.gov</b>. At this time, we do not recommend making management decisions based on At least intermittent classifications without first contacting <b>streamflow-duration-assessment@epa.gov</b>. Classifications of perennial, intermittent, and ephemeral are unaffected."
-                    )
-                    )
-                    )
-                ),
-                type = "error"
-            )
-        }
-    })
-    
+    # test_str <- "at least intermittent"
+    # observeEvent(classification(), {
+    #     if (str_detect(classification(),test_str)){
+    #         show_alert(
+    #             title = "Classification Alert!",
+    #             text = tagList(
+    #                 tags$p(HTML(paste0("In rare circumstances, this tool may incorrectly apply At least intermittent classification to streams that could be ephemeral. If your data results in a classification of At least intermittent, please contact <b>streamflow-duration-assessment@epa.gov</b>. At this time, we do not recommend making management decisions based on At least intermittent classifications without first contacting <b>streamflow-duration-assessment@epa.gov</b>. Classifications of perennial, intermittent, and ephemeral are unaffected."
+    #                 )
+    #                 )
+    #                 )
+    #             ),
+    #             type = "error"
+    #         )
+    #     }
+    # })
+    # 
     
     output$class_out <- renderUI ({
         h2(HTML(paste0("<b>", classification(), "</b>")))
